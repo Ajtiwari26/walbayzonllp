@@ -3,45 +3,6 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<!-- Google Fonts and Tailwind CSS -->
-<link rel="preconnect" href="https://api.fontshare.com" />
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  if (typeof tailwind !== 'undefined') {
-    tailwind.config = {
-      corePlugins: {
-        preflight: false, // Prevents resetting your theme's default settings
-      },
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-            sans: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-          },
-          colors: {
-            background: 'oklch(0.99 0.005 80)',
-            foreground: 'oklch(0.18 0.022 55)',
-            card: '#ffffff',
-            border: 'oklch(0.91 0.015 70)',
-            secondary: 'oklch(0.96 0.015 75)',
-            muted: { DEFAULT: 'oklch(0.955 0.012 75)', foreground: 'oklch(0.45 0.018 55)' },
-            primary: { DEFAULT: 'oklch(0.225 0.028 55)', foreground: 'oklch(0.985 0.008 80)' },
-            brand: {
-              coffee: 'oklch(0.225 0.028 55)',
-              orange: 'oklch(0.78 0.16 65)',
-              'orange-soft': 'oklch(0.92 0.07 75)',
-              cream: 'oklch(0.985 0.008 80)',
-            },
-          },
-          borderRadius: { '3xl': '1.625rem' },
-        }
-      }
-    };
-  }
-</script>
-
-
 <section id="services" class="relative py-16 sm:py-24 lg:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
     
@@ -56,7 +17,7 @@
         </h2>
       </div>
       {% if section.settings.link_text != blank %}
-        <a href="{{ section.settings.link_url }}" class="hidden items-center gap-2 text-sm font-semibold text-foreground hover:opacity-80 lg:inline-flex">
+        <a href="{{ section.settings.link_url }}" class="hidden items-center gap-2 text-sm font-semibold text-foreground hover:opacity-85 lg:inline-flex">
           {{ section.settings.link_text }}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
             <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
