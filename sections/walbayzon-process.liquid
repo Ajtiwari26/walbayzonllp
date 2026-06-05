@@ -3,45 +3,6 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<!-- Google Fonts and Tailwind CSS -->
-<link rel="preconnect" href="https://api.fontshare.com" />
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  if (typeof tailwind !== 'undefined') {
-    tailwind.config = {
-      corePlugins: {
-        preflight: false, // Prevents resetting your theme's default settings
-      },
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-            sans: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-          },
-          colors: {
-            background: 'oklch(0.99 0.005 80)',
-            foreground: 'oklch(0.18 0.022 55)',
-            card: '#ffffff',
-            border: 'oklch(0.91 0.015 70)',
-            secondary: 'oklch(0.96 0.015 75)',
-            muted: { DEFAULT: 'oklch(0.955 0.012 75)', foreground: 'oklch(0.45 0.018 55)' },
-            primary: { DEFAULT: 'oklch(0.225 0.028 55)', foreground: 'oklch(0.985 0.008 80)' },
-            brand: {
-              coffee: 'oklch(0.225 0.028 55)',
-              orange: 'oklch(0.78 0.16 65)',
-              'orange-soft': 'oklch(0.92 0.07 75)',
-              cream: 'oklch(0.985 0.008 80)',
-            },
-          },
-          borderRadius: { '3xl': '1.625rem' },
-        }
-      }
-    };
-  }
-</script>
-
-
 <section id="how" class="py-16 sm:py-24 lg:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
     
@@ -60,8 +21,7 @@
     <!-- Process Steps Grid -->
     <div class="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
       {% for block in section.blocks %}
-        <div class="relative rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-brand-orange" 
-             style="--tw-border-opacity: 1; border-color: rgba(229, 231, 235, var(--tw-border-opacity));"
+        <div class="relative rounded-3xl border border-border glass-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-brand-orange card-lift" 
              {{ block.shopify_attributes }}>
           
           <div class="flex items-center justify-between">
@@ -87,12 +47,12 @@
         </div>
       {% else %}
         <!-- Fallbacks -->
-        {% assign steps_num = "01,02,03,04" | split: "," %}
-        {% assign steps_title = "Discover,Design,Deploy,Scale" | split: "," %}
-        {% assign steps_desc = "We audit your catalog, category and competitors to map the highest-leverage opportunities.,A 90-day growth blueprint with creative, ad strategy and operations — built around your margins.,Our pod ships listings, A+ content and campaigns. You see early signal in weeks, not quarters.,Compounding optimisation — bidding, assortment, geo-expansion — until you own the shelf." | split: "," %}
+        {% assign steps_num = "01|02|03|04" | split: "|" %}
+        {% assign steps_title = "Discover|Design|Deploy|Scale" | split: "|" %}
+        {% assign steps_desc = "We audit your catalog, category and competitors to map the highest-leverage opportunities.|A 90-day growth blueprint with creative, ad strategy and operations — built around your margins.|Our pod ships listings, A+ content and campaigns. You see early signal in weeks, not quarters.|Compounding optimisation — bidding, assortment, geo-expansion — until you own the shelf." | split: "|" %}
         {% for val in steps_num %}
           {% assign idx = forloop.index0 %}
-          <div class="relative rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-brand-orange">
+          <div class="relative rounded-3xl border border-border glass-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-brand-orange card-lift">
             <div class="flex items-center justify-between">
               <span class="font-display text-4xl font-black" style="color: {{ section.settings.number_color }};">
                 {{ val }}
