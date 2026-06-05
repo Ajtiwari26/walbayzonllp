@@ -3,45 +3,6 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<!-- Google Fonts and Tailwind CSS -->
-<link rel="preconnect" href="https://api.fontshare.com" />
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  if (typeof tailwind !== 'undefined') {
-    tailwind.config = {
-      corePlugins: {
-        preflight: false, // Prevents resetting your theme's default settings
-      },
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-            sans: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-          },
-          colors: {
-            background: 'oklch(0.99 0.005 80)',
-            foreground: 'oklch(0.18 0.022 55)',
-            card: '#ffffff',
-            border: 'oklch(0.91 0.015 70)',
-            secondary: 'oklch(0.96 0.015 75)',
-            muted: { DEFAULT: 'oklch(0.955 0.012 75)', foreground: 'oklch(0.45 0.018 55)' },
-            primary: { DEFAULT: 'oklch(0.225 0.028 55)', foreground: 'oklch(0.985 0.008 80)' },
-            brand: {
-              coffee: 'oklch(0.225 0.028 55)',
-              orange: 'oklch(0.78 0.16 65)',
-              'orange-soft': 'oklch(0.92 0.07 75)',
-              cream: 'oklch(0.985 0.008 80)',
-            },
-          },
-          borderRadius: { '3xl': '1.625rem' },
-        }
-      }
-    };
-  }
-</script>
-
-
 <footer class="relative overflow-hidden text-primary-foreground py-8" style="background: {{ section.settings.bg_gradient }}; color: {{ section.settings.text_color }};">
   
   <!-- Massive Background Text -->
@@ -98,38 +59,46 @@
       
       <!-- Brand column -->
       <div class="lg:col-span-2">
-        <div class="flex items-center gap-2.5">
-          <div class="grid h-10 w-10 place-items-center rounded-full bg-brand-orange" style="background-color: {{ section.settings.accent_color }};">
-            <span class="font-display text-base font-black text-primary" style="color: {{ section.settings.btn_text_color }};">W.</span>
-          </div>
-          <span class="font-display text-xl font-bold tracking-tight" style="color: {{ section.settings.title_color }};">{{ section.settings.brand_name }}</span>
+        <div class="flex items-center gap-2.5 select-none">
+          {% if section.settings.logo != blank %}
+            <img src="{{ section.settings.logo | image_url: width: 150 }}" 
+                 alt="{{ section.settings.brand_name }}" 
+                 style="max-height: {{ section.settings.logo_max_height }}px;" 
+                 class="object-contain" />
+          {% else %}
+            <div class="grid h-10 w-10 place-items-center rounded-full bg-brand-orange" style="background-color: {{ section.settings.accent_color }};">
+              <span class="font-display text-base font-black text-primary" style="color: {{ section.settings.btn_text_color }};">W.</span>
+            </div>
+            <span class="font-display text-xl font-bold tracking-tight" style="color: {{ section.settings.title_color }};">{{ section.settings.brand_name }}</span>
+          {% endif %}
+          <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
         </div>
         <p class="mt-6 max-w-sm text-sm leading-relaxed opacity-65">
           {{ section.settings.brand_desc }}
         </p>
+        <div class="mt-4 text-[12px] font-semibold opacity-50 font-mono">
+          📧 contact@walbayzon.com | 📞 +91 99195-78901
+        </div>
         
         <!-- Social Icons -->
         <div class="mt-8 flex items-center gap-2">
-          {% if section.settings.social_twitter != blank %}
-            <a href="{{ section.settings.social_twitter }}" aria-label="Twitter" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.812l-5.34-6.97L4.24 22H1l8.04-9.19L1.5 2h6.93l4.83 6.39Zm-1.193 18h1.83L7.04 4H5.084Z"/></svg>
-            </a>
-          {% endif %}
-          {% if section.settings.social_instagram != blank %}
-            <a href="{{ section.settings.social_instagram }}" aria-label="Instagram" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-            </a>
-          {% endif %}
-          {% if section.settings.social_linkedin != blank %}
-            <a href="{{ section.settings.social_linkedin }}" aria-label="LinkedIn" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-          {% endif %}
-          {% if section.settings.social_youtube != blank %}
-            <a href="{{ section.settings.social_youtube }}" aria-label="YouTube" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
-            </a>
-          {% endif %}
+          {% assign twitter_url = section.settings.social_twitter | default: "#" %}
+          {% assign instagram_url = section.settings.social_instagram | default: "#" %}
+          {% assign linkedin_url = section.settings.social_linkedin | default: "#" %}
+          {% assign youtube_url = section.settings.social_youtube | default: "#" %}
+
+          <a href="{{ twitter_url }}" aria-label="Twitter" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-charcoal" style="border-color: {{ section.settings.divider_color }};">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.812l-5.34-6.97L4.24 22H1l8.04-9.19L1.5 2h6.93l4.83 6.39Zm-1.193 18h1.83L7.04 4H5.084Z"/></svg>
+          </a>
+          <a href="{{ instagram_url }}" aria-label="Instagram" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-charcoal" style="border-color: {{ section.settings.divider_color }};">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a href="{{ linkedin_url }}" aria-label="LinkedIn" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-charcoal" style="border-color: {{ section.settings.divider_color }};">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="{{ youtube_url }}" aria-label="YouTube" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-charcoal" style="border-color: {{ section.settings.divider_color }};">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+          </a>
         </div>
       </div>
 
@@ -142,16 +111,37 @@
           <ul class="mt-5 space-y-3">
             {% for link in linklists[block.settings.menu].links %}
               <li>
-                <a href="{{ link.url }}" class="text-sm hover:opacity-80 transition-colors" style="color: {{ section.settings.text_color }};">
+                <a href="{{ link.url }}" class="text-sm text-white/50 hover:text-primary transition-colors">
                   {{ link.title }}
                 </a>
               </li>
             {% else %}
               <!-- Defaults if no menu selected -->
-              {% assign sample_links = "Link 1,Link 2,Link 3,Link 4" | split: "," %}
-              {% for s_link in sample_links %}
-                <li><a href="#" class="text-sm hover:opacity-80" style="color: {{ section.settings.text_color }};">{{ s_link }}</a></li>
-              {% endfor %}
+              {% assign col_title_lower = block.settings.title | downcase %}
+              {% if col_title_lower contains 'services' %}
+                <li><a href="#services" class="text-sm text-white/50 hover:text-primary transition-colors">Amazon Growth</a></li>
+                <li><a href="#services" class="text-sm text-white/50 hover:text-primary transition-colors">Flipkart Strategy</a></li>
+                <li><a href="#services" class="text-sm text-white/50 hover:text-primary transition-colors">Meesho Scaling</a></li>
+                <li><a href="#services" class="text-sm text-white/50 hover:text-primary transition-colors">Quick Commerce</a></li>
+                <li><a href="#services" class="text-sm text-white/50 hover:text-primary transition-colors">International Expansion</a></li>
+              {% elsif col_title_lower contains 'company' %}
+                <li><a href="#team" class="text-sm text-white/50 hover:text-primary transition-colors">About Us</a></li>
+                <li><a href="#methodology" class="text-sm text-white/50 hover:text-primary transition-colors">Case Studies</a></li>
+                <li><a href="#careers" class="text-sm text-white/50 hover:text-primary transition-colors">Careers</a></li>
+                <li><a href="#press" class="text-sm text-white/50 hover:text-primary transition-colors">Press</a></li>
+                <li><a href="#faq" class="text-sm text-white/50 hover:text-primary transition-colors">Contact</a></li>
+              {% elsif col_title_lower contains 'learn' %}
+                <li><a href="#mentorship" class="text-sm text-white/50 hover:text-primary transition-colors">Mentorship</a></li>
+                <li><a href="#mastercourse" class="text-sm text-white/50 hover:text-primary transition-colors">Mastercourse</a></li>
+                <li><a href="#blog" class="text-sm text-white/50 hover:text-primary transition-colors">Blog</a></li>
+                <li><a href="#resources" class="text-sm text-white/50 hover:text-primary transition-colors">Free Resources</a></li>
+                <li><a href="#community" class="text-sm text-white/50 hover:text-primary transition-colors">Community</a></li>
+              {% else %}
+                {% assign sample_links = "Link 1,Link 2,Link 3,Link 4" | split: "," %}
+                {% for s_link in sample_links %}
+                  <li><a href="#" class="text-sm text-white/50 hover:text-primary transition-colors">{{ s_link }}</a></li>
+                {% endfor %}
+              {% endif %}
             {% endfor %}
           </ul>
         </div>
@@ -191,6 +181,21 @@
       "default": "Walbayzon"
     },
     {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Max Height",
+      "default": 30
+    },
+    {
       "type": "text",
       "id": "brand_name",
       "label": "Brand Name",
@@ -200,7 +205,7 @@
       "type": "textarea",
       "id": "brand_desc",
       "label": "Brand Description",
-      "default": "The #1 trusted partner in brand building. Helping ambitious founders scale on the world's largest marketplaces."
+      "default": "Scaling Indian brands on global marketplaces with strategic execution, FBA logistics management, and ROAS-focused advertising."
     },
     {
       "type": "text",
