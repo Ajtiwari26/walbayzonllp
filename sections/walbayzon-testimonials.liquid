@@ -1,0 +1,165 @@
+{% comment %}
+  Walbayzon Testimonials Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section class="bg-secondary/60 py-16 sm:py-24 lg:py-32">
+  <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+    
+    <!-- Header -->
+    <div>
+      {% if section.settings.sub_title != blank %}
+        <p class="text-xs font-medium uppercase tracking-[0.2em]" style="color: {{ section.settings.accent_color }};">
+          {{ section.settings.sub_title }}
+        </p>
+      {% endif %}
+      <h2 class="mt-4 max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
+        {{ section.settings.title }}
+      </h2>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div id="testimonials-grid" class="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
+      {% for block in section.blocks %}
+        <figure class="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 sm:p-8" {{ block.shopify_attributes }}>
+          <div>
+            <!-- Quote Icon -->
+            <span style="color: {{ section.settings.accent_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                <path d="M3 21c3 0 7-1 7-8V5H3v9h4"/><path d="M14 21c3 0 7-1 7-8V5h-7v9h4"/>
+              </svg>
+            </span>
+            <blockquote class="mt-5 text-base leading-relaxed text-foreground text-balance sm:text-lg">
+              "{{ block.settings.quote }}"
+            </blockquote>
+          </div>
+          
+          <figcaption class="mt-8 flex items-center justify-between border-t border-border pt-5">
+            <div>
+              <div class="font-display text-sm font-bold text-foreground">{{ block.settings.author_name }}</div>
+              <div class="text-xs text-muted-foreground">{{ block.settings.author_role }}</div>
+            </div>
+            
+            <!-- Rating Stars -->
+            <div class="flex gap-0.5" style="color: {{ section.settings.accent_color }};">
+              {% for i in (1..block.settings.rating) %}
+                <span class="inline-flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                  </svg>
+                </span>
+              {% endfor %}
+            </div>
+          </figcaption>
+        </figure>
+      {% empty %}
+        <!-- Fallbacks -->
+        {% assign quotes = "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget.,The team feels like an extension of ours. Sharp creative, sharper numbers — and zero hand-holding required.,From India to UAE in 90 days. The localisation playbook is genuinely best in class." | split: "," %}
+        {% assign names = "Aarav Mehta,Priya Nair,Kabir Singh" | split: "," %}
+        {% assign roles = "Founder, Crocon Home,CEO, Tindora Wellness,CMO, Norta Beauty" | split: "," %}
+        {% for quote in quotes %}
+          {% assign idx = forloop.index0 %}
+          <figure class="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 sm:p-8">
+            <div>
+              <span style="color: {{ section.settings.accent_color }};">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                  <path d="M3 21c3 0 7-1 7-8V5H3v9h4"/><path d="M14 21c3 0 7-1 7-8V5h-7v9h4"/>
+                </svg>
+              </span>
+              <blockquote class="mt-5 text-base leading-relaxed text-foreground text-balance sm:text-lg">
+                "{{ quote }}"
+              </blockquote>
+            </div>
+            <figcaption class="mt-8 flex items-center justify-between border-t border-border pt-5">
+              <div>
+                <div class="font-display text-sm font-bold text-foreground">{{ names[idx] }}</div>
+                <div class="text-xs text-muted-foreground">{{ roles[idx] }}</div>
+              </div>
+              <div class="flex gap-0.5" style="color: {{ section.settings.accent_color }};">
+                {% for i in (1..5) %}
+                  <span class="inline-flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </span>
+                {% endfor %}
+              </div>
+            </figcaption>
+          </figure>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Walbayzon Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "— Founders on Walbayzon"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "The team founders trust to own their growth."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#f97316"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Aarav Mehta"
+        },
+        {
+          "type": "text",
+          "id": "author_role",
+          "label": "Author Role",
+          "default": "Founder, Crocon Home"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "author_name": "Aarav Mehta", "author_role": "Founder, Crocon Home", "quote": "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "author_name": "Priya Nair", "author_role": "CEO, Tindora Wellness", "quote": "The team feels like an extension of ours. Sharp creative, sharper numbers — and zero hand-holding required.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "author_name": "Kabir Singh", "author_role": "CMO, Norta Beauty", "quote": "From India to UAE in 90 days. The localisation playbook is genuinely best in class.", "rating": 5 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

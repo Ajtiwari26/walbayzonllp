@@ -1,0 +1,150 @@
+{% comment %}
+  Walbayzon Process Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section id="how" class="py-16 sm:py-24 lg:py-32">
+  <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="mx-auto max-w-3xl text-center">
+      {% if section.settings.sub_title != blank %}
+        <p class="text-xs font-medium uppercase tracking-[0.2em]" style="color: {{ section.settings.accent_color }};">
+          {{ section.settings.sub_title }}
+        </p>
+      {% endif %}
+      <h2 class="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
+        {{ section.settings.title }}
+      </h2>
+    </div>
+
+    <!-- Process Steps Grid -->
+    <div class="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
+      {% for block in section.blocks %}
+        <div class="relative rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-brand-orange" 
+             style="--tw-border-opacity: 1; border-color: rgba(229, 231, 235, var(--tw-border-opacity));"
+             {{ block.shopify_attributes }}>
+          
+          <div class="flex items-center justify-between">
+            <span class="font-display text-4xl font-black" style="color: {{ section.settings.number_color }};">
+              {{ block.settings.step_num }}
+            </span>
+            {% unless forloop.last %}
+              <span class="rotate-45 text-muted-foreground">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                  <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                </svg>
+              </span>
+            {% endunless %}
+          </div>
+
+          <h3 class="mt-5 font-display text-xl font-bold tracking-tight text-foreground">
+            {{ block.settings.title }}
+          </h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {{ block.settings.desc }}
+          </p>
+
+        </div>
+      {% empty %}
+        <!-- Fallbacks -->
+        {% assign steps_num = "01,02,03,04" | split: "," %}
+        {% assign steps_title = "Discover,Design,Deploy,Scale" | split: "," %}
+        {% assign steps_desc = "We audit your catalog, category and competitors to map the highest-leverage opportunities.,A 90-day growth blueprint with creative, ad strategy and operations — built around your margins.,Our pod ships listings, A+ content and campaigns. You see early signal in weeks, not quarters.,Compounding optimisation — bidding, assortment, geo-expansion — until you own the shelf." | split: "," %}
+        {% for val in steps_num %}
+          {% assign idx = forloop.index0 %}
+          <div class="relative rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-brand-orange">
+            <div class="flex items-center justify-between">
+              <span class="font-display text-4xl font-black" style="color: {{ section.settings.number_color }};">
+                {{ val }}
+              </span>
+              {% unless forloop.last %}
+                <span class="rotate-45 text-muted-foreground">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+                    <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+                  </svg>
+                </span>
+              {% endunless %}
+            </div>
+            <h3 class="mt-5 font-display text-xl font-bold tracking-tight text-foreground">
+              {{ steps_title[idx] }}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
+              {{ steps_desc[idx] }}
+            </p>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Walbayzon Process",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "— How we work"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "A simple, four-step path to category leadership."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Text Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Step Number Color",
+      "default": "#fde8df"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Process Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_num",
+          "label": "Step Number (e.g. 01)",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Discover"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Step Description",
+          "default": "We audit your catalog, category and competitors to map the highest-leverage opportunities."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Process",
+      "blocks": [
+        { "type": "step", "settings": { "step_num": "01", "title": "Discover", "desc": "We audit your catalog, category and competitors to map the highest-leverage opportunities." } },
+        { "type": "step", "settings": { "step_num": "02", "title": "Design", "desc": "A 90-day growth blueprint with creative, ad strategy and operations — built around your margins." } },
+        { "type": "step", "settings": { "step_num": "03", "title": "Deploy", "desc": "Our pod ships listings, A+ content and campaigns. You see early signal in weeks, not quarters." } },
+        { "type": "step", "settings": { "step_num": "04", "title": "Scale", "desc": "Compounding optimisation — bidding, assortment, geo-expansion — until you own the shelf." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

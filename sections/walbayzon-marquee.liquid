@@ -1,0 +1,145 @@
+{% comment %}
+  Walbayzon Platform Marquee Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section class="border-y border-border bg-card py-12 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    
+    {% if section.settings.title != blank %}
+      <p class="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        {{ section.settings.title }}
+      </p>
+    {% endif %}
+
+    <div class="relative overflow-hidden w-full">
+      <!-- Gradient masks on the sides -->
+      <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent"></div>
+      
+      <!-- Scrolling Track -->
+      <div class="wb-marquee-track flex gap-3 whitespace-nowrap">
+        
+        <!-- First group of items -->
+        <div class="flex gap-3 animate-marquee shrink-0">
+          {% for block in section.blocks %}
+            <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80 flex items-center gap-3" {{ block.shopify_attributes }}>
+              {% if block.settings.logo_image != blank %}
+                <img src="{{ block.settings.logo_image | image_url: width: 60 }}" alt="{{ block.settings.platform_name }}" class="h-6 w-auto object-contain" />
+              {% endif %}
+              <span>{{ block.settings.platform_name }}</span>
+            </div>
+          {% empty %}
+            <!-- Fallbacks -->
+            {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
+            {% for item in fallbacks %}
+              <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80">
+                {{ item }}
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+
+        <!-- Second group of items for seamless loop -->
+        <div class="flex gap-3 animate-marquee shrink-0" aria-hidden="true">
+          {% for block in section.blocks %}
+            <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80 flex items-center gap-3">
+              {% if block.settings.logo_image != blank %}
+                <img src="{{ block.settings.logo_image | image_url: width: 60 }}" alt="{{ block.settings.platform_name }}" class="h-6 w-auto object-contain" />
+              {% endif %}
+              <span>{{ block.settings.platform_name }}</span>
+            </div>
+          {% empty %}
+            {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
+            {% for item in fallbacks %}
+              <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80">
+                {{ item }}
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wb-marquee-track {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 12px;
+  }
+  .animate-marquee {
+    display: flex;
+    gap: 12px;
+    animation: wb-marquee {{ section.settings.scroll_speed }}s linear infinite;
+  }
+  @keyframes wb-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Walbayzon Marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Platforms we dominate"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "s",
+      "label": "Scrolling Duration (Speed)",
+      "default": 35
+    }
+  ],
+  "blocks": [
+    {
+      "type": "platform",
+      "name": "Platform",
+      "settings": [
+        {
+          "type": "text",
+          "id": "platform_name",
+          "label": "Platform Name",
+          "default": "Amazon"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Platform Logo (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Marquee",
+      "blocks": [
+        { "type": "platform", "settings": { "platform_name": "Amazon" } },
+        { "type": "platform", "settings": { "platform_name": "Flipkart" } },
+        { "type": "platform", "settings": { "platform_name": "Meesho" } },
+        { "type": "platform", "settings": { "platform_name": "JioMart" } },
+        { "type": "platform", "settings": { "platform_name": "Ajio" } },
+        { "type": "platform", "settings": { "platform_name": "Noon" } },
+        { "type": "platform", "settings": { "platform_name": "Myntra" } },
+        { "type": "platform", "settings": { "platform_name": "Blinkit" } },
+        { "type": "platform", "settings": { "platform_name": "Zepto" } },
+        { "type": "platform", "settings": { "platform_name": "Alibaba" } },
+        { "type": "platform", "settings": { "platform_name": "Walmart" } },
+        { "type": "platform", "settings": { "platform_name": "Nykaa" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

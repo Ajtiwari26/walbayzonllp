@@ -1,0 +1,170 @@
+{% comment %}
+  Walbayzon Hero Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section class="relative overflow-hidden py-16 sm:py-24 lg:py-32" style="background: {{ section.settings.bg_gradient }};">
+  
+  <!-- Glowing blob background -->
+  <div class="absolute -top-32 left-1/2 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full opacity-20 blur-3xl" style="background-color: {{ section.settings.glow_color }};"></div>
+  
+  <div class="mx-auto max-w-7xl px-4 text-center fade-up">
+    
+    <!-- Top badge -->
+    {% if section.settings.badge_text != blank %}
+      <div class="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] font-medium text-foreground/70 backdrop-blur sm:px-4 sm:text-xs">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style="background-color: {{ section.settings.badge_dot_color }};"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full" style="background-color: {{ section.settings.badge_dot_color }};"></span>
+        </span>
+        <span>{{ section.settings.badge_text }}</span>
+      </div>
+    {% endif %}
+
+    <!-- Main heading -->
+    <h1 class="mt-6 font-display text-[2.5rem] font-bold leading-[1.2] tracking-tight text-balance text-foreground sm:mt-7 sm:text-6xl md:text-7xl lg:text-[6.5rem] lg:leading-[1.25]">
+      {{ section.settings.heading }}
+    </h1>
+
+    <!-- Subheading/Description -->
+    <p class="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:mt-7 sm:text-lg md:text-xl">
+      {{ section.settings.subheading }}
+    </p>
+
+    <!-- Call to Actions -->
+    <div class="mt-8 flex flex-col items-center justify-center gap-5 sm:mt-9 sm:flex-row">
+      {% if section.settings.btn1_text != blank %}
+        <div class="relative w-full sm:w-auto">
+          <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground" style="background-color: {{ section.settings.shadow_color }};"></span>
+          <a href="{{ section.settings.btn1_url }}" class="relative inline-flex w-full items-center justify-center rounded-full border-2 border-foreground bg-background px-6 py-3 text-base font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5 sm:w-auto">
+            {{ section.settings.btn1_text }}
+          </a>
+        </div>
+      {% endif %}
+      {% if section.settings.btn2_text != blank %}
+        <div class="relative w-full sm:w-auto">
+          <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground" style="background-color: {{ section.settings.shadow_color }};"></span>
+          <a href="{{ section.settings.btn2_url }}" class="relative inline-flex w-full items-center justify-center rounded-full border-2 border-foreground px-6 py-3 text-base font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5 sm:w-auto" style="background-color: {{ section.settings.btn2_bg }};">
+            {{ section.settings.btn2_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Rating info -->
+    {% if section.settings.show_rating %}
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 text-sm text-muted-foreground sm:flex-row sm:gap-6">
+        <div class="flex items-center gap-1.5" style="color: {{ section.settings.star_color }};">
+          {% for i in (1..5) %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          {% endfor %}
+        </div>
+        <span class="text-xs sm:text-sm">{{ section.settings.rating_text }}</span>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Walbayzon Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Trusted by 100+ category-leading brands"
+    },
+    {
+      "type": "color",
+      "id": "badge_dot_color",
+      "label": "Badge Dot Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading (HTML allowed)",
+      "default": "The <span class=\"inline-block rounded-xl bg-brand-orange px-2 py-0.5 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3\">#1 Trusted</span> partner in <span class=\"inline-block rounded-xl bg-brand-orange px-2 py-0.5 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3\">Brand Building</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Scale your business globally with Walbayzon — the marketplace growth partner behind India's most ambitious D2C brands."
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "Get Started"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text",
+      "default": "See Our Services"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Button 2 URL"
+    },
+    {
+      "type": "color",
+      "id": "btn2_bg",
+      "label": "Button 2 Background Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Button Shadow Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Rating Stars",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating Text",
+      "default": "Rated 4.9 by founders across 12+ categories"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "text",
+      "id": "bg_gradient",
+      "label": "Section Background Gradient",
+      "default": "linear-gradient(135deg, oklch(0.98 0.02 75) 0%, oklch(0.94 0.05 70) 100%)"
+    },
+    {
+      "type": "color",
+      "id": "glow_color",
+      "label": "Glowing Orb Background Color",
+      "default": "#f97316"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Hero"
+    }
+  ]
+}
+{% endschema %}

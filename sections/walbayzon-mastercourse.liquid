@@ -1,0 +1,299 @@
+{% comment %}
+  Walbayzon Mastercourse Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section id="mastercourse" class="px-4 pb-16 sm:px-5 sm:pb-24 lg:px-8 lg:pb-32 py-8">
+  <div class="mx-auto grid max-w-7xl overflow-hidden rounded-[1.5rem] border border-border bg-card sm:rounded-[2rem] lg:grid-cols-[1.1fr_1fr]">
+    
+    <!-- Left Column: Info & Perks -->
+    <div class="p-6 sm:p-10 lg:p-16">
+      <p class="text-xs font-medium uppercase tracking-[0.2em]" style="color: {{ section.settings.accent_color }};">
+        {{ section.settings.sub_title }}
+      </p>
+      <h2 class="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl text-foreground">
+        {{ section.settings.title }}
+      </h2>
+      <p class="mt-5 max-w-md text-sm text-muted-foreground sm:text-base">
+        {{ section.settings.desc }}
+      </p>
+      
+      <!-- Perks List -->
+      <ul class="mt-8 space-y-3">
+        {% if section.settings.perk_1 != blank %}
+          <li class="flex items-start gap-3 text-sm text-foreground">
+            <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-primary" style="background-color: {{ section.settings.accent_color }}; color: {{ section.settings.check_icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            {{ section.settings.perk_1 }}
+          </li>
+        {% endif %}
+        {% if section.settings.perk_2 != blank %}
+          <li class="flex items-start gap-3 text-sm text-foreground">
+            <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-primary" style="background-color: {{ section.settings.accent_color }}; color: {{ section.settings.check_icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            {{ section.settings.perk_2 }}
+          </li>
+        {% endif %}
+        {% if section.settings.perk_3 != blank %}
+          <li class="flex items-start gap-3 text-sm text-foreground">
+            <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-primary" style="background-color: {{ section.settings.accent_color }}; color: {{ section.settings.check_icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            {{ section.settings.perk_3 }}
+          </li>
+        {% endif %}
+        {% if section.settings.perk_4 != blank %}
+          <li class="flex items-start gap-3 text-sm text-foreground">
+            <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full text-primary" style="background-color: {{ section.settings.accent_color }}; color: {{ section.settings.check_icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </span>
+            {{ section.settings.perk_4 }}
+          </li>
+        {% endif %}
+      </ul>
+
+      <!-- CTA Apply -->
+      {% if section.settings.btn_text != blank %}
+        <a href="{{ section.settings.btn_url }}" class="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold transition-all hover:shadow-xl sm:mt-10"
+           style="background-color: {{ section.settings.btn_bg_color }}; color: {{ section.settings.btn_text_color }};">
+          {{ section.settings.btn_text }}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+            <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Right Column: Card Details (Orange container) -->
+    <div class="relative p-6 sm:p-10 lg:p-16" style="background: {{ section.settings.card_bg }};">
+      
+      <!-- Top Badge (e.g. Cohort 07 - March) -->
+      {% if section.settings.card_badge != blank %}
+        <div class="absolute right-4 top-4 rounded-full px-3 py-1 text-[11px] font-semibold sm:right-6 sm:top-6 sm:text-xs"
+             style="background-color: {{ section.settings.card_badge_bg }}; color: {{ section.settings.card_badge_text }};">
+          {{ section.settings.card_badge }}
+        </div>
+      {% endif %}
+
+      <div class="flex h-full flex-col justify-between gap-8 sm:gap-10">
+        <div>
+          <!-- Duration (e.g. 12wk) -->
+          <div class="font-display text-6xl font-black leading-none text-primary sm:text-7xl lg:text-8xl" style="color: {{ section.settings.duration_color }};">
+            {{ section.settings.duration_num }}<span class="opacity-40">{{ section.settings.duration_unit }}</span>
+          </div>
+          <p class="mt-4 max-w-xs text-sm font-medium opacity-80" style="color: {{ section.settings.duration_desc_color }};">
+            {{ section.settings.duration_desc }}
+          </p>
+        </div>
+
+        <!-- Quick Stats Grid -->
+        <div class="grid grid-cols-2 gap-3">
+          {% if section.settings.stat1_val != blank %}
+            <div class="rounded-2xl p-4 backdrop-blur sm:p-5" style="background-color: {{ section.settings.stat_card_bg }};">
+              <div class="font-display text-xl font-bold text-primary sm:text-2xl" style="color: {{ section.settings.stat_text_color }};">{{ section.settings.stat1_val }}</div>
+              <div class="text-xs opacity-70" style="color: {{ section.settings.stat_text_color }};">{{ section.settings.stat1_lbl }}</div>
+            </div>
+          {% endif %}
+          {% if section.settings.stat2_val != blank %}
+            <div class="rounded-2xl p-4 backdrop-blur sm:p-5" style="background-color: {{ section.settings.stat_card_bg }};">
+              <div class="font-display text-xl font-bold text-primary sm:text-2xl" style="color: {{ section.settings.stat_text_color }};">{{ section.settings.stat2_val }}</div>
+              <div class="text-xs opacity-70" style="color: {{ section.settings.stat_text_color }};">{{ section.settings.stat2_lbl }}</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Walbayzon Mastercourse",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "— Mastercourse"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Learn the playbook we use to scale brands to ₹100Cr."
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description",
+      "default": "A no-fluff cohort program for founders and operators ready to take marketplace growth seriously."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Check / Pills)",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "check_icon_color",
+      "label": "Checkmark Icon Color",
+      "default": "#2c221e"
+    },
+    {
+      "type": "text",
+      "id": "perk_1",
+      "label": "Perk 1",
+      "default": "12 weeks of live, founder-led sessions"
+    },
+    {
+      "type": "text",
+      "id": "perk_2",
+      "label": "Perk 2",
+      "default": "Frameworks used by 100+ scaling brands"
+    },
+    {
+      "type": "text",
+      "id": "perk_3",
+      "label": "Perk 3",
+      "default": "Private Slack with the Walbayzon pod"
+    },
+    {
+      "type": "text",
+      "id": "perk_4",
+      "label": "Perk 4",
+      "default": "Lifetime access to recordings & templates"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "CTA Button Text",
+      "default": "Apply for the next cohort"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg_color",
+      "label": "CTA Button Background",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "CTA Button Text Color",
+      "default": "#fbf8f5"
+    },
+    {
+      "type": "text",
+      "id": "card_bg",
+      "label": "Right Card Background CSS",
+      "default": "linear-gradient(135deg, oklch(0.82 0.16 65) 0%, oklch(0.72 0.18 50) 100%)"
+    },
+    {
+      "type": "text",
+      "id": "card_badge",
+      "label": "Right Card Badge Text",
+      "default": "Cohort 07 — March"
+    },
+    {
+      "type": "color",
+      "id": "card_badge_bg",
+      "label": "Right Card Badge Background",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "color",
+      "id": "card_badge_text",
+      "label": "Right Card Badge Text Color",
+      "default": "#fbf8f5"
+    },
+    {
+      "type": "text",
+      "id": "duration_num",
+      "label": "Duration Number",
+      "default": "12"
+    },
+    {
+      "type": "text",
+      "id": "duration_unit",
+      "label": "Duration Unit",
+      "default": "wk"
+    },
+    {
+      "type": "color",
+      "id": "duration_color",
+      "label": "Duration Text Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "text",
+      "id": "duration_desc",
+      "label": "Duration Description",
+      "default": "Live cohort. Real catalogs. Measurable outcomes from week one."
+    },
+    {
+      "type": "color",
+      "id": "duration_desc_color",
+      "label": "Duration Description Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "color",
+      "id": "stat_card_bg",
+      "label": "Right Card Stat Card Background",
+      "default": "rgba(29, 29, 27, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "stat_text_color",
+      "label": "Right Card Stat Text Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "text",
+      "id": "stat1_val",
+      "label": "Stat 1 Value",
+      "default": "2,400+"
+    },
+    {
+      "type": "text",
+      "id": "stat1_lbl",
+      "label": "Stat 1 Label",
+      "default": "Founders trained"
+    },
+    {
+      "type": "text",
+      "id": "stat2_val",
+      "label": "Stat 2 Value",
+      "default": "4.9 ★"
+    },
+    {
+      "type": "text",
+      "id": "stat2_lbl",
+      "label": "Stat 2 Label",
+      "default": "Average rating"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Mastercourse"
+    }
+  ]
+}
+{% endschema %}

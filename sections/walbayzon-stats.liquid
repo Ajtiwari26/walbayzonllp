@@ -1,0 +1,153 @@
+{% comment %}
+  Walbayzon Stats Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section class="px-4 sm:px-5 lg:px-8 py-8">
+  <div class="mx-auto max-w-7xl overflow-hidden rounded-[1.5rem] p-6 text-primary-foreground sm:rounded-[2rem] sm:p-10 lg:p-16" 
+       style="background: {{ section.settings.bg_gradient }}; color: {{ section.settings.text_color }};">
+    
+    <div class="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      
+      <!-- Text Description Content -->
+      <div>
+        {% if section.settings.sub_title != blank %}
+          <p class="text-xs font-medium uppercase tracking-[0.2em]" style="color: {{ section.settings.accent_color }};">
+            {{ section.settings.sub_title }}
+          </p>
+        {% endif %}
+        <h2 class="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance sm:text-4xl md:text-5xl" style="color: {{ section.settings.title_color }};">
+          {{ section.settings.title }}
+        </h2>
+        {% if section.settings.desc != blank %}
+          <p class="mt-5 max-w-md text-sm sm:text-base opacity-80">
+            {{ section.settings.desc }}
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10" style="background-color: {{ section.settings.grid_divider_color }};">
+        {% for block in section.blocks %}
+          <div class="p-4 sm:p-6 lg:p-8" style="background-color: {{ section.settings.stat_card_bg }};" {{ block.shopify_attributes }}>
+            <div class="font-display text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style="color: {{ section.settings.accent_color }};">
+              {{ block.settings.stat_value }}
+            </div>
+            <div class="mt-2 text-xs opacity-75 sm:text-sm">
+              {{ block.settings.stat_label }}
+            </div>
+          </div>
+        {% empty %}
+          <!-- Default Fallbacks -->
+          {% assign default_stats_val = "₹500Cr+,100+,12+,6.4×" | split: "," %}
+          {% assign default_stats_lbl = "Brand revenue generated,Brands scaled globally,Marketplaces mastered,Average ROAS delivered" | split: "," %}
+          {% for val in default_stats_val %}
+            {% assign idx = forloop.index0 %}
+            <div class="p-4 sm:p-6 lg:p-8" style="background-color: {{ section.settings.stat_card_bg }};">
+              <div class="font-display text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style="color: {{ section.settings.accent_color }};">
+                {{ val }}
+              </div>
+              <div class="mt-2 text-xs opacity-75 sm:text-sm">
+                {{ default_stats_lbl[idx] }}
+              </div>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Walbayzon Stats",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "— Numbers we love"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Results that compound, quarter after quarter."
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description",
+      "default": "We measure success the same way you do — in profit, market share and durable brand equity."
+    },
+    {
+      "type": "text",
+      "id": "bg_gradient",
+      "label": "Background Gradient",
+      "default": "linear-gradient(135deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.02 45) 100%)"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / Number Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#fbf8f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#e7e5e4"
+    },
+    {
+      "type": "color",
+      "id": "grid_divider_color",
+      "label": "Grid Divider Color",
+      "default": "rgba(251, 248, 245, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "stat_card_bg",
+      "label": "Stat Card Background Color",
+      "default": "#2c221e"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_value",
+          "label": "Stat Value (e.g. ₹500Cr+)",
+          "default": "₹500Cr+"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Stat Label",
+          "default": "Brand revenue generated"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Stats",
+      "blocks": [
+        { "type": "stat", "settings": { "stat_value": "₹500Cr+", "stat_label": "Brand revenue generated" } },
+        { "type": "stat", "settings": { "stat_value": "100+", "stat_label": "Brands scaled globally" } },
+        { "type": "stat", "settings": { "stat_value": "12+", "stat_label": "Marketplaces mastered" } },
+        { "type": "stat", "settings": { "stat_value": "6.4×", "stat_label": "Average ROAS delivered" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

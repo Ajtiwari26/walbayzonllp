@@ -1,0 +1,314 @@
+{% comment %}
+  Walbayzon Footer Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<footer class="relative overflow-hidden text-primary-foreground py-8" style="background: {{ section.settings.bg_gradient }}; color: {{ section.settings.text_color }};">
+  
+  <!-- Massive Background Text -->
+  {% if section.settings.bg_text != blank %}
+    <div class="mx-auto max-w-7xl px-4 pt-12 sm:px-5 sm:pt-16 lg:px-8 lg:pt-24 select-none pointer-events-none" style="container-type:inline-size">
+      <div class="w-full whitespace-nowrap text-center font-display font-black leading-[0.85] tracking-tight opacity-10" style="font-size:17cqw; color: {{ section.settings.bg_text_color }};">
+        {{ section.settings.bg_text }}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-5 sm:pb-16 lg:px-8">
+    
+    <!-- CTA Area -->
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
+      <div>
+        <p class="text-sm font-medium uppercase tracking-[0.2em]" style="color: {{ section.settings.accent_color }};">
+          {{ section.settings.cta_sub }}
+        </p>
+        <h2 class="mt-6 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl" style="color: {{ section.settings.title_color }};">
+          {{ section.settings.cta_title }}
+        </h2>
+        <p class="mt-6 max-w-xl text-base opacity-75">
+          {{ section.settings.cta_desc }}
+        </p>
+      </div>
+      <div class="flex flex-col justify-end gap-4">
+        {% if section.settings.btn1_text != blank %}
+          <a href="{{ section.settings.btn1_url }}" class="group inline-flex items-center justify-between gap-3 rounded-full px-5 py-3 text-sm font-semibold text-primary transition-all hover:opacity-90"
+             style="background-color: {{ section.settings.accent_color }}; color: {{ section.settings.btn_text_color }};">
+            <span>{{ section.settings.btn1_text }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+            </svg>
+          </a>
+        {% endif %}
+        {% if section.settings.btn2_text != blank %}
+          <a href="{{ section.settings.btn2_url }}" class="group inline-flex items-center justify-between gap-3 rounded-full border px-5 py-3 text-sm font-medium transition-all hover:text-brand-orange"
+             style="border-color: rgba(255,255,255,0.2); color: {{ section.settings.text_color }};">
+            <span class="flex min-w-0 items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+              <span class="truncate">{{ section.settings.btn2_text }}</span>
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Main Navigation Columns -->
+    <div class="mt-20 grid gap-12 border-t border-white/10 pt-16 md:grid-cols-2 lg:grid-cols-5" style="border-color: {{ section.settings.divider_color }};">
+      
+      <!-- Brand column -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2.5">
+          <div class="grid h-10 w-10 place-items-center rounded-full bg-brand-orange" style="background-color: {{ section.settings.accent_color }};">
+            <span class="font-display text-base font-black text-primary" style="color: {{ section.settings.btn_text_color }};">W.</span>
+          </div>
+          <span class="font-display text-xl font-bold tracking-tight" style="color: {{ section.settings.title_color }};">{{ section.settings.brand_name }}</span>
+        </div>
+        <p class="mt-6 max-w-sm text-sm leading-relaxed opacity-65">
+          {{ section.settings.brand_desc }}
+        </p>
+        
+        <!-- Social Icons -->
+        <div class="mt-8 flex items-center gap-2">
+          {% if section.settings.social_twitter != blank %}
+            <a href="{{ section.settings.social_twitter }}" aria-label="Twitter" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2H21.5l-7.5 8.57L22.5 22h-6.812l-5.34-6.97L4.24 22H1l8.04-9.19L1.5 2h6.93l4.83 6.39Zm-1.193 18h1.83L7.04 4H5.084Z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_instagram != blank %}
+            <a href="{{ section.settings.social_instagram }}" aria-label="Instagram" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_linkedin != blank %}
+            <a href="{{ section.settings.social_linkedin }}" aria-label="LinkedIn" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_youtube != blank %}
+            <a href="{{ section.settings.social_youtube }}" aria-label="YouTube" class="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-all hover:border-brand-orange hover:bg-brand-orange" style="border-color: {{ section.settings.divider_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Links menu columns (from blocks) -->
+      {% for block in section.blocks %}
+        <div {{ block.shopify_attributes }}>
+          <h4 class="text-sm font-semibold uppercase tracking-[0.15em]" style="color: {{ section.settings.accent_color }};">
+            {{ block.settings.title }}
+          </h4>
+          <ul class="mt-5 space-y-3">
+            {% for link in linklists[block.settings.menu].links %}
+              <li>
+                <a href="{{ link.url }}" class="text-sm hover:opacity-80 transition-colors" style="color: {{ section.settings.text_color }};">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% else %}
+              <!-- Defaults if no menu selected -->
+              {% assign sample_links = "Link 1,Link 2,Link 3,Link 4" | split: "," %}
+              {% for s_link in sample_links %}
+                <li><a href="#" class="text-sm hover:opacity-80" style="color: {{ section.settings.text_color }};">{{ s_link }}</a></li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    <!-- Bottom copyrights -->
+    <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center" style="border-color: {{ section.settings.divider_color }};">
+      <p class="text-xs opacity-50">
+        &copy; {{ "now" | date: "%Y" }} {{ section.settings.brand_name }}. {{ section.settings.footer_tagline }}
+      </p>
+      <div class="flex items-center gap-6 text-xs opacity-50">
+        {% if section.settings.policy_menu != blank %}
+          {% for link in linklists[section.settings.policy_menu].links %}
+            <a href="{{ link.url }}" class="hover:opacity-85">{{ link.title }}</a>
+          {% endfor %}
+        {% else %}
+          <a href="#" class="hover:opacity-85">Privacy</a>
+          <a href="#" class="hover:opacity-85">Terms</a>
+          <a href="#" class="hover:opacity-85">Cookies</a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Walbayzon Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "bg_text",
+      "label": "Huge Background Text",
+      "default": "Walbayzon"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "Walbayzon"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_desc",
+      "label": "Brand Description",
+      "default": "The #1 trusted partner in brand building. Helping ambitious founders scale on the world's largest marketplaces."
+    },
+    {
+      "type": "text",
+      "id": "cta_sub",
+      "label": "CTA Sub Title",
+      "default": "— Let's build together"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA Title",
+      "default": "Ready to scale your brand globally?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_desc",
+      "label": "CTA Description",
+      "default": "Partner with the team behind 100+ category-leading brands on Amazon, Flipkart & beyond."
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "Book a free strategy call"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text (Email link)",
+      "default": "hello@walbayzon.com"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Button 2 URL (e.g. mailto:hello@walbayzon.com)"
+    },
+    {
+      "type": "text",
+      "id": "footer_tagline",
+      "label": "Footer Tagline",
+      "default": "Crafted with care in India."
+    },
+    {
+      "type": "link_list",
+      "id": "policy_menu",
+      "label": "Policies Menu"
+    },
+    {
+      "type": "text",
+      "id": "bg_gradient",
+      "label": "Background Gradient",
+      "default": "linear-gradient(135deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.02 45) 100%)"
+    },
+    {
+      "type": "color",
+      "id": "bg_text_color",
+      "label": "Huge Background Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Text Color",
+      "default": "#fbf8f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#e7e5e4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Dividers / Border Color",
+      "default": "rgba(251,248,245,0.1)"
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "Twitter Link"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram Link"
+    },
+    {
+      "type": "url",
+      "id": "social_linkedin",
+      "label": "LinkedIn Link"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_col",
+      "name": "Link Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column Title",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu Link List"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Footer",
+      "blocks": [
+        { "type": "menu_col", "settings": { "title": "Services" } },
+        { "type": "menu_col", "settings": { "title": "Company" } },
+        { "type": "menu_col", "settings": { "title": "Learn" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

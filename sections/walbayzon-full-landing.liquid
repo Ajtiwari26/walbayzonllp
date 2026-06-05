@@ -1,0 +1,1005 @@
+<!-- Google Fonts and Tailwind CSS -->
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    corePlugins: {
+      preflight: false, // Prevents resetting your theme's default settings
+    },
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
+          sans: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
+        },
+        colors: {
+          background: 'oklch(0.99 0.005 80)',
+          foreground: 'oklch(0.18 0.022 55)',
+          card: '#ffffff',
+          border: 'oklch(0.91 0.015 70)',
+          secondary: 'oklch(0.96 0.015 75)',
+          muted: { DEFAULT: 'oklch(0.955 0.012 75)', foreground: 'oklch(0.45 0.018 55)' },
+          primary: { DEFAULT: 'oklch(0.225 0.028 55)', foreground: 'oklch(0.985 0.008 80)' },
+          brand: {
+            coffee: 'oklch(0.225 0.028 55)',
+            orange: 'oklch(0.78 0.16 65)',
+            'orange-soft': 'oklch(0.92 0.07 75)',
+            cream: 'oklch(0.985 0.008 80)',
+          },
+        },
+        borderRadius: { '3xl': '1.625rem' },
+      }
+    }
+  }
+</script>
+
+<style>
+  .wb-landing-wrapper {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: 'Satoshi','General Sans',ui-sans-serif,system-ui,sans-serif;
+    background: oklch(0.99 0.005 80);
+    color: oklch(0.18 0.022 55);
+  }
+  .wb-landing-wrapper h1,
+  .wb-landing-wrapper h2,
+  .wb-landing-wrapper h3,
+  .wb-landing-wrapper h4 {
+    font-family: 'Satoshi','General Sans',sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+  .gradient-warm { background: linear-gradient(135deg, oklch(0.98 0.02 75) 0%, oklch(0.94 0.05 70) 100%); }
+  .gradient-coffee { background: linear-gradient(135deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.02 45) 100%); }
+  .gradient-orange { background: linear-gradient(135deg, oklch(0.82 0.16 65) 0%, oklch(0.72 0.18 50) 100%); }
+  
+  .wb-marquee-wrapper {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 12px;
+  }
+  .wb-animate-marquee {
+    display: flex;
+    gap: 12px;
+    animation: wb-marquee-scroll 35s linear infinite;
+  }
+  @keyframes wb-marquee-scroll {
+    from { transform: translateX(0) }
+    to { transform: translateX(-50%) }
+  }
+  .fade-up { animation: fadeUp .8s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(16px) } to { opacity:1; transform: translateY(0) } }
+</style>
+
+<div class="wb-landing-wrapper min-h-screen bg-background">
+
+  <!-- ================= ANNOUNCEMENT BAR ================= -->
+  {% if section.settings.show_announcement %}
+    <div class="w-full bg-brand-orange-soft">
+      <div class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-3 py-2 text-center text-[11px] font-medium text-foreground sm:gap-3 sm:px-5 sm:text-sm lg:px-8">
+        <span class="line-clamp-2 sm:line-clamp-1">{{ section.settings.announcement_text }}</span>
+        {% if section.settings.announcement_link != blank %}
+          <a href="{{ section.settings.announcement_link }}" class="shrink-0 rounded-full bg-brand-orange px-3 py-1 text-xs font-semibold text-primary shadow-sm transition-transform hover:scale-[1.03] inline-flex">
+            {{ section.settings.announcement_link_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- ================= HEADER ================= -->
+  {% if section.settings.show_header %}
+    <header class="w-full border-b border-border/60 bg-background/80 backdrop-blur-xl sticky top-0 z-50">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:h-20 lg:px-8">
+        <a href="#" class="flex items-center gap-2.5">
+          <div class="grid h-9 w-9 place-items-center rounded-full bg-primary">
+            <span class="font-display text-base font-black text-primary-foreground">W<span class="text-brand-orange">.</span></span>
+          </div>
+          <span class="font-display text-lg font-bold tracking-tight text-foreground">{{ section.settings.header_logo_text }}</span>
+        </a>
+        <nav class="hidden items-center gap-1 lg:flex">
+          {% for link in linklists[section.settings.header_menu].links %}
+            <a href="{{ link.url }}" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">
+              {{ link.title }}
+            </a>
+          {% else %}
+            <a href="#services" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">Services</a>
+            <a href="#how" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">How We Work</a>
+            <a href="#mastercourse" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">Mastercourse</a>
+          {% endfor %}
+        </nav>
+        <div class="hidden items-center gap-5 lg:flex">
+          {% if section.settings.header_btn1_text != blank %}
+            <div class="relative">
+              <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground"></span>
+              <a href="{{ section.settings.header_btn1_url }}" class="relative inline-flex items-center rounded-full border-2 border-foreground bg-background px-5 py-2.5 text-sm font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5">{{ section.settings.header_btn1_text }}</a>
+            </div>
+          {% endif %}
+          {% if section.settings.header_btn2_text != blank %}
+            <div class="relative">
+              <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground"></span>
+              <a href="{{ section.settings.header_btn2_url }}" class="relative inline-flex items-center rounded-full border-2 border-foreground bg-brand-orange px-5 py-2.5 text-sm font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5">{{ section.settings.header_btn2_text }}</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </header>
+  {% endif %}
+
+  <!-- ================= HERO ================= -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 gradient-warm"></div>
+    <div class="absolute -top-32 left-1/2 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-brand-orange/20 blur-3xl"></div>
+    <div class="mx-auto max-w-7xl px-4 pb-20 pt-12 sm:px-5 sm:pb-24 sm:pt-16 lg:px-8 lg:pb-32 lg:pt-24">
+      <div class="mx-auto max-w-4xl text-center fade-up">
+        {% if section.settings.hero_badge != blank %}
+          <div class="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] font-medium text-foreground/70 backdrop-blur sm:px-4 sm:text-xs">
+            <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-orange opacity-75"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-brand-orange"></span></span>
+            <span>{{ section.settings.hero_badge }}</span>
+          </div>
+        {% endif %}
+        <h1 class="mt-6 font-display text-[2.5rem] font-bold leading-[1.2] tracking-tight text-balance text-foreground sm:mt-7 sm:text-6xl md:text-7xl lg:text-[6.5rem] lg:leading-[1.25]">
+          {{ section.settings.hero_headline }}
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:mt-7 sm:text-lg md:text-xl">{{ section.settings.hero_subheading }}</p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-5 sm:mt-9 sm:flex-row">
+          {% if section.settings.hero_btn1_text != blank %}
+            <div class="relative w-full sm:w-auto">
+              <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground"></span>
+              <a href="{{ section.settings.hero_btn1_url }}" class="relative inline-flex w-full items-center justify-center rounded-full border-2 border-foreground bg-background px-6 py-3 text-base font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5 sm:w-auto">{{ section.settings.hero_btn1_text }}</a>
+            </div>
+          {% endif %}
+          {% if section.settings.hero_btn2_text != blank %}
+            <div class="relative w-full sm:w-auto">
+              <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground"></span>
+              <a href="{{ section.settings.hero_btn2_url }}" class="relative inline-flex w-full items-center justify-center rounded-full border-2 border-foreground bg-brand-orange px-6 py-3 text-base font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5 sm:w-auto">{{ section.settings.hero_btn2_text }}</a>
+            </div>
+          {% endif %}
+        </div>
+        <div class="mt-10 flex flex-col items-center justify-center gap-3 text-sm text-muted-foreground sm:flex-row sm:gap-6">
+          <div class="flex items-center gap-1.5 text-brand-orange" id="hero-stars-landing">
+            {% for i in (1..5) %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            {% endfor %}
+          </div>
+          <span class="text-xs sm:text-sm">{{ section.settings.hero_rating_desc }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARQUEE ================= -->
+  <section class="border-y border-border bg-card py-12">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <p class="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">{{ section.settings.marquee_title }}</p>
+      <div class="relative overflow-hidden">
+        <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent"></div>
+        <div class="wb-marquee-wrapper">
+          <div class="wb-animate-marquee">
+            {% for block in section.blocks %}
+              {% if block.type == 'platform' %}
+                <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80 shrink-0">{{ block.settings.title }}</div>
+              {% endif %}
+            {% endfor %}
+            <!-- Duplicate for infinite scrolling -->
+            {% for block in section.blocks %}
+              {% if block.type == 'platform' %}
+                <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80 shrink-0" aria-hidden="true">{{ block.settings.title }}</div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section id="services" class="relative py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+      <div class="grid items-end gap-6 lg:grid-cols-[1fr_auto] lg:gap-8">
+        <div>
+          <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-orange sm:text-sm">{{ section.settings.services_sub }}</p>
+          <h2 class="mt-4 max-w-3xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl text-foreground">{{ section.settings.services_title }}</h2>
+        </div>
+      </div>
+      <div class="mt-12 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        {% for block in section.blocks %}
+          {% if block.type == 'service' %}
+            <div class="group relative bg-card p-6 transition-colors hover:bg-secondary sm:p-8">
+              <div class="flex items-start justify-between">
+                <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground group-hover:bg-brand-orange group-hover:text-primary">
+                  <span class="text-xl">{{ block.settings.emoji }}</span>
+                </div>
+                <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">{{ block.settings.tag }}</span>
+              </div>
+              <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">{{ block.settings.title }}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{{ block.settings.description }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section class="px-4 sm:px-5 lg:px-8">
+    <div class="mx-auto max-w-7xl overflow-hidden rounded-[1.5rem] gradient-coffee p-6 text-primary-foreground sm:rounded-[2rem] sm:p-10 lg:p-16">
+      <div class="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+        <div>
+          <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-orange sm:text-sm">{{ section.settings.stats_sub }}</p>
+          <h2 class="mt-4 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance sm:text-4xl md:text-5xl">{{ section.settings.stats_title }}</h2>
+          <p class="mt-5 max-w-md text-sm text-primary-foreground/70 sm:text-base">{{ section.settings.stats_desc }}</p>
+        </div>
+        <div class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-primary-foreground/10">
+          {% for block in section.blocks %}
+            {% if block.type == 'stat' %}
+              <div class="bg-primary p-4 sm:p-6 lg:p-8">
+                <div class="font-display text-2xl font-bold tracking-tight text-brand-orange sm:text-4xl lg:text-5xl">{{ block.settings.value }}</div>
+                <div class="mt-2 text-xs text-primary-foreground/70 sm:text-sm">{{ block.settings.label }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROCESS ================= -->
+  <section id="how" class="py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-orange sm:text-sm">{{ section.settings.process_sub }}</p>
+        <h2 class="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl text-foreground">{{ section.settings.process_title }}</h2>
+      </div>
+      <div class="mt-12 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4">
+        {% for block in section.blocks %}
+          {% if block.type == 'step' %}
+            <div class="relative rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-brand-orange hover:shadow-2xl sm:p-7">
+              <div class="flex items-center justify-between">
+                <span class="font-display text-4xl font-black text-brand-orange-soft sm:text-5xl">{{ block.settings.number }}</span>
+                {% unless forloop.last %}
+                  <span class="rotate-45 text-muted-foreground">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                  </span>
+                {% endunless %}
+              </div>
+              <h3 class="mt-5 font-display text-xl font-bold tracking-tight text-foreground">{{ block.settings.title }}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{{ block.settings.desc }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="bg-secondary/60 py-16 sm:py-24 lg:py-32">
+    <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+      <div>
+        <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-orange sm:text-sm">{{ section.settings.testimonials_sub }}</p>
+        <h2 class="mt-4 max-w-2xl font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl text-foreground">{{ section.settings.testimonials_title }}</h2>
+      </div>
+      <div class="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
+        {% for block in section.blocks %}
+          {% if block.type == 'testimonial' %}
+            <figure class="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 sm:p-8">
+              <div>
+                <span class="text-brand-orange">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M3 21c3 0 7-1 7-8V5H3v9h4"/><path d="M14 21c3 0 7-1 7-8V5h-7v9h4"/></svg>
+                </span>
+                <blockquote class="mt-5 text-base leading-relaxed text-foreground text-balance sm:text-lg">"{{ block.settings.quote }}"</blockquote>
+              </div>
+              <figcaption class="mt-8 flex items-center justify-between border-t border-border pt-5">
+                <div>
+                  <div class="font-display text-sm font-bold text-foreground">{{ block.settings.author }}</div>
+                  <div class="text-xs text-muted-foreground">{{ block.settings.role }}</div>
+                </div>
+                <div class="flex gap-0.5 text-brand-orange">
+                  {% for i in (1..block.settings.stars) %}
+                    <span class="inline-flex"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                  {% endfor %}
+                </div>
+              </figcaption>
+            </figure>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MASTERCOURSE ================= -->
+  <section id="mastercourse" class="px-4 pb-16 sm:px-5 sm:pb-24 lg:px-8 lg:pb-32">
+    <div class="mx-auto grid max-w-7xl overflow-hidden rounded-[1.5rem] border border-border bg-card sm:rounded-[2rem] lg:grid-cols-[1.1fr_1fr]">
+      <div class="p-6 sm:p-10 lg:p-16">
+        <p class="text-xs font-medium uppercase tracking-[0.2em] text-brand-orange sm:text-sm">{{ section.settings.course_sub }}</p>
+        <h2 class="mt-4 font-display text-3xl font-bold leading-[1.1] tracking-tight text-balance sm:text-4xl md:text-5xl text-foreground">{{ section.settings.course_title }}</h2>
+        <p class="mt-5 max-w-md text-sm text-muted-foreground sm:text-base">{{ section.settings.course_desc }}</p>
+        <ul class="mt-8 space-y-3">
+          {% if section.settings.course_perk1 != blank %}
+            <li class="flex items-start gap-3 text-sm text-foreground">
+              <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-orange text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              {{ section.settings.course_perk1 }}
+            </li>
+          {% endif %}
+          {% if section.settings.course_perk2 != blank %}
+            <li class="flex items-start gap-3 text-sm text-foreground">
+              <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-orange text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              {{ section.settings.course_perk2 }}
+            </li>
+          {% endif %}
+          {% if section.settings.course_perk3 != blank %}
+            <li class="flex items-start gap-3 text-sm text-foreground">
+              <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-orange text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              {{ section.settings.course_perk3 }}
+            </li>
+          {% endif %}
+          {% if section.settings.course_perk4 != blank %}
+            <li class="flex items-start gap-3 text-sm text-foreground">
+              <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-orange text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              {{ section.settings.course_perk4 }}
+            </li>
+          {% endif %}
+        </ul>
+        {% if section.settings.course_btn_text != blank %}
+          <a href="{{ section.settings.course_btn_url }}" class="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:shadow-xl sm:mt-10">
+            {{ section.settings.course_btn_text }}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        {% endif %}
+      </div>
+      <div class="relative gradient-orange p-6 sm:p-10 lg:p-16">
+        <div class="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-[11px] font-semibold text-primary-foreground sm:right-6 sm:top-6 sm:text-xs">{{ section.settings.course_card_badge }}</div>
+        <div class="flex h-full flex-col justify-between gap-8 sm:gap-10">
+          <div>
+            <div class="font-display text-6xl font-black leading-none text-primary sm:text-7xl lg:text-8xl">{{ section.settings.course_card_duration }}<span class="text-primary/40">{{ section.settings.course_card_duration_unit }}</span></div>
+            <p class="mt-4 max-w-xs text-sm font-medium text-primary/80 sm:text-base">{{ section.settings.course_card_duration_lbl }}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-2xl bg-primary/10 p-4 backdrop-blur sm:p-5">
+              <div class="font-display text-xl font-bold text-primary sm:text-2xl">{{ section.settings.course_stat1_val }}</div>
+              <div class="text-xs text-primary/70">{{ section.settings.course_stat1_lbl }}</div>
+            </div>
+            <div class="rounded-2xl bg-primary/10 p-4 backdrop-blur sm:p-5">
+              <div class="font-display text-xl font-bold text-primary sm:text-2xl">{{ section.settings.course_stat2_val }}</div>
+              <div class="text-xs text-primary/70">{{ section.settings.course_stat2_lbl }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  {% if section.settings.show_footer %}
+    <footer class="relative overflow-hidden gradient-coffee text-primary-foreground">
+      <div class="mx-auto max-w-7xl px-4 pt-12 sm:px-5 sm:pt-16 lg:px-8 lg:pt-24" style="container-type:inline-size">
+        <div class="w-full whitespace-nowrap text-center font-display font-black leading-[0.85] tracking-tight text-primary-foreground/[0.08]" style="font-size:17cqw">{{ section.settings.footer_bg_text }}</div>
+      </div>
+      <div class="mx-auto max-w-7xl px-4 pb-12 pt-8 sm:px-5 sm:pb-16 lg:px-8">
+        <div class="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
+          <div>
+            <p class="text-sm font-medium uppercase tracking-[0.2em] text-brand-orange">{{ section.settings.footer_cta_sub }}</p>
+            <h2 class="mt-6 font-display text-3xl font-bold leading-[1.05] tracking-tight text-balance sm:text-4xl md:text-5xl lg:text-6xl">{{ section.settings.footer_cta_title }}</h2>
+            <p class="mt-6 max-w-xl text-base text-primary-foreground/70 sm:text-lg">{{ section.settings.footer_cta_desc }}</p>
+          </div>
+          <div class="flex flex-col justify-end gap-4">
+            {% if section.settings.footer_btn1_text != blank %}
+              <a href="{{ section.settings.footer_btn1_url }}" class="group inline-flex items-center justify-between gap-3 rounded-full bg-brand-orange px-5 py-3 text-sm font-semibold text-primary transition-all hover:bg-brand-orange-soft">
+                <span>{{ section.settings.footer_btn1_text }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </a>
+            {% endif %}
+            {% if section.settings.footer_btn2_text != blank %}
+              <a href="{{ section.settings.footer_btn2_url }}" class="group inline-flex items-center justify-between gap-3 rounded-full border border-primary-foreground/20 px-5 py-3 text-sm font-medium text-primary-foreground transition-all hover:border-brand-orange hover:text-brand-orange">
+                <span class="flex min-w-0 items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                  <span class="truncate">{{ section.settings.footer_btn2_text }}</span>
+                </span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="mt-20 grid gap-12 border-t border-primary-foreground/10 pt-16 md:grid-cols-2 lg:grid-cols-5">
+          <div class="lg:col-span-2">
+            <div class="flex items-center gap-2.5">
+              <div class="grid h-10 w-10 place-items-center rounded-full bg-brand-orange"><span class="font-display text-base font-black text-primary">W.</span></div>
+              <span class="font-display text-xl font-bold tracking-tight">{{ section.settings.footer_logo_text }}</span>
+            </div>
+            <p class="mt-6 max-w-sm text-sm leading-relaxed text-primary-foreground/65">{{ section.settings.footer_logo_desc }}</p>
+          </div>
+          {% for block in section.blocks %}
+            {% if block.type == 'footer_menu' %}
+              <div>
+                <h4 class="text-sm font-semibold uppercase tracking-[0.15em] text-brand-orange">{{ block.settings.title }}</h4>
+                <ul class="mt-5 space-y-3">
+                  {% for link in linklists[block.settings.menu].links %}
+                    <li><a href="{{ link.url }}" class="text-sm text-primary-foreground/70 hover:text-brand-orange">{{ link.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-primary-foreground/10 pt-8 sm:flex-row sm:items-center">
+          <p class="text-xs text-primary-foreground/50">&copy; {{ "now" | date: "%Y" }} {{ section.settings.footer_logo_text }}. Crafted with care.</p>
+        </div>
+      </div>
+    </footer>
+  {% endif %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Walbayzon Full Landing",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement Bar Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "🚀 New: Walbayzon now scales D2C brands on Amazon US, UAE & KSA — with AI-powered listing & ads automation."
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_text",
+      "label": "Announcement Link Text",
+      "default": "See What's New"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement Link URL"
+    },
+    {
+      "type": "header",
+      "content": "Header Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show Header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "header_logo_text",
+      "label": "Logo Text",
+      "default": "Walbayzon"
+    },
+    {
+      "type": "link_list",
+      "id": "header_menu",
+      "label": "Header Menu Link List"
+    },
+    {
+      "type": "text",
+      "id": "header_btn1_text",
+      "label": "Header Button 1 Text",
+      "default": "Sign In"
+    },
+    {
+      "type": "url",
+      "id": "header_btn1_url",
+      "label": "Header Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "header_btn2_text",
+      "label": "Header Button 2 Text",
+      "default": "Let's Connect"
+    },
+    {
+      "type": "url",
+      "id": "header_btn2_url",
+      "label": "Header Button 2 URL"
+    },
+    {
+      "type": "header",
+      "content": "Hero Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Hero Badge Text",
+      "default": "Trusted by 100+ category-leading brands"
+    },
+    {
+      "type": "html",
+      "id": "hero_headline",
+      "label": "Hero Headline HTML",
+      "default": "The <span class=\"inline-block rounded-xl bg-brand-orange px-2 py-0.5 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3\">#1 Trusted</span> partner in <span class=\"inline-block rounded-xl bg-brand-orange px-2 py-0.5 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3\">Brand Building</span>"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheading",
+      "label": "Hero Subheading",
+      "default": "Scale your business globally with Walbayzon — the marketplace growth partner behind India's most ambitious D2C brands."
+    },
+    {
+      "type": "text",
+      "id": "hero_btn1_text",
+      "label": "Hero Button 1 Text",
+      "default": "Get Started"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn1_url",
+      "label": "Hero Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_btn2_text",
+      "label": "Hero Button 2 Text",
+      "default": "See Our Services"
+    },
+    {
+      "type": "url",
+      "id": "hero_btn2_url",
+      "label": "Hero Button 2 Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_rating_desc",
+      "label": "Hero Rating Text",
+      "default": "Rated 4.9 by founders across 12+ categories"
+    },
+    {
+      "type": "header",
+      "content": "Platform Marquee Settings"
+    },
+    {
+      "type": "text",
+      "id": "marquee_title",
+      "label": "Marquee Title",
+      "default": "Platforms we dominate"
+    },
+    {
+      "type": "header",
+      "content": "Services Settings"
+    },
+    {
+      "type": "text",
+      "id": "services_sub",
+      "label": "Services Sub Title",
+      "default": "— What we do"
+    },
+    {
+      "type": "text",
+      "id": "services_title",
+      "label": "Services Section Title",
+      "default": "Every lever a modern brand needs to win the marketplace."
+    },
+    {
+      "type": "header",
+      "content": "Stats Settings"
+    },
+    {
+      "type": "text",
+      "id": "stats_sub",
+      "label": "Stats Sub Title",
+      "default": "— Numbers we love"
+    },
+    {
+      "type": "text",
+      "id": "stats_title",
+      "label": "Stats Section Title",
+      "default": "Results that compound, quarter after quarter."
+    },
+    {
+      "type": "textarea",
+      "id": "stats_desc",
+      "label": "Stats Description",
+      "default": "We measure success the same way you do — in profit, market share and durable brand equity."
+    },
+    {
+      "type": "header",
+      "content": "Process/How We Work Settings"
+    },
+    {
+      "type": "text",
+      "id": "process_sub",
+      "label": "Process Sub Title",
+      "default": "— How we work"
+    },
+    {
+      "type": "text",
+      "id": "process_title",
+      "label": "Process Section Title",
+      "default": "A simple, four-step path to category leadership."
+    },
+    {
+      "type": "header",
+      "content": "Testimonials Settings"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_sub",
+      "label": "Testimonials Sub Title",
+      "default": "— Founders on Walbayzon"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_title",
+      "label": "Testimonials Section Title",
+      "default": "The team founders trust to own their growth."
+    },
+    {
+      "type": "header",
+      "content": "Mastercourse Settings"
+    },
+    {
+      "type": "text",
+      "id": "course_sub",
+      "label": "Course Sub Title",
+      "default": "— Mastercourse"
+    },
+    {
+      "type": "text",
+      "id": "course_title",
+      "label": "Course Section Title",
+      "default": "Learn the playbook we use to scale brands to ₹100Cr."
+    },
+    {
+      "type": "textarea",
+      "id": "course_desc",
+      "label": "Course Description",
+      "default": "A no-fluff cohort program for founders and operators ready to take marketplace growth seriously."
+    },
+    {
+      "type": "text",
+      "id": "course_perk1",
+      "label": "Course Perk 1",
+      "default": "12 weeks of live, founder-led sessions"
+    },
+    {
+      "type": "text",
+      "id": "course_perk2",
+      "label": "Course Perk 2",
+      "default": "Frameworks used by 100+ scaling brands"
+    },
+    {
+      "type": "text",
+      "id": "course_perk3",
+      "label": "Course Perk 3",
+      "default": "Private Slack with the Walbayzon pod"
+    },
+    {
+      "type": "text",
+      "id": "course_perk4",
+      "label": "Course Perk 4",
+      "default": "Lifetime access to recordings & templates"
+    },
+    {
+      "type": "text",
+      "id": "course_btn_text",
+      "label": "Course CTA Button Text",
+      "default": "Apply for the next cohort"
+    },
+    {
+      "type": "url",
+      "id": "course_btn_url",
+      "label": "Course CTA Button Link"
+    },
+    {
+      "type": "text",
+      "id": "course_card_badge",
+      "label": "Course Card Badge",
+      "default": "Cohort 07 — March"
+    },
+    {
+      "type": "text",
+      "id": "course_card_duration",
+      "label": "Course Duration Number",
+      "default": "12"
+    },
+    {
+      "type": "text",
+      "id": "course_card_duration_unit",
+      "label": "Course Duration Unit",
+      "default": "wk"
+    },
+    {
+      "type": "text",
+      "id": "course_card_duration_lbl",
+      "label": "Course Duration Label",
+      "default": "Live cohort. Real catalogs. Measurable outcomes from week one."
+    },
+    {
+      "type": "text",
+      "id": "course_stat1_val",
+      "label": "Course Stat 1 Value",
+      "default": "2,400+"
+    },
+    {
+      "type": "text",
+      "id": "course_stat1_lbl",
+      "label": "Course Stat 1 Label",
+      "default": "Founders trained"
+    },
+    {
+      "type": "text",
+      "id": "course_stat2_val",
+      "label": "Course Stat 2 Value",
+      "default": "4.9 ★"
+    },
+    {
+      "type": "text",
+      "id": "course_stat2_lbl",
+      "label": "Course Stat 2 Label",
+      "default": "Average rating"
+    },
+    {
+      "type": "header",
+      "content": "Footer Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_footer",
+      "label": "Show Footer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "footer_bg_text",
+      "label": "Footer Background Text",
+      "default": "Walbayzon"
+    },
+    {
+      "type": "text",
+      "id": "footer_logo_text",
+      "label": "Footer Logo Text",
+      "default": "Walbayzon"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_logo_desc",
+      "label": "Footer Logo Description",
+      "default": "The #1 trusted partner in brand building. Helping ambitious founders scale on the world's largest marketplaces."
+    },
+    {
+      "type": "text",
+      "id": "footer_cta_sub",
+      "label": "Footer CTA Subtitle",
+      "default": "— Let's build together"
+    },
+    {
+      "type": "text",
+      "id": "footer_cta_title",
+      "label": "Footer CTA Title",
+      "default": "Ready to scale your brand globally?"
+    },
+    {
+      "type": "textarea",
+      "id": "footer_cta_desc",
+      "label": "Footer CTA Description",
+      "default": "Partner with the team behind 100+ category-leading brands on Amazon, Flipkart & beyond."
+    },
+    {
+      "type": "text",
+      "id": "footer_btn1_text",
+      "label": "Footer Button 1 Text",
+      "default": "Book a free strategy call"
+    },
+    {
+      "type": "url",
+      "id": "footer_btn1_url",
+      "label": "Footer Button 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "footer_btn2_text",
+      "label": "Footer Button 2 Text",
+      "default": "hello@walbayzon.com"
+    },
+    {
+      "type": "url",
+      "id": "footer_btn2_url",
+      "label": "Footer Button 2 URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "platform",
+      "name": "Marquee Platform",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "Amazon"
+        }
+      ]
+    },
+    {
+      "type": "service",
+      "name": "Service Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Service Card Emoji",
+          "default": "📦"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Service Card Tag/Index",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Service Title",
+          "default": "Marketplace Launch"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Service Description",
+          "default": "From listing to launch — we set up your storefront on every major marketplace with conversion-first creative."
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stats Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Stat Value",
+          "default": "₹500Cr+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat Label",
+          "default": "Brand revenue generated"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Process Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Step Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Discover"
+        },
+        {
+          "type": "textarea",
+          "id": "desc",
+          "label": "Step Description",
+          "default": "We audit your catalog, category and competitors to map the highest-leverage opportunities."
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial Card",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Aarav Mehta"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Author Role",
+          "default": "Founder, Crocon Home"
+        },
+        {
+          "type": "range",
+          "id": "stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Stars",
+          "default": 5
+        }
+      ]
+    },
+    {
+      "type": "footer_menu",
+      "name": "Footer Link Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column Title",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu Link List"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Full Landing",
+      "blocks": [
+        { "type": "platform", "settings": { "title": "Amazon" } },
+        { "type": "platform", "settings": { "title": "Flipkart" } },
+        { "type": "platform", "settings": { "title": "Meesho" } },
+        { "type": "platform", "settings": { "title": "JioMart" } },
+        { "type": "platform", "settings": { "title": "Ajio" } },
+        { "type": "platform", "settings": { "title": "Noon" } },
+        { "type": "platform", "settings": { "title": "Myntra" } },
+        { "type": "platform", "settings": { "title": "Blinkit" } },
+        { "type": "platform", "settings": { "title": "Zepto" } },
+        { "type": "platform", "settings": { "title": "Alibaba" } },
+        { "type": "platform", "settings": { "title": "Walmart" } },
+        { "type": "platform", "settings": { "title": "Nykaa" } },
+        
+        { "type": "service", "settings": { "emoji": "🛍️", "tag": "01", "title": "Marketplace Launch", "description": "From listing to launch — we set up your storefront on every major marketplace with conversion-first creative." } },
+        { "type": "service", "settings": { "emoji": "📈", "tag": "02", "title": "Performance Ads", "description": "Sponsored Products, Brands & Display campaigns engineered to lower ACoS and compound revenue month over month." } },
+        { "type": "service", "settings": { "emoji": "🌐", "tag": "03", "title": "Global Expansion", "description": "Take your brand to Amazon US, UAE, KSA and beyond with localized creative, compliance and logistics." } },
+        { "type": "service", "settings": { "emoji": "✨", "tag": "04", "title": "Brand & Creative", "description": "A+ Content, Storefronts, lifestyle photography and video that makes shoppers stop scrolling." } },
+        { "type": "service", "settings": { "emoji": "📊", "tag": "05", "title": "Analytics & Insights", "description": "Custom dashboards that turn marketplace chaos into clear, weekly decisions for your team." } },
+        { "type": "service", "settings": { "emoji": "🚀", "tag": "06", "title": "Quick Commerce", "description": "Win the 10-minute shelf on Blinkit, Zepto & Instamart with assortment and pricing strategy." } },
+        
+        { "type": "stat", "settings": { "value": "₹500Cr+", "label": "Brand revenue generated" } },
+        { "type": "stat", "settings": { "value": "100+", "label": "Brands scaled globally" } },
+        { "type": "stat", "settings": { "value": "12+", "label": "Marketplaces mastered" } },
+        { "type": "stat", "settings": { "value": "6.4×", "label": "Average ROAS delivered" } },
+        
+        { "type": "step", "settings": { "number": "01", "title": "Discover", "desc": "We audit your catalog, category and competitors to map the highest-leverage opportunities." } },
+        { "type": "step", "settings": { "number": "02", "title": "Design", "desc": "A 90-day growth blueprint with creative, ad strategy and operations — built around your margins." } },
+        { "type": "step", "settings": { "number": "03", "title": "Deploy", "desc": "Our pod ships listings, A+ content and campaigns. You see early signal in weeks, not quarters." } },
+        { "type": "step", "settings": { "number": "04", "title": "Scale", "desc": "Compounding optimisation — bidding, assortment, geo-expansion — until you own the shelf." } },
+        
+        { "type": "testimonial", "settings": { "author": "Aarav Mehta", "role": "Founder, Crocon Home", "quote": "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget.", "stars": 5 } },
+        { "type": "testimonial", "settings": { "author": "Priya Nair", "role": "CEO, Tindora Wellness", "quote": "The team feels like an extension of ours. Sharp creative, sharper numbers — and zero hand-holding required.", "stars": 5 } },
+        { "type": "testimonial", "settings": { "author": "Kabir Singh", "role": "CMO, Norta Beauty", "quote": "From India to UAE in 90 days. The localisation playbook is genuinely best in class.", "stars": 5 } },
+        
+        { "type": "footer_menu", "settings": { "title": "Services" } },
+        { "type": "footer_menu", "settings": { "title": "Company" } },
+        { "type": "footer_menu", "settings": { "title": "Learn" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

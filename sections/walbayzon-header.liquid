@@ -1,0 +1,237 @@
+{% comment %}
+  Walbayzon Navigation Header Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<header class="w-full border-b border-border/60 bg-background/80 backdrop-blur-xl sticky top-0 z-40 transition-all duration-300">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:h-20 lg:px-8">
+    
+    <!-- Logo & Live Indicator -->
+    <a href="{{ routes.root_url }}" class="flex items-center gap-2.5">
+      {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | image_url: width: 150 }}" 
+             alt="{{ shop.name }}" 
+             style="max-height: {{ section.settings.logo_max_height }}px;" 
+             class="object-contain" />
+      {% else %}
+        <div class="grid h-9 w-9 place-items-center rounded-full bg-primary" style="background-color: {{ section.settings.logo_bg_color }};">
+          <span class="font-display text-base font-black text-primary-foreground" style="color: {{ section.settings.logo_text_color }};">
+            {{ section.settings.logo_letter }}<span style="color: {{ section.settings.logo_dot_color }};">.</span>
+          </span>
+        </div>
+        <span class="font-display text-lg font-bold tracking-tight text-foreground">{{ section.settings.logo_text }}</span>
+      {% endif %}
+      
+      {% if section.settings.show_live_indicator %}
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style="background-color: {{ section.settings.live_indicator_color }};"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full" style="background-color: {{ section.settings.live_indicator_color }};"></span>
+        </span>
+      {% endif %}
+    </a>
+
+    <!-- Navigation Menu (Desktop) -->
+    <nav class="hidden items-center gap-1 lg:flex">
+      {% for link in linklists[section.settings.menu].links %}
+        <a href="{{ link.url }}" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors duration-200">
+          {{ link.title }}
+        </a>
+      {% else %}
+        <!-- Default Menu if none selected -->
+        <a href="#services" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">Services</a>
+        <a href="#mentorship" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">Mentorship</a>
+        <a href="#mastercourse" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">Mastercourse</a>
+        <a href="#resources" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground">Resources</a>
+      {% endfor %}
+    </nav>
+
+    <!-- Call to Actions -->
+    <div class="hidden items-center gap-5 lg:flex">
+      {% if section.settings.btn1_text != blank %}
+        <div class="relative">
+          <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground" style="background-color: {{ section.settings.shadow_color }};"></span>
+          <a href="{{ section.settings.btn1_url }}" class="relative inline-flex items-center rounded-full border-2 border-foreground bg-background px-5 py-2.5 text-sm font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5" style="border-color: {{ section.settings.border_color }};">
+            {{ section.settings.btn1_text }}
+          </a>
+        </div>
+      {% endif %}
+      {% if section.settings.btn2_text != blank %}
+        <div class="relative">
+          <span aria-hidden class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-foreground" style="background-color: {{ section.settings.shadow_color }};"></span>
+          <a href="{{ section.settings.btn2_url }}" class="relative inline-flex items-center rounded-full border-2 border-foreground px-5 py-2.5 text-sm font-semibold text-foreground transition-transform duration-150 hover:translate-x-1.5 hover:translate-y-1.5" style="background-color: {{ section.settings.btn2_bg }}; border-color: {{ section.settings.border_color }};">
+            {{ section.settings.btn2_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Mobile Menu Toggle Button -->
+    <button id="wb-mobile-toggle" class="lg:hidden flex flex-col gap-[5px] cursor-pointer p-1" aria-label="Toggle menu">
+      <span class="w-[22px] h-[2px] bg-foreground transition-all duration-300"></span>
+      <span class="w-[22px] h-[2px] bg-foreground transition-all duration-300"></span>
+      <span class="w-[22px] h-[2px] bg-foreground transition-all duration-300"></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="wb-mobile-menu" class="hidden lg:hidden border-t border-border/60 bg-background/95 backdrop-blur-xl px-5 py-4 space-y-3 shadow-md absolute left-0 right-0 top-16 z-50">
+    {% for link in linklists[section.settings.menu].links %}
+      <a href="{{ link.url }}" class="block text-[15px] font-semibold text-foreground/80 py-2 hover:text-primary transition-colors">
+        {{ link.title }}
+      </a>
+    {% else %}
+      <a href="#services" class="block text-[15px] font-semibold text-foreground/80 py-2 hover:text-primary transition-colors">Services</a>
+      <a href="#mentorship" class="block text-[15px] font-semibold text-foreground/80 py-2 hover:text-primary transition-colors">Mentorship</a>
+      <a href="#mastercourse" class="block text-[15px] font-semibold text-foreground/80 py-2 hover:text-primary transition-colors">Mastercourse</a>
+      <a href="#resources" class="block text-[15px] font-semibold text-foreground/80 py-2 hover:text-primary transition-colors">Resources</a>
+    {% endfor %}
+    <div class="pt-4 flex flex-col gap-4 border-t border-border/60">
+      {% if section.settings.btn1_text != blank %}
+        <a href="{{ section.settings.btn1_url }}" class="w-full text-center inline-flex justify-center items-center rounded-full border-2 border-foreground bg-background px-5 py-2.5 text-sm font-semibold text-foreground">
+          {{ section.settings.btn1_text }}
+        </a>
+      {% endif %}
+      {% if section.settings.btn2_text != blank %}
+        <a href="{{ section.settings.btn2_url }}" class="w-full text-center inline-flex justify-center items-center rounded-full border-2 border-foreground px-5 py-2.5 text-sm font-semibold text-foreground" style="background-color: {{ section.settings.btn2_bg }};">
+          {{ section.settings.btn2_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.getElementById('wb-mobile-toggle');
+    const menu = document.getElementById('wb-mobile-menu');
+    if(toggle && menu) {
+      toggle.addEventListener('click', function() {
+        menu.classList.toggle('hidden');
+        const lines = toggle.querySelectorAll('span');
+        if(lines.length === 3) {
+          lines[0].classList.toggle('rotate-45');
+          lines[0].classList.toggle('translate-y-[7px]');
+          lines[1].classList.toggle('opacity-0');
+          lines[2].classList.toggle('-rotate-45');
+          lines[2].classList.toggle('-translate-y-[7px]');
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Walbayzon Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo Max Height",
+      "default": 36
+    },
+    {
+      "type": "text",
+      "id": "logo_letter",
+      "label": "Logo Single Letter (Fall back)",
+      "default": "W"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text (Fall back)",
+      "default": "Walbayzon"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_live_indicator",
+      "label": "Show Live Indicator Dot",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "live_indicator_color",
+      "label": "Live Indicator Dot Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "logo_bg_color",
+      "label": "Logo Icon Background Color",
+      "default": "#2c221e"
+    },
+    {
+      "type": "color",
+      "id": "logo_text_color",
+      "label": "Logo Icon Text Color",
+      "default": "#fbf8f5"
+    },
+    {
+      "type": "color",
+      "id": "logo_dot_color",
+      "label": "Logo Icon Dot Color",
+      "default": "#f97316"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Section Border Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "color",
+      "id": "shadow_color",
+      "label": "Button Shadow Color",
+      "default": "#1d1d1b"
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "Sign In"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text",
+      "default": "Let's Connect"
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "color",
+      "id": "btn2_bg",
+      "label": "Button 2 Background Color",
+      "default": "#f97316"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Header"
+    }
+  ]
+}
+{% endschema %}
