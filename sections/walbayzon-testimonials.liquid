@@ -3,46 +3,7 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<!-- Google Fonts and Tailwind CSS -->
-<link rel="preconnect" href="https://api.fontshare.com" />
-<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" />
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  if (typeof tailwind !== 'undefined') {
-    tailwind.config = {
-      corePlugins: {
-        preflight: false, // Prevents resetting your theme's default settings
-      },
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-            sans: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
-          },
-          colors: {
-            background: 'oklch(0.99 0.005 80)',
-            foreground: 'oklch(0.18 0.022 55)',
-            card: '#ffffff',
-            border: 'oklch(0.91 0.015 70)',
-            secondary: 'oklch(0.96 0.015 75)',
-            muted: { DEFAULT: 'oklch(0.955 0.012 75)', foreground: 'oklch(0.45 0.018 55)' },
-            primary: { DEFAULT: 'oklch(0.225 0.028 55)', foreground: 'oklch(0.985 0.008 80)' },
-            brand: {
-              coffee: 'oklch(0.225 0.028 55)',
-              orange: 'oklch(0.78 0.16 65)',
-              'orange-soft': 'oklch(0.92 0.07 75)',
-              cream: 'oklch(0.985 0.008 80)',
-            },
-          },
-          borderRadius: { '3xl': '1.625rem' },
-        }
-      }
-    };
-  }
-</script>
-
-
-<section class="bg-secondary/60 py-16 sm:py-24 lg:py-32">
+<section class="bg-soft-pearl py-16 sm:py-24 lg:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
     
     <!-- Header -->
@@ -60,7 +21,7 @@
     <!-- Testimonials Grid -->
     <div id="testimonials-grid" class="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
       {% for block in section.blocks %}
-        <figure class="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 sm:p-8" {{ block.shopify_attributes }}>
+        <figure class="flex flex-col justify-between rounded-3xl border border-border glass-card p-6 sm:p-8 card-lift" {{ block.shopify_attributes }}>
           <div>
             <!-- Quote Icon -->
             <span style="color: {{ section.settings.accent_color }};">
@@ -93,12 +54,12 @@
         </figure>
       {% else %}
         <!-- Fallbacks -->
-        {% assign quotes = "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget.,The team feels like an extension of ours. Sharp creative, sharper numbers — and zero hand-holding required.,From India to UAE in 90 days. The localisation playbook is genuinely best in class." | split: "," %}
-        {% assign names = "Aarav Mehta,Priya Nair,Kabir Singh" | split: "," %}
-        {% assign roles = "Founder, Crocon Home,CEO, Tindora Wellness,CMO, Norta Beauty" | split: "," %}
+        {% assign quotes = "Walbayzon rebuilt our Amazon presence from the ground up. We 4× revenue in eight months without expanding our ad budget.|The team feels like an extension of ours. Sharp creative, sharper numbers — and zero hand-holding required.|From India to UAE in 90 days. The localisation playbook is genuinely best in class." | split: "|" %}
+        {% assign names = "Aarav Mehta|Priya Nair|Kabir Singh" | split: "|" %}
+        {% assign roles = "Founder, Crocon Home|CEO, Tindora Wellness|CMO, Norta Beauty" | split: "|" %}
         {% for quote in quotes %}
           {% assign idx = forloop.index0 %}
-          <figure class="flex flex-col justify-between rounded-3xl border border-border bg-card p-6 sm:p-8">
+          <figure class="flex flex-col justify-between rounded-3xl border border-border glass-card p-6 sm:p-8 card-lift">
             <div>
               <span style="color: {{ section.settings.accent_color }};">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
