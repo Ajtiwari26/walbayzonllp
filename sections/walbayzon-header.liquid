@@ -3,6 +3,45 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
+<!-- Google Fonts and Tailwind CSS -->
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  if (typeof tailwind !== 'undefined') {
+    tailwind.config = {
+      corePlugins: {
+        preflight: false, // Prevents resetting your theme's default settings
+      },
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
+            sans: ['Satoshi','General Sans','ui-sans-serif','system-ui','sans-serif'],
+          },
+          colors: {
+            background: 'oklch(0.99 0.005 80)',
+            foreground: 'oklch(0.18 0.022 55)',
+            card: '#ffffff',
+            border: 'oklch(0.91 0.015 70)',
+            secondary: 'oklch(0.96 0.015 75)',
+            muted: { DEFAULT: 'oklch(0.955 0.012 75)', foreground: 'oklch(0.45 0.018 55)' },
+            primary: { DEFAULT: 'oklch(0.225 0.028 55)', foreground: 'oklch(0.985 0.008 80)' },
+            brand: {
+              coffee: 'oklch(0.225 0.028 55)',
+              orange: 'oklch(0.78 0.16 65)',
+              'orange-soft': 'oklch(0.92 0.07 75)',
+              cream: 'oklch(0.985 0.008 80)',
+            },
+          },
+          borderRadius: { '3xl': '1.625rem' },
+        }
+      }
+    };
+  }
+</script>
+
+
 <header class="w-full border-b border-border/60 bg-background/80 backdrop-blur-xl sticky top-0 z-40 transition-all duration-300">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:h-20 lg:px-8">
     
