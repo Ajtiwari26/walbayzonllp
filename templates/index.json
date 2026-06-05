@@ -1,0 +1,57 @@
+{
+  "name": "index",
+  "sections": {
+    "announcement": {
+      "type": "walbayzon-announcement",
+      "settings": {}
+    },
+    "header": {
+      "type": "walbayzon-header",
+      "settings": {}
+    },
+    "hero": {
+      "type": "walbayzon-hero",
+      "settings": {}
+    },
+    "marquee": {
+      "type": "walbayzon-marquee",
+      "settings": {}
+    },
+    "services": {
+      "type": "walbayzon-services",
+      "settings": {}
+    },
+    "stats": {
+      "type": "walbayzon-stats",
+      "settings": {}
+    },
+    "process": {
+      "type": "walbayzon-process",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "walbayzon-testimonials",
+      "settings": {}
+    },
+    "mastercourse": {
+      "type": "walbayzon-mastercourse",
+      "settings": {}
+    },
+    "footer": {
+      "type": "walbayzon-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement",
+    "header",
+    "hero",
+    "marquee",
+    "services",
+    "stats",
+    "process",
+    "testimonials",
+    "mastercourse",
+    "footer"
+  ]
+}
