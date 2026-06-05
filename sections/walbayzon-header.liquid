@@ -3,7 +3,42 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<header class="sticky top-0 left-0 right-0 z-40 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl transition-all duration-300">
+<style>
+  /* Keep layout space for the fixed header */
+  #shopify-section-header,
+  [id*="--header"] {
+    height: 64px;
+    z-index: 50;
+  }
+  @media (min-width: 1024px) {
+    #shopify-section-header,
+    [id*="--header"] {
+      height: 80px;
+    }
+  }
+  
+  .walbayzon-header-el {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    width: 100%;
+    background-color: oklch(0.99 0.005 80 / 0.8) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border-bottom: 1px solid oklch(0.91 0.015 70 / 0.6) !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Add dynamic shadow on scroll */
+  .walbayzon-header-el.is-scrolled {
+    background-color: oklch(0.99 0.005 80 / 0.85) !important;
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+  }
+</style>
+
+<header class="walbayzon-header-el w-full">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:h-20 lg:px-8">
     
     <!-- Logo & Live Indicator -->
@@ -11,6 +46,8 @@
       {% if section.settings.logo != blank %}
         <img src="{{ section.settings.logo | image_url: width: 150 }}" 
              alt="{{ shop.name }}" 
+             width="{{ section.settings.logo.width }}"
+             height="{{ section.settings.logo.height }}"
              style="max-height: {{ section.settings.logo_max_height }}px;" 
              class="object-contain" />
       {% else %}
@@ -114,6 +151,25 @@
           lines[2].classList.toggle('-translate-y-[7px]');
         }
       });
+    }
+
+    // Scroll listener for sticky glassy effect using fixed positioning
+    const header = document.querySelector('.walbayzon-header-el');
+    const announcement = document.querySelector('.walbayzon-announcement');
+    if (header) {
+      const handleScroll = () => {
+        const announcementHeight = announcement ? announcement.offsetHeight : 0;
+        if (window.scrollY > announcementHeight) {
+          header.classList.add('is-scrolled');
+          header.style.top = '0px';
+        } else {
+          header.classList.remove('is-scrolled');
+          header.style.top = `${announcementHeight - window.scrollY}px`;
+        }
+      };
+      handleScroll();
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('resize', handleScroll);
     }
   });
 </script>
