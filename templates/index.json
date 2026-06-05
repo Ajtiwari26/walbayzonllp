@@ -39,6 +39,31 @@
     },
     "footer": {
       "type": "walbayzon-footer",
+      "blocks": {
+        "services": {
+          "type": "menu_col",
+          "settings": {
+            "title": "Services"
+          }
+        },
+        "company": {
+          "type": "menu_col",
+          "settings": {
+            "title": "Company"
+          }
+        },
+        "learn": {
+          "type": "menu_col",
+          "settings": {
+            "title": "Learn"
+          }
+        }
+      },
+      "block_order": [
+        "services",
+        "company",
+        "learn"
+      ],
       "settings": {}
     }
   },

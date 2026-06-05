@@ -4,14 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="#00e785">
+    <meta name="theme-color" content="#f97316">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <!-- Google Fonts: Outfit (headings) + DM Sans (body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Fontshare: Satoshi + General Sans -->
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&amp;f[]=general-sans@400,500,600,700&amp;display=swap">
 
     <title>{{ page_title }}</title>
 
@@ -28,31 +27,38 @@
         theme: {
           extend: {
             fontFamily: {
-              outfit: ['"Outfit"', 'sans-serif'],
-              dmsans: ['"DM Sans"', 'sans-serif'],
-              mono: ['"JetBrains Mono"', 'monospace'],
-              display: ['"Outfit"', 'sans-serif'],
-              sans: ['"DM Sans"', 'sans-serif']
+              display: ['Satoshi', 'General Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              sans: ['Satoshi', 'General Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace']
             },
             colors: {
-              primary: {
-                DEFAULT: '#00e785',
-                hover: '#05d97f'
+              background: 'oklch(0.99 0.005 80)',
+              foreground: 'oklch(0.18 0.022 55)',
+              card: '#ffffff',
+              border: 'oklch(0.91 0.015 70)',
+              secondary: 'oklch(0.96 0.015 75)',
+              muted: {
+                DEFAULT: 'oklch(0.955 0.012 75)',
+                foreground: 'oklch(0.45 0.018 55)'
               },
-              secondary: '#4fc3ff',
-              'accent-warning': '#ffe96e',
-              charcoal: '#1d1d1b',
-              'pastel-blue': '#e3f5ff',
-              'pastel-green': '#cafde8',
-              'pastel-yellow': '#fff7d6',
-              'pastel-pink': '#fde8ff',
-              'pastel-red': '#fee2e2',
-              'soft-pearl': '#f6f6f6',
-              'soft-border': '#e5e7eb',
-              background: '#ffffff',
-              foreground: '#1d1d1b',
-              border: '#e5e7eb',
-              'brand-orange': '#00e785' /* Map brand-orange to primary green as in the original design system */
+              primary: {
+                DEFAULT: 'oklch(0.225 0.028 55)',
+                foreground: 'oklch(0.985 0.008 80)'
+              },
+              brand: {
+                coffee: 'oklch(0.225 0.028 55)',
+                orange: 'oklch(0.78 0.16 65)',
+                'orange-soft': 'oklch(0.92 0.07 75)',
+                cream: 'oklch(0.985 0.008 80)'
+              },
+              // Compatibility classes
+              'brand-orange': 'oklch(0.78 0.16 65)',
+              'brand-orange-soft': 'oklch(0.92 0.07 75)',
+              charcoal: 'oklch(0.18 0.022 55)',
+              'soft-border': 'oklch(0.91 0.015 70)'
+            },
+            borderRadius: {
+              '3xl': '1.625rem'
             }
           }
         }
@@ -60,174 +66,57 @@
     </script>
 
     <style>
-      /* ── CSS Custom Properties (Design Tokens matching original index.css) ── */
+      /* ── CSS Custom Properties ── */
       :root {
-        --color-primary: #00e785;
-        --color-primary-hover: #05d97f;
-        --color-secondary: #4fc3ff;
-        --color-accent-warning: #ffe96e;
-        --color-charcoal: #1d1d1b;
-        --color-pastel-blue: #e3f5ff;
-        --color-pastel-green: #cafde8;
-        --color-pastel-yellow: #fff7d6;
-        --color-pastel-pink: #fde8ff;
-        --color-pastel-red: #fee2e2;
-        --color-soft-pearl: #f6f6f6;
-        --color-soft-border: #e5e7eb;
+        --color-primary: oklch(0.225 0.028 55);
+        --color-primary-hover: oklch(0.18 0.022 55);
+        --color-secondary: oklch(0.96 0.015 75);
+        --color-charcoal: oklch(0.18 0.022 55);
+        --color-soft-border: oklch(0.91 0.015 70);
+        --color-brand-orange: oklch(0.78 0.16 65);
+        --color-brand-orange-soft: oklch(0.92 0.07 75);
 
-        --font-outfit: "Outfit", sans-serif;
-        --font-dmsans: "DM Sans", sans-serif;
+        --font-outfit: 'Satoshi', 'General Sans', sans-serif;
+        --font-dmsans: 'Satoshi', 'General Sans', sans-serif;
         --font-mono: "JetBrains Mono", monospace;
       }
 
-      /* ── Reset & Base Typography ────────────────────────────────── */
+      /* ── Reset & Base Typography ── */
       html {
         scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
 
       body {
-        font-family: var(--font-dmsans);
-        color: var(--color-charcoal);
-        background-color: #ffffff;
+        font-family: 'Satoshi', 'General Sans', ui-sans-serif, system-ui, sans-serif;
+        color: oklch(0.18 0.022 55);
+        background-color: oklch(0.99 0.005 80);
         overflow-x: hidden;
         margin: 0;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
       }
 
       h1, h2, h3, h4, h5, h6 {
-        font-family: var(--font-outfit);
+        font-family: 'Satoshi', 'General Sans', sans-serif;
+        letter-spacing: -0.02em;
+        font-weight: 700;
       }
 
-      /* ── Reset links to prevent blue/underline leakage from Shopify ── */
       a {
         color: inherit;
         text-decoration: none;
         transition: color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
       }
-      a:hover {
-        color: var(--color-primary);
-      }
 
-      /* Specific overrides to prevent Shopify stylesheets from turning header/footer links blue */
-      header a:not(.btn-shimmer):not([class*="bg-"]) {
-        color: #1d1d1b !important;
-      }
+      /* Specific overrides to prevent Shopify theme conflict colors */
       header a:not(.btn-shimmer):not([class*="bg-"]):hover {
-        color: #00e785 !important;
-      }
-      footer a:not(.group) {
-        color: rgba(255, 255, 255, 0.5) !important;
+        color: oklch(0.78 0.16 65) !important;
       }
       footer a:not(.group):hover {
-        color: #00e785 !important;
+        color: oklch(0.78 0.16 65) !important;
       }
 
-      /* ── Floating Icon Movements (wati.io's bob effect) ───────────── */
-      @keyframes smoothMoveLeftRight {
-        0%   { transform: translateX(0); }
-        50%  { transform: translateX(6px); }
-        100% { transform: translateX(0); }
-      }
-
-      @keyframes smoothMoveRightLeft {
-        0%   { transform: translateX(0); }
-        50%  { transform: translateX(-6px); }
-        100% { transform: translateX(0); }
-      }
-
-      @keyframes smoothMoveTopBottom {
-        0%   { transform: translateY(0); }
-        50%  { transform: translateY(-6px); }
-        100% { transform: translateY(0); }
-      }
-
-      @keyframes smoothMoveBottomTop {
-        0%   { transform: translateY(0); }
-        50%  { transform: translateY(6px); }
-        100% { transform: translateY(0); }
-      }
-
-      .float-lr      { animation: smoothMoveLeftRight  2.9s infinite ease-in-out; }
-      .float-rl      { animation: smoothMoveRightLeft  3.2s infinite ease-in-out; }
-      .float-tb      { animation: smoothMoveTopBottom  3.0s infinite ease-in-out; }
-      .float-bt      { animation: smoothMoveBottomTop  3.0s infinite ease-in-out; }
-      .float-lr-slow { animation: smoothMoveLeftRight 4.2s infinite ease-in-out; }
-
-      /* ── Zoom/Breathing Pulse ─────────────────────────────────────── */
-      @keyframes zoomInOut {
-        0%   { transform: scale(1); }
-        50%  { transform: scale(1.1); }
-        100% { transform: scale(1); }
-      }
-
-      @keyframes zoomInOutSubtle {
-        0%   { transform: scale(1); }
-        50%  { transform: scale(1.03); }
-        100% { transform: scale(1); }
-      }
-
-      .breathe-fast   { animation: zoomInOut 2.0s infinite ease-in-out; }
-      .breathe-med    { animation: zoomInOut 2.5s infinite ease-in-out; }
-      .breathe-slow   { animation: zoomInOut 3.0s infinite ease-in-out; }
-      .breathe-subtle { animation: zoomInOutSubtle 3.0s infinite ease-in-out; }
-
-      /* ── Gradient Text Sweep ─────────────────────────────────────── */
-      @keyframes gradientSweep {
-        0%   { background-position: 0% 50%; }
-        50%  { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-      }
-
-      .gradient-text-animated {
-        background: linear-gradient(270deg, #4FC3FF 0%, #00E785 50%, #4A00E0 100%);
-        background-size: 200% 200%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: gradientSweep 4s ease infinite;
-      }
-
-      /* ── Background Floating Blobs ────────────────────────────────── */
-      @keyframes floatBlob {
-        0%   { transform: translate(0, 0) scale(1); }
-        33%  { transform: translate(30px, -20px) scale(1.05); }
-        66%  { transform: translate(-15px, 15px) scale(0.98); }
-        100% { transform: translate(0, 0) scale(1); }
-      }
-
-      .blob-glow {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(80px);
-        opacity: 0.15;
-        pointer-events: none;
-        will-change: transform;
-        animation: floatBlob 14s ease-in-out infinite alternate;
-        z-index: -10;
-      }
-
-      .blob-1 {
-        width: 500px; height: 500px;
-        background: radial-gradient(circle, #00e785 0%, transparent 70%);
-        top: -150px; right: -100px;
-      }
-
-      .blob-2 {
-        width: 450px; height: 450px;
-        background: radial-gradient(circle, #4fc3ff 0%, transparent 70%);
-        bottom: 300px; left: -100px;
-        animation-delay: -5s;
-      }
-
-      .blob-3 {
-        width: 350px; height: 350px;
-        background: radial-gradient(circle, #ffe96e 0%, transparent 70%);
-        top: 50%; right: 10%;
-        animation-delay: -9s;
-      }
-
-      /* ── Concentric Pulse Ring (Live Dot) ────────────────────────── */
+      /* Concentric Pulse Ring (Live Dot) */
       @keyframes pulseRing {
         0%   { transform: scale(1); opacity: 0.8; }
         100% { transform: scale(2.4); opacity: 0; }
@@ -236,7 +125,7 @@
       .live-dot {
         width: 8px; height: 8px;
         border-radius: 50%;
-        background: #10b981;
+        background: oklch(0.78 0.16 65);
         position: relative;
         display: inline-block;
         flex-shrink: 0;
@@ -247,11 +136,11 @@
         position: absolute;
         inset: -3px;
         border-radius: 50%;
-        border: 2px solid #10b981;
+        border: 2px solid oklch(0.78 0.16 65);
         animation: pulseRing 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
 
-      /* ── Shimmer Button Effect ───────────────────────────────────── */
+      /* Shimmer Button Effect */
       .btn-shimmer {
         position: relative;
         overflow: hidden;
@@ -270,7 +159,7 @@
         left: 100%;
       }
 
-      /* ── Scroll Reveal System ────────────────────────────────────── */
+      /* Scroll Reveal System */
       .reveal {
         opacity: 0;
         transform: translateY(30px);
@@ -311,7 +200,7 @@
         transform: translateY(0) translateX(0) scale(1) !important;
       }
 
-      /* ── Infinite Marquee ────────────────────────────────────────── */
+      /* Infinite Marquee */
       @keyframes marquee {
         0%   { transform: translateX(0%); }
         100% { transform: translateX(-50%); }
@@ -327,7 +216,7 @@
         animation-play-state: paused;
       }
 
-      /* ── Glassmorphic card ────────────────────────────────────────── */
+      /* Glassmorphic card */
       .glass-card {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
@@ -335,7 +224,7 @@
         border: 1px solid rgba(255, 255, 255, 0.3);
       }
 
-      /* ── Smooth card hover lift ──────────────────────────────────── */
+      /* Smooth card hover lift */
       .card-lift {
         transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                     box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -347,7 +236,7 @@
         box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
       }
 
-      /* ── Timeline connector ──────────────────────────────────────── */
+      /* Timeline connector */
       .timeline-line {
         position: absolute;
         top: 50%; left: 0; right: 0;
@@ -362,11 +251,6 @@
   </head>
 
   <body>
-    <!-- Floating Background Blobs -->
-    <div class="blob-glow blob-1"></div>
-    <div class="blob-glow blob-2"></div>
-    <div class="blob-glow blob-3"></div>
-
     <main role="main" id="MainContent" class="focus-none" tabindex="-1">
       {{ content_for_layout }}
     </main>
