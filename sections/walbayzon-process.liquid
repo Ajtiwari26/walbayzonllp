@@ -46,7 +46,7 @@
           </p>
 
         </div>
-      {% empty %}
+      {% else %}
         <!-- Fallbacks -->
         {% assign steps_num = "01,02,03,04" | split: "," %}
         {% assign steps_title = "Discover,Design,Deploy,Scale" | split: "," %}

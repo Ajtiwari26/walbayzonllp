@@ -29,7 +29,7 @@
               {% endif %}
               <span>{{ block.settings.platform_name }}</span>
             </div>
-          {% empty %}
+          {% else %}
             <!-- Fallbacks -->
             {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
             {% for item in fallbacks %}
@@ -49,7 +49,7 @@
               {% endif %}
               <span>{{ block.settings.platform_name }}</span>
             </div>
-          {% empty %}
+          {% else %}
             {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
             {% for item in fallbacks %}
               <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80">

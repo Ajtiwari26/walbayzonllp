@@ -37,7 +37,7 @@
               {{ block.settings.stat_label }}
             </div>
           </div>
-        {% empty %}
+        {% else %}
           <!-- Default Fallbacks -->
           {% assign default_stats_val = "₹500Cr+,100+,12+,6.4×" | split: "," %}
           {% assign default_stats_lbl = "Brand revenue generated,Brands scaled globally,Marketplaces mastered,Average ROAS delivered" | split: "," %}
