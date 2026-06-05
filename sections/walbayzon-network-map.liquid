@@ -86,7 +86,7 @@
           {%- assign default_marketplaces = "Walmart,Amazon US,Shopify,eBay US,Etsy,Alibaba,Amazon UAE,eBay AU" | split: "," -%}
           {%- assign default_marketplaces_svg = "walmart,amazon,shopify,ebay,etsy,alibaba,amazon,ebay" | split: "," -%}
 
-          {%- comment -%} Gather blocks to arrays {%- endcomment -%}
+          {% comment %} Gather blocks to arrays {% endcomment %}
           <!-- Connection lines & animating signal flows -->
           <!-- 1. Left Client Nodes to Center (India) Connection Lines -->
           {%- for i in (0..7) -%}
