@@ -7,12 +7,11 @@
   
   <!-- Massive Background Text (Goprotoz-style fade) -->
   {% if section.settings.bg_text != blank %}
-    <div class="mx-auto max-w-7xl px-4 pt-12 sm:px-5 sm:pt-16 lg:px-8 lg:pt-24 select-none pointer-events-none" style="container-type:inline-size">
+    <div class="w-full pt-12 sm:pt-16 lg:pt-24 select-none pointer-events-none" style="container-type:inline-size">
       <div class="w-full whitespace-nowrap font-display font-bold leading-[0.75] select-none"
-           style="font-size:17cqw;
-                  letter-spacing:-0.06em;
-                  text-align:justify;
-                  padding-left:8%;
+           style="font-size:19cqw;
+                  letter-spacing:-0.04em;
+                  text-align:center;
                   color: {{ section.settings.bg_text_color | default: '#ffffff' }};
                   opacity: 0.18;
                   -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgb(0,0,0) 100%);
@@ -85,7 +84,7 @@
           {{ section.settings.brand_desc }}
         </p>
         <div class="mt-4 text-[12px] font-semibold opacity-50 font-mono">
-          📧 contact@walbayzon.com | 📞 +91 99195-78901
+          📧 {{ section.settings.contact_email | default: 'contact@walbayzon.com' }} | 📞 {{ section.settings.contact_phone | default: '+91 99195-78901' }}
         </div>
         
         <!-- Social Icons -->
@@ -214,6 +213,18 @@
       "id": "brand_desc",
       "label": "Brand Description",
       "default": "Scaling Indian brands on global marketplaces with strategic execution, FBA logistics management, and ROAS-focused advertising."
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact Email",
+      "default": "contact@walbayzon.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Contact Phone",
+      "default": "+91 99195-78901"
     },
     {
       "type": "text",

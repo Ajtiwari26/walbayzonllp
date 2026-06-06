@@ -78,6 +78,10 @@
         "bg_gradient": "linear-gradient(to bottom, #fdfbf8 0%, #f7f3ed 100%)"
       }
     },
+    "clients": {
+      "type": "walbayzon-clients",
+      "settings": { }
+    },
     "services": {
       "type": "walbayzon-services",
       "settings": {
@@ -218,6 +222,7 @@
     "hero",
     "marquee",
     "network-map",
+    "clients",
     "services",
     "stats",
     "process",

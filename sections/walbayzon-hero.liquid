@@ -10,112 +10,133 @@
 
   <!-- Floating Chat Birds Background Layer -->
   <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
-    
-    <!-- Bird 1 (Orange, fast path bottom-left to top-right) -->
-    <div class="chat-bird bird-path-1 text-brand-orange">
-      <div class="bird-body">
-        <div class="wing left-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
+    {% assign bird_blocks = section.blocks | where: "type", "chat_bird" %}
+    {% if bird_blocks.size > 0 %}
+      {% for block in bird_blocks %}
+        <div class="chat-bird {{ block.settings.path }} text-brand-{{ block.settings.color }}" {{ block.shopify_attributes }}>
+          <div class="bird-body">
+            <div class="wing left-wing">
+              <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+                <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+              </svg>
+            </div>
+            <div class="bird-msg border-brand-{{ block.settings.color }}/20 text-brand-coffee">
+              {{ block.settings.message }}
+            </div>
+            <div class="wing right-wing">
+              <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+                <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+              </svg>
+            </div>
+          </div>
         </div>
-        <div class="bird-msg border-brand-orange/20 text-brand-coffee">
-          +400% Revenue
-        </div>
-        <div class="wing right-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bird 2 (Coffee, slow path bottom-right to top-left) -->
-    <div class="chat-bird bird-path-2 text-brand-coffee">
-      <div class="bird-body">
-        <div class="wing left-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
-        </div>
-        <div class="bird-msg border-brand-coffee/20 text-brand-coffee">
-          Zero hand-holding
-        </div>
-        <div class="wing right-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bird 3 (Orange, floating left) -->
-    <div class="chat-bird bird-path-3 text-brand-orange">
-      <div class="bird-body">
-        <div class="wing left-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
-        </div>
-        <div class="bird-msg border-brand-orange/20 text-brand-coffee">
-          UAE in 90 Days
-        </div>
-        <div class="wing right-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
+      {% endfor %}
+    {% else %}
+      <!-- Bird 1 (Orange, fast path bottom-left to top-right) -->
+      <div class="chat-bird bird-path-1 text-brand-orange">
+        <div class="bird-body">
+          <div class="wing left-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+          <div class="bird-msg border-brand-orange/20 text-brand-coffee">
+            +400% Revenue
+          </div>
+          <div class="wing right-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Bird 4 (Coffee, floating right) -->
-    <div class="chat-bird bird-path-4 text-brand-coffee">
-      <div class="bird-body">
-        <div class="wing left-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
-        </div>
-        <div class="bird-msg border-brand-coffee/20 text-brand-coffee">
-          Global Scale
-        </div>
-        <div class="wing right-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
+      <!-- Bird 2 (Coffee, slow path bottom-right to top-left) -->
+      <div class="chat-bird bird-path-2 text-brand-coffee">
+        <div class="bird-body">
+          <div class="wing left-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+          <div class="bird-msg border-brand-coffee/20 text-brand-coffee">
+            Zero hand-holding
+          </div>
+          <div class="wing right-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Bird 5 (Orange, middle path left to right) -->
-    <div class="chat-bird bird-path-5 text-brand-orange">
-      <div class="bird-body">
-        <div class="wing left-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
-        </div>
-        <div class="bird-msg border-brand-orange/20 text-brand-coffee">
-          Amazon US & UK
-        </div>
-        <div class="wing right-wing">
-          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
-            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
-          </svg>
+      <!-- Bird 3 (Orange, floating left) -->
+      <div class="chat-bird bird-path-3 text-brand-orange">
+        <div class="bird-body">
+          <div class="wing left-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+          <div class="bird-msg border-brand-orange/20 text-brand-coffee">
+            UAE in 90 Days
+          </div>
+          <div class="wing right-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
 
+      <!-- Bird 4 (Coffee, floating right) -->
+      <div class="chat-bird bird-path-4 text-brand-coffee">
+        <div class="bird-body">
+          <div class="wing left-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+          <div class="bird-msg border-brand-coffee/20 text-brand-coffee">
+            Global Scale
+          </div>
+          <div class="wing right-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bird 5 (Orange, middle path left to right) -->
+      <div class="chat-bird bird-path-5 text-brand-orange">
+        <div class="bird-body">
+          <div class="wing left-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+          <div class="bird-msg border-brand-orange/20 text-brand-coffee">
+            Amazon US & UK
+          </div>
+          <div class="wing right-wing">
+            <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+              <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
   
   <div class="mx-auto max-w-7xl px-4 text-center fade-up relative z-10">
     
     <!-- Top badge -->
     {% if section.settings.badge_text != blank %}
-      <div class="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-3 py-1.5 text-[11px] font-medium text-foreground/70 backdrop-blur sm:px-4 sm:text-xs">
-        <span class="relative flex h-2 w-2">
+      <div class="inline-flex items-center gap-2.5 rounded-full border border-border bg-background/60 px-4 py-2 text-[13px] font-medium text-foreground/75 backdrop-blur sm:px-6 sm:py-2.5 sm:text-sm">
+        <span class="relative flex h-2.5 w-2.5">
           <span class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style="background-color: {{ section.settings.badge_dot_color }};"></span>
-          <span class="relative inline-flex h-2 w-2 rounded-full" style="background-color: {{ section.settings.badge_dot_color }};"></span>
+          <span class="relative inline-flex h-2.5 w-2.5 rounded-full" style="background-color: {{ section.settings.badge_dot_color }};"></span>
         </span>
         <span>{{ section.settings.badge_text }}</span>
       </div>
@@ -124,18 +145,27 @@
     <!-- Main heading -->
     <h1 class="mt-6 font-display text-[2.5rem] font-bold leading-[1.7] tracking-tight text-balance text-foreground sm:mt-7 sm:text-6xl md:text-7xl lg:text-[6.5rem] lg:leading-[1.6] hero-rotator-container">
       <span class="grid justify-center">
-        <!-- Slide 1 -->
-        <span class="hero-rotator-slide col-start-1 row-start-1 active transition-all duration-300">
-          The #1 <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Trusted partner</span> in <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Brand Building</span>.
-        </span>
-        <!-- Slide 2 -->
-        <span class="hero-rotator-slide col-start-1 row-start-1 pointer-events-none opacity-0 transition-all duration-300">
-          The #1 <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Top-rated expert</span> in <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Global Scaling</span>.
-        </span>
-        <!-- Slide 3 -->
-        <span class="hero-rotator-slide col-start-1 row-start-1 pointer-events-none opacity-0 transition-all duration-300">
-          The #1 <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Go-to choice</span> in <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Worldwide Growth</span>.
-        </span>
+        {% assign slide_blocks = section.blocks | where: "type", "headline_slide" %}
+        {% if slide_blocks.size > 0 %}
+          {% for block in slide_blocks %}
+            <span class="hero-rotator-slide col-start-1 row-start-1 {% if forloop.first %}active{% else %}pointer-events-none opacity-0{% endif %} transition-all duration-300" {{ block.shopify_attributes }}>
+              {{ block.settings.prefix_text }} <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">{{ block.settings.highlight1 }}</span> {{ block.settings.separator }} <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">{{ block.settings.highlight2 }}</span>.
+            </span>
+          {% endfor %}
+        {% else %}
+          <!-- Slide 1 -->
+          <span class="hero-rotator-slide col-start-1 row-start-1 active transition-all duration-300">
+            The #1 <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Trusted partner</span> in <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Brand Building</span>.
+          </span>
+          <!-- Slide 2 -->
+          <span class="hero-rotator-slide col-start-1 row-start-1 pointer-events-none opacity-0 transition-all duration-300">
+            The #1 <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Top-rated expert</span> in <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Global Scaling</span>.
+          </span>
+          <!-- Slide 3 -->
+          <span class="hero-rotator-slide col-start-1 row-start-1 pointer-events-none opacity-0 transition-all duration-300">
+            The #1 <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Go-to choice</span> in <span class="inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline hero-orange-block">Worldwide Growth</span>.
+          </span>
+        {% endif %}
       </span>
     </h1>
 
@@ -388,7 +418,7 @@
       "type": "text",
       "id": "btn1_text",
       "label": "Button 1 Text",
-      "default": "Get Started"
+      "default": "Contact Us"
     },
     {
       "type": "url",
@@ -449,9 +479,145 @@
       "default": "#fc9f30"
     }
   ],
+  "blocks": [
+    {
+      "type": "headline_slide",
+      "name": "Headline Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "prefix_text",
+          "label": "Prefix Text",
+          "default": "The #1"
+        },
+        {
+          "type": "text",
+          "id": "highlight1",
+          "label": "Highlight 1 (Orange Badge)",
+          "default": "Trusted partner"
+        },
+        {
+          "type": "text",
+          "id": "separator",
+          "label": "Separator",
+          "default": "in"
+        },
+        {
+          "type": "text",
+          "id": "highlight2",
+          "label": "Highlight 2 (Orange Badge)",
+          "default": "Brand Building"
+        }
+      ]
+    },
+    {
+      "type": "chat_bird",
+      "name": "Floating Chat Bird",
+      "settings": [
+        {
+          "type": "text",
+          "id": "message",
+          "label": "Message Text",
+          "default": "+400% Revenue"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Bird Color Accent",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "coffee", "label": "Coffee" }
+          ],
+          "default": "orange"
+        },
+        {
+          "type": "select",
+          "id": "path",
+          "label": "Flight/Float Path",
+          "options": [
+            { "value": "bird-path-1", "label": "1: Fast path bottom-left to top-right" },
+            { "value": "bird-path-2", "label": "2: Slow path bottom-right to top-left" },
+            { "value": "bird-path-3", "label": "3: Floating left" },
+            { "value": "bird-path-4", "label": "4: Floating right" },
+            { "value": "bird-path-5", "label": "5: Middle path left to right" }
+          ],
+          "default": "bird-path-1"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Walbayzon Hero"
+      "name": "Walbayzon Hero",
+      "blocks": [
+        {
+          "type": "headline_slide",
+          "settings": {
+            "prefix_text": "The #1",
+            "highlight1": "Trusted partner",
+            "separator": "in",
+            "highlight2": "Brand Building"
+          }
+        },
+        {
+          "type": "headline_slide",
+          "settings": {
+            "prefix_text": "The #1",
+            "highlight1": "Top-rated expert",
+            "separator": "in",
+            "highlight2": "Global Scaling"
+          }
+        },
+        {
+          "type": "headline_slide",
+          "settings": {
+            "prefix_text": "The #1",
+            "highlight1": "Go-to choice",
+            "separator": "in",
+            "highlight2": "Worldwide Growth"
+          }
+        },
+        {
+          "type": "chat_bird",
+          "settings": {
+            "message": "+400% Revenue",
+            "color": "orange",
+            "path": "bird-path-1"
+          }
+        },
+        {
+          "type": "chat_bird",
+          "settings": {
+            "message": "Zero hand-holding",
+            "color": "coffee",
+            "path": "bird-path-2"
+          }
+        },
+        {
+          "type": "chat_bird",
+          "settings": {
+            "message": "UAE in 90 Days",
+            "color": "orange",
+            "path": "bird-path-3"
+          }
+        },
+        {
+          "type": "chat_bird",
+          "settings": {
+            "message": "Global Scale",
+            "color": "coffee",
+            "path": "bird-path-4"
+          }
+        },
+        {
+          "type": "chat_bird",
+          "settings": {
+            "message": "Amazon US & UK",
+            "color": "orange",
+            "path": "bird-path-5"
+          }
+        }
+      ]
     }
   ]
 }

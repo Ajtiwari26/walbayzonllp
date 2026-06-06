@@ -1,0 +1,320 @@
+{%- assign client_blocks = section.blocks | where: "type", "client" -%}
+
+<style>
+  .clients-wrapper {
+    padding: 100px 0;
+    background: {{ section.settings.bg_color }};
+  }
+  .clients-title {
+    text-align: center;
+    font-family: Satoshi, sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: {{ section.settings.title_color }};
+    margin-bottom: 70px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .client-card {
+    border: 1px solid #e3ecff;
+    border-radius: 22px;
+    overflow: hidden;
+    text-align: center;
+    background: #ffffff;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .client-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(38, 24, 15, 0.08);
+    border-color: #fc9f30;
+  }
+  .client-image {
+    overflow: hidden;
+    height: 160px;
+    position: relative;
+    background-color: #f7f3ed;
+  }
+  .client-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .client-card:hover .client-image img {
+    transform: scale(1.06);
+  }
+  .client-logo {
+    width: 90px;
+    height: 90px;
+    background: #ffffff;
+    border-radius: 50%;
+    margin: -45px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e3ecff;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .client-card:hover .client-logo {
+    border-color: #fc9f30;
+    box-shadow: 0 10px 20px rgba(252, 159, 48, 0.1);
+  }
+  .client-logo img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+  }
+  .client-info {
+    padding: 15px 12px 20px;
+  }
+  .client-info h3 {
+    font-family: Satoshi, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #26180f;
+    margin-bottom: 4px;
+  }
+  .client-info span {
+    font-family: Satoshi, sans-serif;
+    font-size: 13px;
+    color: #777777;
+    display: block;
+  }
+  .client-icons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 18px;
+  }
+  .client-icons a {
+    color: #26180f;
+    text-decoration: none;
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  .client-icons a:hover {
+    transform: scale(1.2);
+    color: #fc9f30;
+  }
+
+  /* Media Queries */
+  @media (max-width: 1100px) {
+    .clients-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+  }
+  @media (max-width: 768px) {
+    .clients-wrapper {
+      padding: 60px 0;
+    }
+    .clients-title {
+      font-size: 28px;
+      margin-bottom: 40px;
+      padding: 0 20px;
+    }
+    .clients-grid {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .clients-grid::-webkit-scrollbar {
+      height: 4px;
+    }
+    .clients-grid::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .clients-grid::-webkit-scrollbar-thumb {
+      background: #fc9f30;
+      border-radius: 10px;
+    }
+    .client-card {
+      flex: 0 0 75%;
+      scroll-snap-align: start;
+    }
+  }
+  @media (max-width: 480px) {
+    .client-card {
+      flex: 0 0 85%;
+    }
+  }
+</style>
+
+<section class="clients-wrapper">
+  <div class="container-fluid">
+    <h2 class="clients-title">
+      {{ section.settings.title }}
+    </h2>
+
+    <div class="clients-grid">
+      {% if client_blocks.size > 0 %}
+        {% for block in client_blocks %}
+          <div class="client-card" {{ block.shopify_attributes }}>
+            <div class="client-image">
+              {% if block.settings.cover_image != blank %}
+                <img src="{{ block.settings.cover_image | image_url: width: 600 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {% endif %}
+            </div>
+            
+            <div class="client-logo">
+              {% if block.settings.logo_image != blank %}
+                <img src="{{ block.settings.logo_image | image_url: width: 200 }}" alt="{{ block.settings.title }} Logo" loading="lazy">
+              {% endif %}
+            </div>
+
+            <div class="client-info">
+              <h3>{{ block.settings.title }}</h3>
+              <span>{{ block.settings.category }}</span>
+
+              <div class="client-icons">
+                {% if block.settings.website_url != blank %}
+                  <a href="{{ block.settings.website_url }}" target="_blank" aria-label="Website">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  </a>
+                {% endif %}
+                {% if block.settings.instagram_url != blank %}
+                  <a href="{{ block.settings.instagram_url }}" target="_blank" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% comment %}
+          Out of the box fallback displaying the 24 extracted brands
+        {% endcomment %}
+        {%- assign names = "Crocon,Adda,Adil Quadri,Plix-The Plant Fix,Kasutam,Mars Exports,Folello,Himalibuti,Ubharta,Jivisa,Creonix,Maatripure,Mushleaf,Snacksorted,Nature Code,Raj Ras Ayurveda,Universal Seal,Aadi Rugs,Shaalvi Organics,Natural Herbo,MIXX,Lifthonso,Carrylush,Bibliophiles" | split: "," -%}
+        {%- assign categories = "(Home Collection),(Footwear),(Perfumes & Attars),(Beauty and Wellness),(Ghee),(Wooden Handicrafts),(Salon Equipments),(Shilajit),(Ghee),(Wellness),(Home & Decor),(Ghee),(Organic Products),(Snacks),(Ayurvedic Supplements),(Nutrition Supplements),(Sealing and Labeling Machines),(Rugs and Carpets),(Ghee),(Health Supplements),(Wellness),(Air Purifier),(Jewellery),(Children Essentials)" | split: "," -%}
+        {%- assign covers = "https://www.walbayzon.com/cdn/shop/files/IMG_3658_900x.png?v=1771413402,https://www.walbayzon.com/cdn/shop/files/IMG_3690_900x.png?v=1771421397,https://www.walbayzon.com/cdn/shop/files/06105dea-b4a9-48b7-8e88-95c0a8e3a62e_900x.jpg?v=1771421056,https://www.walbayzon.com/cdn/shop/files/IMG_3659_900x.png?v=1771413391,https://www.walbayzon.com/cdn/shop/files/IMG_3670_900x.jpg?v=1771413738,https://www.walbayzon.com/cdn/shop/files/IMG_3663_900x.png?v=1771413402,https://www.walbayzon.com/cdn/shop/files/IMG_3664_900x.png?v=1771413383,https://www.walbayzon.com/cdn/shop/files/IMG_3666_900x.png?v=1771413396,https://www.walbayzon.com/cdn/shop/files/IMG_3667_900x.png?v=1771413396,https://www.walbayzon.com/cdn/shop/files/IMG_3651_900x.png?v=1771411020,https://www.walbayzon.com/cdn/shop/files/IMG_3650_900x.png?v=1771411017,https://www.walbayzon.com/cdn/shop/files/IMG_3648_900x.png?v=1771411025,https://www.walbayzon.com/cdn/shop/files/IMG_3686_900x.jpg?v=1771421056,https://www.walbayzon.com/cdn/shop/files/IMG_3642_900x.png?v=1771411018,https://www.walbayzon.com/cdn/shop/files/IMG_3643_900x.png?v=1771411020,https://www.walbayzon.com/cdn/shop/files/IMG_3644_900x.png?v=1771411015,https://www.walbayzon.com/cdn/shop/files/IMG_3654_900x.png?v=1771413381,https://www.walbayzon.com/cdn/shop/files/IMG_3655_900x.png?v=1771413396,https://www.walbayzon.com/cdn/shop/files/IMG_3656_900x.png?v=1771413404,https://www.walbayzon.com/cdn/shop/files/IMG_3653_900x.png?v=1771411025,https://www.walbayzon.com/cdn/shop/files/IMG_3652_900x.png?v=1771411025,https://www.walbayzon.com/cdn/shop/files/IMG_3811_900x.png?v=1771586871,https://www.walbayzon.com/cdn/shop/files/IMG_3646_900x.png?v=1771411018,https://www.walbayzon.com/cdn/shop/files/IMG_3684_900x.png?v=1771417239" | split: "," -%}
+        {%- assign logos = "https://www.walbayzon.com/cdn/shop/files/IMG_3704_300x.png?v=1771481104,https://www.walbayzon.com/cdn/shop/files/IMG_3692_300x.png?v=1771478978,https://www.walbayzon.com/cdn/shop/files/IMG_3696_300x.png?v=1771481102,https://www.walbayzon.com/cdn/shop/files/IMG_3705_300x.png?v=1771481100,https://www.walbayzon.com/cdn/shop/files/IMG_3720_300x.png?v=1771481691,https://www.walbayzon.com/cdn/shop/files/IMG_3699_300x.png?v=1771481102,https://www.walbayzon.com/cdn/shop/files/IMG_3715_300x.png?v=1771481620,https://www.walbayzon.com/cdn/shop/files/IMG_3708_300x.png?v=1771481103,https://www.walbayzon.com/cdn/shop/files/IMG_3719_300x.png?v=1771481620,https://www.walbayzon.com/cdn/shop/files/IMG_3697_300x.png?v=1771481103,https://www.walbayzon.com/cdn/shop/files/IMG_3706_300x.png?v=1771481103,https://www.walbayzon.com/cdn/shop/files/IMG_3701_300x.png?v=1771481102,https://www.walbayzon.com/cdn/shop/files/IMG_3698_300x.png?v=1771481102,https://www.walbayzon.com/cdn/shop/files/IMG_3711_300x.png?v=1771481622,https://www.walbayzon.com/cdn/shop/files/IMG_3713_300x.png?v=1771481622,https://www.walbayzon.com/cdn/shop/files/IMG_3714_300x.png?v=1771481620,https://www.walbayzon.com/cdn/shop/files/IMG_3716_300x.png?v=1771481620,https://www.walbayzon.com/cdn/shop/files/IMG_3717_300x.png?v=1771481621,https://www.walbayzon.com/cdn/shop/files/IMG_3718_300x.png?v=1771481621,https://www.walbayzon.com/cdn/shop/files/IMG_3709_300x.png?v=1771481620,https://www.walbayzon.com/cdn/shop/files/IMG_3703_300x.png?v=1771481101,https://www.walbayzon.com/cdn/shop/files/IMG_3710_300x.png?v=1771481620,https://www.walbayzon.com/cdn/shop/files/IMG_3712_300x.png?v=1771481621,https://www.walbayzon.com/cdn/shop/files/IMG_3700_300x.png?v=1771481102" | split: "," -%}
+        {%- assign websites = "https://www.amazon.com/stores/Crocon/page/3B71E95A-F16C-474F-B8C4-CA734C4AA3B2?lp_asin=B0792Z1PHH&ref_=ast_bln&store_ref=bl_ast_dp_brandLogo_sto&byline_logo_guardrail_passed=True,https://adda.co.th/en/,https://www.adilqadri.com/,https://www.plixlife.com/?srsltid=AfmBOooy_slDpATSd0vCtIsLYB_N8DdWLUpkp-YpA7y9Q2Fkn-IKyKC_,https://kasutam.com/?srsltid=AfmBOop0cYor39EaZ8JqGCT6hUBoaGBboGcyQgvfffTu5_YyLxDFYxG_,https://www.amazon.com/stores/MARSEXPORTS/page/A2A9D4D9-6F71-45F0-AFE5-4DFB1E8FEE7E?lp_asin=B0DFH48T44&ref_=ast_bln&store_ref=bl_ast_dp_brandLogo_sto&byline_logo_guardrail_passed=True,https://www.folello.com/,https://himalibuti.com/?srsltid=AfmBOoq7-tRPMCUyZfmnKEwC4stmzU2glGVAvjIv4ijS1nTLXH8JnzsA,https://www.ubharta.com/,https://jivisa.in/?srsltid=AfmBOorWAnJSnK81eNTF1E62jfzK6X-Tk8h63Yo8LttIgmY7mU4e1rp0,https://www.amazon.com/stores/CREONIXIMPEX/page/73DC3A82-E8E1-49E5-A868-05934A0CB937?lp_asin=B0FQCGSQTW&ref_=ast_bln&store_ref=bl_ast_dp_brandLogo_sto&byline_logo_guardrail_passed=True,https://maatripure.com/,https://www.mushleaf.in/?srsltid=AfmBOorWivRY0WqDiJq-VCPfLxKM4TaCZ_Yegtq1INfl2vRAVionSzkd,https://snacksorted.com/,https://naturecodeindia.com/,https://rajrasayurveda.com/,https://universalseal.in/,https://aadilrugs.com/,https://www.shaalviorganics.com/,https://www.naturalherbo.com/,none,https://www.amazon.com/stores/LIFTHONSO/page/D0377623-E8A4-49CF-B384-6DE6BD412971?lp_asin=B0F8BHV8LX&ref_=ast_bln,none,https://store.bibliophiles.in/?srsltid=AfmBOopuKvq0nqcv5tOEmfEGVSQc5LM_BZh-faBrjSjX5n9h-WtyhZZA" | split: "," -%}
+        {%- assign instagrams = "none,https://www.instagram.com/addathailand?igsh=MWlzNW5zdGpwcjAzbg==,https://www.instagram.com/adilqadriofficial?igsh=djNkN2g4aHNvNms4,https://www.instagram.com/myplixlife?igsh=MTZwNWJtMWRmdXhqYg==,https://www.instagram.com/kasutamfarm?igsh=MWVkeGVha2FtZDUweg==,none,https://www.instagram.com/folello/,https://www.instagram.com/himalibuti?igsh=MXUyNmE0azg1OGsxZQ==,https://www.instagram.com/ubharta.farms/,https://www.instagram.com/jivisawellness?igsh=MTM5aG55cjd6YmlpMw==,none,https://www.instagram.com/maatripure/,https://www.instagram.com/mush_leaf?igsh=MXRmaDZnNDJ5anF0eA==,https://www.instagram.com/snacksorted/,https://www.instagram.com/naturecodeindia/,https://www.instagram.com/rajras_ayurveda/,https://www.instagram.com/universal_seal?igsh=MXBobG1hZGwxd2VraA==,https://www.instagram.com/aadirugs/,https://www.instagram.com/shaalviorganics/,https://www.instagram.com/naturalherbo_?igsh=MWI2b3RvOWVkajhybw==,none,none,https://www.instagram.com/carrylush/,https://www.instagram.com/bibliophilesbooklovers?igsh=MXQ4YmQ4eDZtdHY1eg==" | split: "," -%}
+
+        {% for i in (0..23) %}
+          <div class="client-card">
+            <div class="client-image">
+              <img src="{{ covers[i] }}" alt="{{ names[i] }}" loading="lazy" width="300" height="160">
+            </div>
+            
+            <div class="client-logo">
+              <img src="{{ logos[i] }}" alt="{{ names[i] }} Logo" loading="lazy" width="90" height="90">
+            </div>
+
+            <div class="client-info">
+              <h3>{{ names[i] }}</h3>
+              <span>{{ categories[i] }}</span>
+
+              <div class="client-icons">
+                {%- assign web_url = websites[i] -%}
+                {% if web_url != 'none' and web_url != blank %}
+                  <a href="{{ web_url }}" target="_blank" aria-label="Website">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  </a>
+                {% endif %}
+                
+                {%- assign insta_url = instagrams[i] -%}
+                {% if insta_url != 'none' and insta_url != blank %}
+                  <a href="{{ insta_url }}" target="_blank" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Walbayzon Clients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Trusted by 100+ Growing & Established Brands Including"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#26180f"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "client",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Brand Name",
+          "default": "Brand Name"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category/Subtitle",
+          "default": "(Home Collection)"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Card Cover Background Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Brand Logo (Circular)"
+        },
+        {
+          "type": "url",
+          "id": "website_url",
+          "label": "Website URL"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon Clients"
+    }
+  ]
+}
+{% endschema %}

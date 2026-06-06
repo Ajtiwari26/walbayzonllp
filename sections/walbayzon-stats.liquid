@@ -1,7 +1,25 @@
 {% comment %}
   Walbayzon Stats Section
   Compatible with Shopify Theme Editor
-{% endcomment %}
+{% endcomment %}<style>
+  .digit-reel-container {
+    display: inline-block;
+    height: 1em;
+    line-height: 1em;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .digit-reel {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .digit-reel-item {
+    height: 1em;
+    line-height: 1em;
+    display: block;
+  }
+</style>
 
 <section class="px-4 sm:px-5 lg:px-8 py-8">
   <div class="mx-auto max-w-7xl overflow-hidden rounded-[1.5rem] p-6 text-primary-foreground sm:rounded-[2rem] sm:p-10 lg:p-16" 
@@ -27,28 +45,37 @@
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10" style="background-color: {{ section.settings.grid_divider_color }};">
+      <div id="walbayzon-stats-grid" class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-white/10" style="background-color: {{ section.settings.grid_divider_color }};">
         {% for block in section.blocks %}
           <div class="p-4 sm:p-6 lg:p-8" style="background-color: {{ section.settings.stat_card_bg }};" {{ block.shopify_attributes }}>
-            <div class="font-display text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style="color: {{ section.settings.accent_color }};">
+            <div class="font-display stat-number text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style="color: {{ section.settings.accent_color }};">
               {{ block.settings.stat_value }}
             </div>
-            <div class="mt-2 text-xs opacity-75 sm:text-sm">
+            <div class="mt-2 text-xs font-semibold sm:text-sm">
               {{ block.settings.stat_label }}
             </div>
+            {% if block.settings.stat_desc != blank %}
+              <div class="mt-1 text-[11px] sm:text-xs opacity-75 leading-relaxed">
+                {{ block.settings.stat_desc }}
+              </div>
+            {% endif %}
           </div>
         {% else %}
           <!-- Default Fallbacks -->
-          {% assign default_stats_val = "₹500Cr+,100+,12+,6.4×" | split: "," %}
-          {% assign default_stats_lbl = "Brand revenue generated,Brands scaled globally,Marketplaces mastered,Average ROAS delivered" | split: "," %}
+          {% assign default_stats_val = "100+,95%,25+,$500M+" | split: "," %}
+          {% assign default_stats_lbl = "Brands Managed,Client Retention Rate,Marketplaces Covered,Revenue Driven" | split: "," %}
+          {% assign default_stats_desc = "Successfully managing and scaling brands across Amazon, eBay, Etsy, Flipkart, Walmart & Shopify.##Our long-term partnerships are built on performance, transparency, and results.##Amazon, eBay, Etsy, Flipkart, Walmart, Shopify & more international platforms.##Delivering $500 Million+" | split: "##" %}
           {% for val in default_stats_val %}
             {% assign idx = forloop.index0 %}
             <div class="p-4 sm:p-6 lg:p-8" style="background-color: {{ section.settings.stat_card_bg }};">
-              <div class="font-display text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style="color: {{ section.settings.accent_color }};">
+              <div class="font-display stat-number text-2xl font-bold tracking-tight sm:text-4xl lg:text-5xl" style="color: {{ section.settings.accent_color }};">
                 {{ val }}
               </div>
-              <div class="mt-2 text-xs opacity-75 sm:text-sm">
+              <div class="mt-2 text-xs font-semibold sm:text-sm">
                 {{ default_stats_lbl[idx] }}
+              </div>
+              <div class="mt-1 text-[11px] sm:text-xs opacity-75 leading-relaxed">
+                {{ default_stats_desc[idx] }}
               </div>
             </div>
           {% endfor %}
@@ -58,6 +85,120 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    const initStatsCounter = () => {
+      const statsGrid = document.getElementById('walbayzon-stats-grid');
+      if (!statsGrid) return;
+
+      const statValueEls = statsGrid.querySelectorAll('.stat-number');
+      
+      // Setup the reels for each stat value on load
+      statValueEls.forEach(el => {
+        const rawText = el.getAttribute('data-stat-target') || el.textContent.trim();
+        if (!el.getAttribute('data-stat-target')) {
+          el.setAttribute('data-stat-target', rawText);
+        }
+        
+        // Parse value: prefix, numeric string, suffix
+        const match = rawText.match(/^([^\d\.]*)(\d+\.?\d*)(.*)$/);
+        if (!match) return;
+
+        const prefix = match[1];
+        const numericStr = match[2];
+        const suffix = match[3];
+
+        // Clear and rebuild HTML structure
+        el.innerHTML = '';
+        
+        if (prefix) {
+          const prefixSpan = document.createElement('span');
+          prefixSpan.textContent = prefix;
+          el.appendChild(prefixSpan);
+        }
+
+        const reels = [];
+        let digitIndex = 0;
+        for (let char of numericStr) {
+          if (char >= '0' && char <= '9') {
+            const container = document.createElement('span');
+            container.className = 'digit-reel-container';
+            
+            const reel = document.createElement('span');
+            reel.className = 'digit-reel';
+            reel.style.transition = `transform ${3 + digitIndex * 0.8}s cubic-bezier(0.16, 1, 0.3, 1)`;
+            reel.style.transform = 'translateY(0%)';
+            
+            for (let i = 0; i <= 9; i++) {
+              const item = document.createElement('span');
+              item.className = 'digit-reel-item';
+              item.textContent = i;
+              reel.appendChild(item);
+            }
+            
+            container.appendChild(reel);
+            el.appendChild(container);
+            
+            reels.push({
+              el: reel,
+              target: parseInt(char)
+            });
+            digitIndex++;
+          } else {
+            // Decimal point or comma
+            const staticSpan = document.createElement('span');
+            staticSpan.textContent = char;
+            el.appendChild(staticSpan);
+          }
+        }
+
+        if (suffix) {
+          const suffixSpan = document.createElement('span');
+          suffixSpan.textContent = suffix;
+          el.appendChild(suffixSpan);
+        }
+
+        // Store reels ref on the parent element
+        el.reels = reels;
+      });
+
+      // Observe the grid to run the roll animation
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            statValueEls.forEach(el => {
+              if (!el.reels) return;
+              
+              // Trigger translation after DOM registers the initial render
+              setTimeout(() => {
+                el.reels.forEach(reel => {
+                  reel.el.style.transform = `translateY(-${reel.target * 10}%)`;
+                });
+              }, 100);
+            });
+            
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      observer.observe(statsGrid);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initStatsCounter);
+    } else {
+      initStatsCounter();
+    }
+
+    document.addEventListener('shopify:section:load', (e) => {
+      if (e.target.querySelector('#walbayzon-stats-grid')) {
+        initStatsCounter();
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -126,14 +267,20 @@
         {
           "type": "text",
           "id": "stat_value",
-          "label": "Stat Value (e.g. ₹500Cr+)",
-          "default": "₹500Cr+"
+          "label": "Stat Value",
+          "default": "100+"
         },
         {
           "type": "text",
           "id": "stat_label",
           "label": "Stat Label",
-          "default": "Brand revenue generated"
+          "default": "Brands Managed"
+        },
+        {
+          "type": "textarea",
+          "id": "stat_desc",
+          "label": "Stat Description",
+          "default": "Successfully managing and scaling brands across Amazon, eBay, Etsy, Flipkart, Walmart & Shopify."
         }
       ]
     }
@@ -142,10 +289,10 @@
     {
       "name": "Walbayzon Stats",
       "blocks": [
-        { "type": "stat", "settings": { "stat_value": "₹500Cr+", "stat_label": "Brand revenue generated" } },
-        { "type": "stat", "settings": { "stat_value": "100+", "stat_label": "Brands scaled globally" } },
-        { "type": "stat", "settings": { "stat_value": "12+", "stat_label": "Marketplaces mastered" } },
-        { "type": "stat", "settings": { "stat_value": "6.4×", "stat_label": "Average ROAS delivered" } }
+        { "type": "stat", "settings": { "stat_value": "100+", "stat_label": "Brands Managed", "stat_desc": "Successfully managing and scaling brands across Amazon, eBay, Etsy, Flipkart, Walmart & Shopify." } },
+        { "type": "stat", "settings": { "stat_value": "95%", "stat_label": "Client Retention Rate", "stat_desc": "Our long-term partnerships are built on performance, transparency, and results." } },
+        { "type": "stat", "settings": { "stat_value": "25+", "stat_label": "Marketplaces Covered", "stat_desc": "Amazon, eBay, Etsy, Flipkart, Walmart, Shopify & more international platforms." } },
+        { "type": "stat", "settings": { "stat_value": "$500M+", "stat_label": "Revenue Driven", "stat_desc": "Delivering $500 Million+" } }
       ]
     }
   ]

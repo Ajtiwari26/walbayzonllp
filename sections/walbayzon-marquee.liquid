@@ -7,9 +7,42 @@
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
     
     {% if section.settings.title != blank %}
-      <p class="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
-        {{ section.settings.title }}
-      </p>
+      <div class="mb-10 flex flex-row flex-wrap items-center justify-center gap-x-6 gap-y-4 md:gap-x-10 border-b border-neutral-900 pb-8 max-w-5xl mx-auto px-4">
+        
+        <!-- Far Left: Static logo 1 -->
+        {% if section.settings.featured_platform_1 != blank %}
+          <div class="text-neutral-400 hover:text-white transition-all duration-300 hover:scale-110 select-none flex items-center justify-center shrink-0">
+            {% render 'walbayzon-platform-svg', platform_name: section.settings.featured_platform_1 %}
+          </div>
+        {% endif %}
+
+        <!-- Left Center: Static logo 2 -->
+        {% if section.settings.featured_platform_2 != blank %}
+          <div class="text-neutral-400 hover:text-white transition-all duration-300 hover:scale-110 select-none flex items-center justify-center shrink-0">
+            {% render 'walbayzon-platform-svg', platform_name: section.settings.featured_platform_2 %}
+          </div>
+        {% endif %}
+
+        <!-- Center: Platforms we dominate Title -->
+        <h2 class="text-center text-xs font-bold uppercase tracking-[0.25em] text-neutral-400 py-2 shrink-0 px-2">
+          {{ section.settings.title }}
+        </h2>
+
+        <!-- Right Center: Static logo 3 -->
+        {% if section.settings.featured_platform_3 != blank %}
+          <div class="text-neutral-400 hover:text-white transition-all duration-300 hover:scale-110 select-none flex items-center justify-center shrink-0">
+            {% render 'walbayzon-platform-svg', platform_name: section.settings.featured_platform_3 %}
+          </div>
+        {% endif %}
+
+        <!-- Far Right: Static logo 4 -->
+        {% if section.settings.featured_platform_4 != blank %}
+          <div class="text-neutral-400 hover:text-white transition-all duration-300 hover:scale-110 select-none flex items-center justify-center shrink-0">
+            {% render 'walbayzon-platform-svg', platform_name: section.settings.featured_platform_4 %}
+          </div>
+        {% endif %}
+
+      </div>
     {% endif %}
 
     <div class="relative overflow-hidden w-full">
@@ -24,13 +57,16 @@
         <div class="flex gap-0 animate-marquee shrink-0 items-center">
           {% for i in (1..4) %}
             {% for block in section.blocks %}
-              <div class="flex items-center justify-center px-8 py-2 text-neutral-400 hover:text-white shrink-0 transition-all duration-300 hover:scale-125" {{ block.shopify_attributes }}>
-                {% assign platform_name = block.settings.platform_name %}
-                {% render 'walbayzon-platform-svg', platform_name: platform_name %}
-              </div>
+              {% assign p_name = block.settings.platform_name | downcase %}
+              {% unless p_name == 'amazon' or p_name == 'walmart' or p_name == 'ebay' or p_name == 'etsy' %}
+                <div class="flex items-center justify-center px-8 py-2 text-neutral-400 hover:text-white shrink-0 transition-all duration-300 hover:scale-125" {{ block.shopify_attributes }}>
+                  {% assign platform_name = block.settings.platform_name %}
+                  {% render 'walbayzon-platform-svg', platform_name: platform_name %}
+                </div>
+              {% endunless %}
             {% else %}
               <!-- Fallbacks -->
-              {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
+              {% assign fallbacks = "Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Nykaa" | split: "," %}
               {% for item in fallbacks %}
                 <div class="flex items-center justify-center px-8 py-2 text-neutral-400 hover:text-white shrink-0 transition-all duration-300 hover:scale-125">
                   {% render 'walbayzon-platform-svg', platform_name: item %}
@@ -72,6 +108,30 @@
       "id": "title",
       "label": "Section Title",
       "default": "Platforms we dominate"
+    },
+    {
+      "type": "text",
+      "id": "featured_platform_1",
+      "label": "Featured Platform 1",
+      "default": "eBay"
+    },
+    {
+      "type": "text",
+      "id": "featured_platform_2",
+      "label": "Featured Platform 2",
+      "default": "Amazon"
+    },
+    {
+      "type": "text",
+      "id": "featured_platform_3",
+      "label": "Featured Platform 3",
+      "default": "Walmart"
+    },
+    {
+      "type": "text",
+      "id": "featured_platform_4",
+      "label": "Featured Platform 4",
+      "default": "Etsy"
     },
     {
       "type": "range",
