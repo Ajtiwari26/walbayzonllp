@@ -71,57 +71,57 @@
         {
           "name": "United States",
           "flag": "🇺🇸",
-          "x": 239,
-          "y": 196,
+          "x": 215,
+          "y": 267,
           "brands": ["Crocon", "Plix", "Folello", "Adda"]
         },
         {
           "name": "United Kingdom",
           "flag": "🇬🇧",
-          "x": 519,
-          "y": 102,
+          "x": 495,
+          "y": 173,
           "brands": ["Adil Quadri", "Kasutam", "Himalibuti", "Crocon"]
         },
         {
           "name": "Germany",
           "flag": "🇩🇪",
-          "x": 564,
-          "y": 124,
+          "x": 540,
+          "y": 195,
           "brands": ["Kasutam", "Folello", "Mars Exports", "Plix"]
         },
         {
           "name": "United Arab Emirates",
           "flag": "🇦🇪",
-          "x": 688,
-          "y": 240,
+          "x": 664,
+          "y": 311,
           "brands": ["Adda", "Mars Exports", "Himalibuti", "Adil Quadri"]
         },
         {
           "name": "Saudi Arabia",
           "flag": "🇸🇦",
-          "x": 667,
-          "y": 239,
+          "x": 643,
+          "y": 310,
           "brands": ["Adda", "Adil Quadri", "Mars Exports", "Kasutam"]
         },
         {
           "name": "Australia",
           "flag": "🇦🇺",
-          "x": 924,
-          "y": 461,
+          "x": 940,
+          "y": 468,
           "brands": ["Crocon", "Plix", "Folello", "Himalibuti"]
         },
         {
           "name": "Canada",
           "flag": "🇨🇦",
-          "x": 219,
-          "y": 103,
+          "x": 195,
+          "y": 174,
           "brands": ["Mars Exports", "Himalibuti", "Crocon", "Plix"]
         },
         {
           "name": "Japan",
           "flag": "🇯🇵",
-          "x": 934,
-          "y": 175,
+          "x": 940,
+          "y": 246,
           "brands": ["Plix", "Folello", "Adda", "Kasutam"]
         }
       {%- endif -%}
@@ -163,7 +163,7 @@
           <g id="trade-routes-layer"></g>
 
           <!-- Origin Hub (India) -->
-          <g transform="translate(762, 257)">
+          <g transform="translate(738, 328)">
             <!-- Static Elegant Outer Rings -->
             <circle cx="0" cy="0" r="16" fill="#fc9f30" opacity="0.15" />
             <circle cx="0" cy="0" r="10" fill="#fc9f30" opacity="0.3" />
@@ -302,11 +302,16 @@
   }
   .trade-map-tooltip.visible {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: none;
     transform: translateY(0) scale(1);
   }
 
   .tooltip-header {
+    position: absolute;
+    top: -65px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
     pointer-events: none;
     z-index: 20;
   }
@@ -418,7 +423,15 @@
       flashingLayer.innerHTML = '';
       tooltipsContainer.innerHTML = '';
 
-      const origin = { x: 762, y: 257 };
+      const origin = { x: 738, y: 328 };
+
+      // SVG code for platforms from platforms dominated section
+      const platformSVGs = {
+        'amazon': `<svg style="width: 100%; height: 100%; fill: #000000; display: block;" viewBox="0 2 24 20" xmlns="http://www.w3.org/2000/svg"><title>Amazon</title><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/></svg>`,
+        'flipkart': `<svg style="width: 100%; height: 100%; fill: #000000; display: block;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Flipkart</title><path d="M3.833 1.333a.993.993 0 0 0-.333.061V1c0-.551.449-1 1-1h14.667c.551 0 1 .449 1 1v.333H3.833zm17.334 2.334H2.833c-.551 0-1 .449-1 1V23c0 .551.449 1 1 1h7.3l1.098-5.645h-2.24c-.051 0-5.158-.241-5.158-.241l4.639-.327-.078-.366-1.978-.285 1.882-.158-.124-.449-3.075-.467s3.341-.373 3.392-.373h3.232l.247-1.331c.289-1.616.945-2.807 1.973-3.693 1.033-.892 2.344-1.332 3.937-1.332.643 0 1.053.151 1.231.463.118.186.201.516.279.859.074.352.14.671.095.903-.057.345-.461.465-1.197.465h-.253c-1.327 0-2.134.763-2.405 2.31l-.243 1.355h1.54c.574 0 .781.402.622 1.306-.17.941-.539 1.36-1.111 1.36H14.9L13.804 24h7.362c.551 0 1-.449 1-1V4.667a1 1 0 0 0-.999-1zM20.5 2.333A.334.334 0 0 0 20.167 2H3.833a.334.334 0 0 0-.333.333V3h17v-.667z"/></svg>`,
+        'meesho': `<svg style="width: 100%; height: 100%; color: #000000; display: block;" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="30" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="34" fill="currentColor" letter-spacing="-0.03em">meesho</text></svg>`,
+        'jiomart': `<svg style="width: 100%; height: 100%; fill: #000000; display: block;" viewBox="8 6 16 19" xmlns="http://www.w3.org/2000/svg"><path d="M23.3894 11.65C23.2016 11.4446 22.9729 11.2807 22.718 11.1688C22.4632 11.0569 22.1878 10.9994 21.9094 11H19.9994V10C19.9994 8.93913 19.578 7.92172 18.8279 7.17157C18.0777 6.42143 17.0603 6 15.9994 6C14.9386 6 13.9212 6.42143 13.171 7.17157C12.4209 7.92172 11.9994 8.93913 11.9994 10V11H10.0894C9.8111 10.9994 9.5357 11.0569 9.28085 11.1688C9.026 11.2807 8.79733 11.4446 8.60945 11.65C8.4249 11.8553 8.2837 12.0957 8.19435 12.3569C8.10499 12.6181 8.06931 12.8947 8.08944 13.17L8.84945 22.25C8.9123 23.0016 9.2559 23.7019 9.81184 24.2115C10.3678 24.7211 11.0953 25.0026 11.8495 25H20.1694C20.9236 25.0026 21.6511 24.7211 22.2071 24.2115C22.763 23.7019 23.1066 23.0016 23.1694 22.25L23.9294 13.17C23.9469 12.8933 23.908 12.6159 23.8152 12.3547C23.7224 12.0934 23.5776 11.8537 23.3894 11.65ZM13.9994 10C13.9994 9.46957 14.2102 8.96086 14.5852 8.58578C14.9603 8.21071 15.469 8 15.9994 8C16.5299 8 17.0386 8.21071 17.4137 8.58578C17.7887 8.96086 17.9994 9.46957 17.9994 10V11H13.9994V10Z"/></svg>`
+      };
 
       // Helper to generate quadratic Bezier curves for routes
       const getCurvePath = (x1, y1, x2, y2) => {
@@ -489,25 +502,29 @@
           if (matchedBrand && matchedBrand.logo) {
             brandCargoHtml += `
               <div class="cargo-item" title="${cleanName}" style="--tx: ${tx}px; --ty: ${ty}px; --r: ${r}deg; --s: ${s}; --delay: ${delay}s">
-                <div class="cargo-inner-box">
-                  <div class="cargo-shipping-label">
-                    <img src="${matchedBrand.logo}" class="cargo-brand-logo" alt="${cleanName}" />
-                  </div>
-                </div>
+                <img src="${matchedBrand.logo}" class="cargo-brand-logo" alt="${cleanName}" style="width: 100%; height: 100%; object-fit: contain; filter: brightness(0) opacity(0.85);" />
               </div>
             `;
           } else {
+            // Match custom defaults or platforms
+            let brandLogoSvg = '';
+            const cleanNameLower = cleanName.toLowerCase();
+            if (cleanNameLower.includes('crocon') || cleanNameLower.includes('adil') || cleanNameLower.includes('kasutam') || cleanNameLower.includes('amazon')) {
+              brandLogoSvg = platformSVGs['amazon'];
+            } else if (cleanNameLower.includes('plix') || cleanNameLower.includes('mars') || cleanNameLower.includes('flipkart')) {
+              brandLogoSvg = platformSVGs['flipkart'];
+            } else if (cleanNameLower.includes('folello') || cleanNameLower.includes('himali') || cleanNameLower.includes('meesho')) {
+              brandLogoSvg = platformSVGs['meesho'];
+            } else if (cleanNameLower.includes('adda') || cleanNameLower.includes('jiomart')) {
+              brandLogoSvg = platformSVGs['jiomart'];
+            } else {
+              const keys = ['amazon', 'flipkart', 'meesho', 'jiomart'];
+              brandLogoSvg = platformSVGs[keys[idx % keys.length]];
+            }
+
             brandCargoHtml += `
               <div class="cargo-item" title="${cleanName}" style="--tx: ${tx}px; --ty: ${ty}px; --r: ${r}deg; --s: ${s}; --delay: ${delay}s">
-                <div class="cargo-inner-box">
-                  <div class="cargo-shipping-label">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a45f0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                      <line x1="3" y1="6" x2="21" y2="6"></line>
-                      <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                  </div>
-                </div>
+                ${brandLogoSvg}
               </div>
             `;
           }
@@ -616,7 +633,7 @@
           <polygon points="0,0 14,-6 14,12 0,12" fill="#a45f0b" stroke="#26180f" stroke-width="0.8" stroke-linejoin="round" />
         `;
         // Position initially at India start node to prevent top-left rendering flash
-        parcel.setAttribute('transform', `translate(700, 250)`);
+        parcel.setAttribute('transform', `translate(738, 328)`);
         routesLayer.parentNode.appendChild(parcel);
 
         let startTime = null;
@@ -778,14 +795,14 @@
         { "type": "brand", "settings": { "title": "Mars Exports" } },
         { "type": "brand", "settings": { "title": "Folello" } },
         { "type": "brand", "settings": { "title": "Himalibuti" } },
-        { "type": "country", "settings": { "title": "United States", "flag": "🇺🇸", "map_x": 239, "map_y": 196, "brands": "Crocon, Plix, Folello, Adda" } },
-        { "type": "country", "settings": { "title": "United Kingdom", "flag": "🇬🇧", "map_x": 519, "map_y": 102, "brands": "Adil Quadri, Kasutam, Himalibuti, Crocon" } },
-        { "type": "country", "settings": { "title": "Germany", "flag": "🇩🇪", "map_x": 564, "map_y": 124, "brands": "Kasutam, Folello, Mars Exports, Plix" } },
-        { "type": "country", "settings": { "title": "United Arab Emirates", "flag": "🇦🇪", "map_x": 688, "map_y": 240, "brands": "Adda, Mars Exports, Himalibuti, Adil Quadri" } },
-        { "type": "country", "settings": { "title": "Saudi Arabia", "flag": "🇸🇦", "map_x": 667, "map_y": 239, "brands": "Adda, Adil Quadri, Mars Exports, Kasutam" } },
-        { "type": "country", "settings": { "title": "Australia", "flag": "🇦🇺", "map_x": 924, "map_y": 461, "brands": "Crocon, Plix, Folello, Himalibuti" } },
-        { "type": "country", "settings": { "title": "Canada", "flag": "🇨🇦", "map_x": 219, "map_y": 103, "brands": "Mars Exports, Himalibuti, Crocon, Plix" } },
-        { "type": "country", "settings": { "title": "Japan", "flag": "🇯🇵", "map_x": 934, "map_y": 175, "brands": "Plix, Folello, Adda, Kasutam" } }
+        { "type": "country", "settings": { "title": "United States", "flag": "🇺🇸", "map_x": 215, "map_y": 267, "brands": "Crocon, Plix, Folello, Adda" } },
+        { "type": "country", "settings": { "title": "United Kingdom", "flag": "🇬🇧", "map_x": 495, "map_y": 173, "brands": "Adil Quadri, Kasutam, Himalibuti, Crocon" } },
+        { "type": "country", "settings": { "title": "Germany", "flag": "🇩🇪", "map_x": 540, "map_y": 195, "brands": "Kasutam, Folello, Mars Exports, Plix" } },
+        { "type": "country", "settings": { "title": "United Arab Emirates", "flag": "🇦🇪", "map_x": 664, "map_y": 311, "brands": "Adda, Mars Exports, Himalibuti, Adil Quadri" } },
+        { "type": "country", "settings": { "title": "Saudi Arabia", "flag": "🇸🇦", "map_x": 643, "map_y": 310, "brands": "Adda, Adil Quadri, Mars Exports, Kasutam" } },
+        { "type": "country", "settings": { "title": "Australia", "flag": "🇦🇺", "map_x": 900, "map_y": 532, "brands": "Crocon, Plix, Folello, Himalibuti" } },
+        { "type": "country", "settings": { "title": "Canada", "flag": "🇨🇦", "map_x": 195, "map_y": 174, "brands": "Mars Exports, Himalibuti, Crocon, Plix" } },
+        { "type": "country", "settings": { "title": "Japan", "flag": "🇯🇵", "map_x": 910, "map_y": 246, "brands": "Plix, Folello, Adda, Kasutam" } }
       ]
     }
   ]
