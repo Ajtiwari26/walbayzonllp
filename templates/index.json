@@ -1,45 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "name": "index",
   "sections": {
     "announcement": {
       "type": "walbayzon-announcement",
-      "settings": {}
+      "settings": {
+        "text": "🚀 New: Walbayzon now scales D2C brands on Amazon US, UAE & KSA — with AI-powered listing & ads automation.",
+        "link_label": "See What's New",
+        "link_url": "",
+        "bg_color": "#ffdfb1",
+        "text_color": "#190f08",
+        "btn_bg": "#fc9f30",
+        "btn_text": "#190f08"
+      }
     },
     "header": {
       "type": "walbayzon-header",
-      "settings": {}
+      "settings": {
+        "logo_max_height": 35,
+        "logo_letter": "W",
+        "logo_text": "Walbayzon",
+        "menu": "main-menu",
+        "show_live_indicator": true,
+        "live_indicator_color": "#fc9f30",
+        "logo_bg_color": "#2c221e",
+        "logo_text_color": "#fbf8f5",
+        "logo_dot_color": "#fc9f30",
+        "border_color": "#1d1d1b",
+        "shadow_color": "#1d1d1b",
+        "btn1_text": "Sign In",
+        "btn1_url": "",
+        "btn2_text": "Let's Connect",
+        "btn2_url": "",
+        "btn2_bg": "#fc9f30"
+      }
     },
     "hero": {
       "type": "walbayzon-hero",
-      "settings": {}
+      "settings": {
+        "badge_text": "Trusted by 100+ category-leading brands",
+        "badge_dot_color": "#fc9f30",
+        "heading": "The <span class=\"inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline\">#1 Trusted</span> partner in <span class=\"inline-block rounded-xl bg-brand-orange px-2 py-0 text-foreground shadow-[3px_3px_0_0_oklch(0.18_0.022_55)] sm:px-3 text-[0.85em] align-baseline\">Brand Building</span>",
+        "subheading": "Scale your business globally with Walbayzon — the marketplace growth partner behind India's most ambitious D2C brands.",
+        "btn1_text": "Get Started",
+        "btn1_url": "",
+        "btn2_text": "See Our Services",
+        "btn2_url": "",
+        "btn2_bg": "#fc9f30",
+        "shadow_color": "#1d1d1b",
+        "show_rating": true,
+        "rating_text": "Rated 4.9 by founders across 12+ categories",
+        "star_color": "#fc9f30",
+        "bg_gradient": "linear-gradient(to bottom, oklch(0.98 0.02 75) 0%, oklch(0.94 0.03 72) 30%, oklch(0.98 0.02 75) 100%)",
+        "glow_color": "#fc9f30"
+      }
     },
     "marquee": {
       "type": "walbayzon-marquee",
-      "settings": {}
+      "settings": {
+        "title": "Platforms we dominate",
+        "scroll_speed": 35
+      }
     },
     "network-map": {
       "type": "walbayzongraphworldtrade",
-      "settings": {}
+      "settings": {
+        "sub_title": "Multi-Channel Integration",
+        "title": "Connecting Indian Brands to Global Marketplaces",
+        "description": "We seamlessly connect your DTC store and supply chains to the world's leading e-commerce channels. Our operational engine manages listing compliance, warehouse logistics, and ad optimization.",
+        "bg_gradient": "linear-gradient(to bottom, #fdfbf8 0%, #f7f3ed 100%)"
+      }
     },
     "services": {
       "type": "walbayzon-services",
-      "settings": {}
+      "settings": {
+        "sub_title": "— What we do",
+        "title": "Every lever a modern brand needs to win the marketplace.",
+        "accent_color": "#fc9f30",
+        "icon_bg_color": "#2c221e",
+        "icon_color": "#fbf8f5",
+        "link_text": "Talk to a strategist",
+        "link_url": ""
+      }
     },
     "stats": {
       "type": "walbayzon-stats",
-      "settings": {}
+      "settings": {
+        "sub_title": "— Numbers we love",
+        "title": "Results that compound, quarter after quarter.",
+        "desc": "We measure success the same way you do — in profit, market share and durable brand equity.",
+        "bg_gradient": "linear-gradient(135deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.02 45) 100%)",
+        "accent_color": "#fc9f30",
+        "title_color": "#fbf8f5",
+        "text_color": "#e7e5e4",
+        "grid_divider_color": "#fbf8f51a",
+        "stat_card_bg": "#26180f"
+      }
     },
     "process": {
       "type": "walbayzon-process",
-      "settings": {}
+      "settings": {
+        "sub_title": "— How we work",
+        "title": "A simple, four-step path to category leadership.",
+        "accent_color": "#fc9f30",
+        "number_color": "#fc9f30"
+      }
     },
     "testimonials": {
       "type": "walbayzon-testimonials",
-      "settings": {}
+      "settings": {
+        "sub_title": "— Founders on Walbayzon",
+        "title": "The team founders trust to own their growth.",
+        "accent_color": "#fc9f30"
+      }
     },
     "mastercourse": {
       "type": "walbayzon-mastercourse",
-      "settings": {}
+      "settings": {
+        "sub_title": "— Mastercourse",
+        "title": "Learn the playbook we use to scale brands to ₹100Cr.",
+        "desc": "A no-fluff cohort program for founders and operators ready to take marketplace growth seriously.",
+        "accent_color": "#fc9f30",
+        "check_icon_color": "#2c221e",
+        "perk_1": "12 weeks of live, founder-led sessions",
+        "perk_2": "Frameworks used by 100+ scaling brands",
+        "perk_3": "Private Slack with the Walbayzon pod",
+        "perk_4": "Lifetime access to recordings & templates",
+        "btn_text": "Apply for the next cohort",
+        "btn_url": "",
+        "btn_bg_color": "#1d1d1b",
+        "btn_text_color": "#fbf8f5",
+        "card_bg": "linear-gradient(135deg, oklch(0.82 0.16 65) 0%, oklch(0.72 0.18 50) 100%)",
+        "card_badge": "Cohort 07 — March",
+        "card_badge_bg": "#1d1d1b",
+        "card_badge_text": "#fbf8f5",
+        "duration_num": "12",
+        "duration_unit": "wk",
+        "duration_color": "#1d1d1b",
+        "duration_desc": "Live cohort. Real catalogs. Measurable outcomes from week one.",
+        "duration_desc_color": "#1d1d1b",
+        "stat_card_bg": "#1d1d1b1a",
+        "stat_text_color": "#1d1d1b",
+        "stat1_val": "2,400+",
+        "stat1_lbl": "Founders trained",
+        "stat2_val": "4.9 ★",
+        "stat2_lbl": "Average rating"
+      }
     },
     "footer": {
       "type": "walbayzon-footer",
@@ -47,19 +160,22 @@
         "services": {
           "type": "menu_col",
           "settings": {
-            "title": "Services"
+            "title": "Services",
+            "menu": ""
           }
         },
         "company": {
           "type": "menu_col",
           "settings": {
-            "title": "Company"
+            "title": "Company",
+            "menu": ""
           }
         },
         "learn": {
           "type": "menu_col",
           "settings": {
-            "title": "Learn"
+            "title": "Learn",
+            "menu": ""
           }
         }
       },
@@ -68,7 +184,32 @@
         "company",
         "learn"
       ],
-      "settings": {}
+      "settings": {
+        "bg_text": "Walbayzon",
+        "logo_max_height": 30,
+        "brand_name": "Walbayzon",
+        "brand_desc": "Scaling Indian brands on global marketplaces with strategic execution, FBA logistics management, and ROAS-focused advertising.",
+        "cta_sub": "— Let's build together",
+        "cta_title": "Ready to scale your brand globally?",
+        "cta_desc": "Partner with the team behind 100+ category-leading brands on Amazon, Flipkart & beyond.",
+        "btn1_text": "Book a free strategy call",
+        "btn1_url": "",
+        "btn2_text": "hello@walbayzon.com",
+        "btn2_url": "",
+        "footer_tagline": "Crafted with care in India.",
+        "policy_menu": "",
+        "bg_gradient": "linear-gradient(135deg, oklch(0.22 0.025 50) 0%, oklch(0.16 0.02 45) 100%)",
+        "bg_text_color": "#ffffff",
+        "title_color": "#fbf8f5",
+        "text_color": "#e7e5e4",
+        "accent_color": "#fc9f30",
+        "btn_text_color": "#1d1d1b",
+        "divider_color": "#ffffff59",
+        "social_twitter": "",
+        "social_instagram": "",
+        "social_linkedin": "",
+        "social_youtube": ""
+      }
     }
   },
   "order": [
