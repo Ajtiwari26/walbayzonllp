@@ -27,7 +27,7 @@
         "logo_max_height": 35,
         "logo_letter": "W",
         "logo_text": "Walbayzon",
-        "menu": "main-menu",
+        "menu": "",
         "show_live_indicator": true,
         "live_indicator_color": "#fc9f30",
         "logo_bg_color": "#2c221e",
@@ -67,11 +67,12 @@
       "type": "walbayzon-marquee",
       "settings": {
         "title": "Platforms we dominate",
+<<<<<<< HEAD
         "featured_platform_1": "eBay",
         "featured_platform_2": "Amazon",
         "featured_platform_3": "Walmart",
         "featured_platform_4": "Etsy",
-        "scroll_speed": 35
+        "scroll_speed": 40
       }
     },
     "network-map": {

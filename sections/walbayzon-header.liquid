@@ -190,13 +190,12 @@
                   <span>{{ link.title }}</span>
                   <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
                 </button>
                 
                 <!-- Megamenu Dropdown Container -->
                 <div class="walbayzon-megamenu">
                   <div class="grid grid-cols-3 gap-8 rounded-3xl p-8 shadow-2xl walbayzon-glass-card">
-                    
                     <!-- Column 1: Items 1 and 2 -->
                     <div class="space-y-6">
                       {% for child_link in link.links limit: 2 %}
@@ -211,40 +210,27 @@
                                     {% assign block_title_clean = block.settings.title | strip | downcase %}
                                     {% assign target_title_clean = grandchild_link.title | strip | downcase %}
                                     {% if block_title_clean == target_title_clean %}
-                                      {% assign desc = block.settings.description %}
-                                      {% break %}
+                                      {% assign desc = block.settings.description %}{% break %}
                                     {% endif %}
                                   {% endif %}
                                 {% endfor %}
                                 {% if desc == blank %}
                                   {% assign gc_title_lower = grandchild_link.title | downcase %}
-                                  {% if gc_title_lower contains 'e-commerce account' or gc_title_lower contains 'ecommerce account' %}
-                                    {% assign desc = "Complete store and brand handling." %}
-                                  {% elsif gc_title_lower contains 'performance marketing' %}
-                                    {% assign desc = "Data-driven traffic and campaigns." %}
-                                  {% elsif gc_title_lower contains 'social media' %}
-                                    {% assign desc = "Organic content and engagement." %}
-                                  {% elsif gc_title_lower contains 'logo' or gc_title_lower contains 'packaging' %}
-                                    {% assign desc = "Visual identity and product presentation." %}
-                                  {% elsif gc_title_lower contains 'iec' or gc_title_lower contains 'export' %}
-                                    {% assign desc = "Import Export Code registrations." %}
-                                  {% elsif gc_title_lower contains 'llc' or gc_title_lower contains 'usa' %}
-                                    {% assign desc = "Establishing businesses in the US." %}
-                                  {% elsif gc_title_lower contains 'product research' %}
-                                    {% assign desc = "Niche research and feasibility analysis." %}
-                                  {% elsif gc_title_lower contains 'product sourcing' or gc_title_lower contains 'sourcing' %}
-                                    {% assign desc = "Factory coordination and sample audits." %}
-                                  {% else %}
-                                    {% assign desc = "Explore our professional marketplace service." %}
-                                  {% endif %}
+                                  {% if gc_title_lower contains 'e-commerce account' or gc_title_lower contains 'ecommerce account' %}{% assign desc = "Complete store and brand handling." %}
+                                  {% elsif gc_title_lower contains 'performance marketing' %}{% assign desc = "Data-driven traffic and campaigns." %}
+                                  {% elsif gc_title_lower contains 'social media' %}{% assign desc = "Organic content and engagement." %}
+                                  {% elsif gc_title_lower contains 'logo' or gc_title_lower contains 'packaging' %}{% assign desc = "Visual identity and product presentation." %}
+                                  {% elsif gc_title_lower contains 'iec' or gc_title_lower contains 'export' %}{% assign desc = "Import Export Code registrations." %}
+                                  {% elsif gc_title_lower contains 'llc' or gc_title_lower contains 'usa' %}{% assign desc = "Establishing businesses in the US." %}
+                                  {% elsif gc_title_lower contains 'product research' %}{% assign desc = "Niche research and feasibility analysis." %}
+                                  {% elsif gc_title_lower contains 'product sourcing' or gc_title_lower contains 'sourcing' %}{% assign desc = "Factory coordination and sample audits." %}
+                                  {% else %}{% assign desc = "Explore our professional marketplace service." %}{% endif %}
                                 {% endif %}
                                 <li>
                                   <a href="{{ grandchild_link.url }}" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                                     <span class="flex items-center gap-1">
                                       <span>{{ grandchild_link.title }}</span>
-                                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                                      </svg>
+                                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                                     </span>
                                     <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">{{ desc }}</span>
                                   </a>
@@ -259,28 +245,21 @@
                               {% assign block_title_clean = block.settings.title | strip | downcase %}
                               {% assign target_title_clean = child_link.title | strip | downcase %}
                               {% if block_title_clean == target_title_clean %}
-                                {% assign desc = block.settings.description %}
-                                {% break %}
+                                {% assign desc = block.settings.description %}{% break %}
                               {% endif %}
                             {% endif %}
                           {% endfor %}
                           {% if desc == blank %}
                             {% assign c_title_lower = child_link.title | downcase %}
-                            {% if c_title_lower contains 'web development' or c_title_lower contains 'website development' %}
-                              {% assign desc = "Premium customized web development solutions." %}
-                            {% elsif c_title_lower contains 'product shoot' or c_title_lower contains 'photography' %}
-                              {% assign desc = "Professional commercial studio photography." %}
-                            {% else %}
-                              {% assign desc = "Explore our professional marketplace service." %}
-                            {% endif %}
+                            {% if c_title_lower contains 'web development' or c_title_lower contains 'website development' %}{% assign desc = "Premium customized web development solutions." %}
+                            {% elsif c_title_lower contains 'product shoot' or c_title_lower contains 'photography' %}{% assign desc = "Professional commercial studio photography." %}
+                            {% else %}{% assign desc = "Explore our professional marketplace service." %}{% endif %}
                           {% endif %}
                           <div class="pt-4 border-t border-border/50">
                             <a href="{{ child_link.url }}" class="walbayzon-sub-link group/link block">
                               <span class="flex items-center gap-1">
                                 <h4 class="text-xs font-bold uppercase tracking-wider text-brand-orange transition-colors mb-0.5">{{ child_link.title }}</h4>
-                                <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                                </svg>
+                                <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                               </span>
                               <p class="text-[11px] text-foreground/45 group-hover/link:text-brand-orange transition-colors duration-300">{{ desc }}</p>
                             </a>
@@ -288,7 +267,6 @@
                         {% endif %}
                       {% endfor %}
                     </div>
-                    
                     <!-- Column 2: Items 3 and 4 -->
                     <div class="space-y-6">
                       {% for child_link in link.links limit: 2 offset: 2 %}
@@ -303,40 +281,27 @@
                                     {% assign block_title_clean = block.settings.title | strip | downcase %}
                                     {% assign target_title_clean = grandchild_link.title | strip | downcase %}
                                     {% if block_title_clean == target_title_clean %}
-                                      {% assign desc = block.settings.description %}
-                                      {% break %}
+                                      {% assign desc = block.settings.description %}{% break %}
                                     {% endif %}
                                   {% endif %}
                                 {% endfor %}
                                 {% if desc == blank %}
                                   {% assign gc_title_lower = grandchild_link.title | downcase %}
-                                  {% if gc_title_lower contains 'e-commerce account' or gc_title_lower contains 'ecommerce account' %}
-                                    {% assign desc = "Complete store and brand handling." %}
-                                  {% elsif gc_title_lower contains 'performance marketing' %}
-                                    {% assign desc = "Data-driven traffic and campaigns." %}
-                                  {% elsif gc_title_lower contains 'social media' %}
-                                    {% assign desc = "Organic content and engagement." %}
-                                  {% elsif gc_title_lower contains 'logo' or gc_title_lower contains 'packaging' %}
-                                    {% assign desc = "Visual identity and product presentation." %}
-                                  {% elsif gc_title_lower contains 'iec' or gc_title_lower contains 'export' %}
-                                    {% assign desc = "Import Export Code registrations." %}
-                                  {% elsif gc_title_lower contains 'llc' or gc_title_lower contains 'usa' %}
-                                    {% assign desc = "Establishing businesses in the US." %}
-                                  {% elsif gc_title_lower contains 'product research' %}
-                                    {% assign desc = "Niche research and feasibility analysis." %}
-                                  {% elsif gc_title_lower contains 'product sourcing' or gc_title_lower contains 'sourcing' %}
-                                    {% assign desc = "Factory coordination and sample audits." %}
-                                  {% else %}
-                                    {% assign desc = "Explore our professional marketplace service." %}
-                                  {% endif %}
+                                  {% if gc_title_lower contains 'e-commerce account' or gc_title_lower contains 'ecommerce account' %}{% assign desc = "Complete store and brand handling." %}
+                                  {% elsif gc_title_lower contains 'performance marketing' %}{% assign desc = "Data-driven traffic and campaigns." %}
+                                  {% elsif gc_title_lower contains 'social media' %}{% assign desc = "Organic content and engagement." %}
+                                  {% elsif gc_title_lower contains 'logo' or gc_title_lower contains 'packaging' %}{% assign desc = "Visual identity and product presentation." %}
+                                  {% elsif gc_title_lower contains 'iec' or gc_title_lower contains 'export' %}{% assign desc = "Import Export Code registrations." %}
+                                  {% elsif gc_title_lower contains 'llc' or gc_title_lower contains 'usa' %}{% assign desc = "Establishing businesses in the US." %}
+                                  {% elsif gc_title_lower contains 'product research' %}{% assign desc = "Niche research and feasibility analysis." %}
+                                  {% elsif gc_title_lower contains 'product sourcing' or gc_title_lower contains 'sourcing' %}{% assign desc = "Factory coordination and sample audits." %}
+                                  {% else %}{% assign desc = "Explore our professional marketplace service." %}{% endif %}
                                 {% endif %}
                                 <li>
                                   <a href="{{ grandchild_link.url }}" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                                     <span class="flex items-center gap-1">
                                       <span>{{ grandchild_link.title }}</span>
-                                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                                      </svg>
+                                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                                     </span>
                                     <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">{{ desc }}</span>
                                   </a>
@@ -351,28 +316,21 @@
                               {% assign block_title_clean = block.settings.title | strip | downcase %}
                               {% assign target_title_clean = child_link.title | strip | downcase %}
                               {% if block_title_clean == target_title_clean %}
-                                {% assign desc = block.settings.description %}
-                                {% break %}
+                                {% assign desc = block.settings.description %}{% break %}
                               {% endif %}
                             {% endif %}
                           {% endfor %}
                           {% if desc == blank %}
                             {% assign c_title_lower = child_link.title | downcase %}
-                            {% if c_title_lower contains 'web development' or c_title_lower contains 'website development' %}
-                              {% assign desc = "Premium customized web development solutions." %}
-                            {% elsif c_title_lower contains 'product shoot' or c_title_lower contains 'photography' %}
-                              {% assign desc = "Professional commercial studio photography." %}
-                            {% else %}
-                              {% assign desc = "Explore our professional marketplace service." %}
-                            {% endif %}
+                            {% if c_title_lower contains 'web development' or c_title_lower contains 'website development' %}{% assign desc = "Premium customized web development solutions." %}
+                            {% elsif c_title_lower contains 'product shoot' or c_title_lower contains 'photography' %}{% assign desc = "Professional commercial studio photography." %}
+                            {% else %}{% assign desc = "Explore our professional marketplace service." %}{% endif %}
                           {% endif %}
                           <div class="pt-4 border-t border-border/50">
                             <a href="{{ child_link.url }}" class="walbayzon-sub-link group/link block">
                               <span class="flex items-center gap-1">
                                 <h4 class="text-xs font-bold uppercase tracking-wider text-brand-orange transition-colors mb-0.5">{{ child_link.title }}</h4>
-                                <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                                </svg>
+                                <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                               </span>
                               <p class="text-[11px] text-foreground/45 group-hover/link:text-brand-orange transition-colors duration-300">{{ desc }}</p>
                             </a>
@@ -380,7 +338,6 @@
                         {% endif %}
                       {% endfor %}
                     </div>
-                    
                     <!-- Column 3: Items 5 and 6 -->
                     <div class="space-y-6">
                       {% for child_link in link.links offset: 4 %}
@@ -395,40 +352,27 @@
                                     {% assign block_title_clean = block.settings.title | strip | downcase %}
                                     {% assign target_title_clean = grandchild_link.title | strip | downcase %}
                                     {% if block_title_clean == target_title_clean %}
-                                      {% assign desc = block.settings.description %}
-                                      {% break %}
+                                      {% assign desc = block.settings.description %}{% break %}
                                     {% endif %}
                                   {% endif %}
                                 {% endfor %}
                                 {% if desc == blank %}
                                   {% assign gc_title_lower = grandchild_link.title | downcase %}
-                                  {% if gc_title_lower contains 'e-commerce account' or gc_title_lower contains 'ecommerce account' %}
-                                    {% assign desc = "Complete store and brand handling." %}
-                                  {% elsif gc_title_lower contains 'performance marketing' %}
-                                    {% assign desc = "Data-driven traffic and campaigns." %}
-                                  {% elsif gc_title_lower contains 'social media' %}
-                                    {% assign desc = "Organic content and engagement." %}
-                                  {% elsif gc_title_lower contains 'logo' or gc_title_lower contains 'packaging' %}
-                                    {% assign desc = "Visual identity and product presentation." %}
-                                  {% elsif gc_title_lower contains 'iec' or gc_title_lower contains 'export' %}
-                                    {% assign desc = "Import Export Code registrations." %}
-                                  {% elsif gc_title_lower contains 'llc' or gc_title_lower contains 'usa' %}
-                                    {% assign desc = "Establishing businesses in the US." %}
-                                  {% elsif gc_title_lower contains 'product research' %}
-                                    {% assign desc = "Niche research and feasibility analysis." %}
-                                  {% elsif gc_title_lower contains 'product sourcing' or gc_title_lower contains 'sourcing' %}
-                                    {% assign desc = "Factory coordination and sample audits." %}
-                                  {% else %}
-                                    {% assign desc = "Explore our professional marketplace service." %}
-                                  {% endif %}
+                                  {% if gc_title_lower contains 'e-commerce account' or gc_title_lower contains 'ecommerce account' %}{% assign desc = "Complete store and brand handling." %}
+                                  {% elsif gc_title_lower contains 'performance marketing' %}{% assign desc = "Data-driven traffic and campaigns." %}
+                                  {% elsif gc_title_lower contains 'social media' %}{% assign desc = "Organic content and engagement." %}
+                                  {% elsif gc_title_lower contains 'logo' or gc_title_lower contains 'packaging' %}{% assign desc = "Visual identity and product presentation." %}
+                                  {% elsif gc_title_lower contains 'iec' or gc_title_lower contains 'export' %}{% assign desc = "Import Export Code registrations." %}
+                                  {% elsif gc_title_lower contains 'llc' or gc_title_lower contains 'usa' %}{% assign desc = "Establishing businesses in the US." %}
+                                  {% elsif gc_title_lower contains 'product research' %}{% assign desc = "Niche research and feasibility analysis." %}
+                                  {% elsif gc_title_lower contains 'product sourcing' or gc_title_lower contains 'sourcing' %}{% assign desc = "Factory coordination and sample audits." %}
+                                  {% else %}{% assign desc = "Explore our professional marketplace service." %}{% endif %}
                                 {% endif %}
                                 <li>
                                   <a href="{{ grandchild_link.url }}" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                                     <span class="flex items-center gap-1">
                                       <span>{{ grandchild_link.title }}</span>
-                                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                                      </svg>
+                                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                                     </span>
                                     <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">{{ desc }}</span>
                                   </a>
@@ -443,28 +387,21 @@
                               {% assign block_title_clean = block.settings.title | strip | downcase %}
                               {% assign target_title_clean = child_link.title | strip | downcase %}
                               {% if block_title_clean == target_title_clean %}
-                                {% assign desc = block.settings.description %}
-                                {% break %}
+                                {% assign desc = block.settings.description %}{% break %}
                               {% endif %}
                             {% endif %}
                           {% endfor %}
                           {% if desc == blank %}
                             {% assign c_title_lower = child_link.title | downcase %}
-                            {% if c_title_lower contains 'web development' or c_title_lower contains 'website development' %}
-                              {% assign desc = "Premium customized web development solutions." %}
-                            {% elsif c_title_lower contains 'product shoot' or c_title_lower contains 'photography' %}
-                              {% assign desc = "Professional commercial studio photography." %}
-                            {% else %}
-                              {% assign desc = "Explore our professional marketplace service." %}
-                            {% endif %}
+                            {% if c_title_lower contains 'web development' or c_title_lower contains 'website development' %}{% assign desc = "Premium customized web development solutions." %}
+                            {% elsif c_title_lower contains 'product shoot' or c_title_lower contains 'photography' %}{% assign desc = "Professional commercial studio photography." %}
+                            {% else %}{% assign desc = "Explore our professional marketplace service." %}{% endif %}
                           {% endif %}
                           <div class="pt-4 border-t border-border/50">
                             <a href="{{ child_link.url }}" class="walbayzon-sub-link group/link block">
                               <span class="flex items-center gap-1">
                                 <h4 class="text-xs font-bold uppercase tracking-wider text-brand-orange transition-colors mb-0.5">{{ child_link.title }}</h4>
-                                <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                                </svg>
+                                <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                               </span>
                               <p class="text-[11px] text-foreground/45 group-hover/link:text-brand-orange transition-colors duration-300">{{ desc }}</p>
                             </a>
@@ -472,7 +409,6 @@
                         {% endif %}
                       {% endfor %}
                     </div>
-                    
                   </div>
                 </div>
               </div>
@@ -481,42 +417,33 @@
               <div class="relative group">
                 <button class="inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground transition-all duration-200 cursor-pointer">
                   <span>{{ link.title }}</span>
-                  <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
                 </button>
-                
                 <div class="walbayzon-dropdown-more">
                   <div class="rounded-2xl p-3 shadow-xl space-y-1 walbayzon-glass-card">
                     {% for child_link in link.links %}
-                      <a href="{{ child_link.url }}" class="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground/75 hover:bg-secondary hover:text-foreground transition-colors">
-                        {{ child_link.title }}
-                      </a>
+                      <a href="{{ child_link.url }}" class="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground/75 hover:bg-secondary hover:text-foreground transition-colors">{{ child_link.title }}</a>
                     {% endfor %}
                   </div>
                 </div>
               </div>
             {% endif %}
           {% else %}
-            <a href="{{ link.url }}" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors duration-200">
-              {{ link.title }}
-            </a>
+            <a href="{{ link.url }}" class="rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors duration-200">{{ link.title }}</a>
           {% endif %}
         {% endfor %}
       {% else %}
+        <!-- Fallback to original hardcoded menu if no menu selected -->
         <!-- Services (Dropdown Megamenu) -->
         <div class="relative group">
           <button class="inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground transition-all duration-200 cursor-pointer">
             <span>Services</span>
-            <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
+            <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
           </button>
           
           <!-- Megamenu Dropdown Container -->
           <div class="walbayzon-megamenu">
             <div class="grid grid-cols-3 gap-8 rounded-3xl p-8 shadow-2xl walbayzon-glass-card">
-              
               <!-- Column 1: Management Services & Website Development -->
               <div class="space-y-6">
                 <div>
@@ -526,9 +453,7 @@
                       <a href="#ecommerce-management" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>E-commerce Account Management</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Complete store and brand handling.</span>
                       </a>
@@ -537,9 +462,7 @@
                       <a href="#performance-marketing" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>Performance Marketing</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Data-driven traffic and campaigns.</span>
                       </a>
@@ -548,9 +471,7 @@
                       <a href="#social-media" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>Social Media Management</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Organic content and engagement.</span>
                       </a>
@@ -562,9 +483,7 @@
                   <a href="#web-development" class="walbayzon-sub-link group/link block">
                     <span class="flex items-center gap-1">
                       <h4 class="text-xs font-bold uppercase tracking-wider text-brand-orange transition-colors mb-0.5">Website Development</h4>
-                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                      </svg>
+                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                     </span>
                     <p class="text-[11px] text-foreground/45 group-hover/link:text-brand-orange transition-colors duration-300">Premium customized web development solutions.</p>
                   </a>
@@ -580,9 +499,7 @@
                       <a href="#logo-packaging" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>Logo and Packaging Design</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Visual identity and product presentation.</span>
                       </a>
@@ -594,9 +511,7 @@
                   <a href="#product-shoot" class="walbayzon-sub-link group/link block">
                     <span class="flex items-center gap-1">
                       <h4 class="text-xs font-bold uppercase tracking-wider text-brand-orange transition-colors mb-0.5">Product Shoot</h4>
-                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                      </svg>
+                      <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                     </span>
                     <p class="text-[11px] text-foreground/45 group-hover/link:text-brand-orange transition-colors duration-300">Professional commercial studio photography.</p>
                   </a>
@@ -612,9 +527,7 @@
                       <a href="#iec-registration" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>IEC Registration</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Import Export Code registrations.</span>
                       </a>
@@ -623,9 +536,7 @@
                       <a href="#usa-llc" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>USA LLC Registration</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Establishing businesses in the US.</span>
                       </a>
@@ -640,9 +551,7 @@
                       <a href="#product-research" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>Product Research</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Niche research and feasibility analysis.</span>
                       </a>
@@ -651,9 +560,7 @@
                       <a href="#product-sourcing" class="walbayzon-sub-link group/link text-sm font-medium text-foreground/75 hover:text-foreground">
                         <span class="flex items-center gap-1">
                           <span>Product Sourcing</span>
-                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" />
-                          </svg>
+                          <svg class="arrow-icon h-3.5 w-3.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7-7" /></svg>
                         </span>
                         <span class="block text-[11px] text-foreground/45 mt-0.5 group-hover/link:text-brand-orange transition-colors duration-300">Factory coordination and sample audits.</span>
                       </a>
@@ -661,7 +568,6 @@
                   </ul>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -680,9 +586,7 @@
         <div class="relative group">
           <button class="inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-foreground transition-all duration-200 cursor-pointer">
             <span>More</span>
-            <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
+            <svg class="h-4 w-4 text-foreground/50 group-hover:rotate-180 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
           </button>
           
           <!-- Standard Dropdown Container -->
