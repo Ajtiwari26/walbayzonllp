@@ -23,6 +23,18 @@
     },
     "header": {
       "type": "walbayzon-header",
+      "blocks": {
+        "service_desc_anKzCF": {
+          "type": "service_desc",
+          "settings": {
+            "title": "",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "service_desc_anKzCF"
+      ],
       "settings": {
         "logo_max_height": 35,
         "logo_letter": "W",
