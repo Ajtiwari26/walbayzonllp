@@ -18,7 +18,7 @@
       "settings": {}
     },
     "network-map": {
-      "type": "walbayzon-network-map",
+      "type": "walbayzongraphworldtrade",
       "settings": {}
     },
     "services": {
