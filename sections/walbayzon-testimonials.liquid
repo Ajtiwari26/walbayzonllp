@@ -3,11 +3,112 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<section class="bg-soft-pearl py-16 sm:py-24 lg:py-32">
-  <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+<section class="bg-soft-pearl py-16 sm:py-24 lg:py-32 relative overflow-hidden z-10">
+  
+  <!-- Floating Chat Birds Background Layer -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none select-none z-0">
+    
+    <!-- Bird 1 (Orange, fast path bottom-left to top-right) -->
+    <div class="chat-bird bird-path-1 text-brand-orange">
+      <div class="bird-body">
+        <div class="wing left-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+        <div class="bird-msg border-brand-orange/20 text-brand-coffee">
+          +400% Revenue
+        </div>
+        <div class="wing right-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bird 2 (Coffee, slow path bottom-right to top-left) -->
+    <div class="chat-bird bird-path-2 text-brand-coffee">
+      <div class="bird-body">
+        <div class="wing left-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+        <div class="bird-msg border-brand-coffee/20 text-brand-coffee">
+          Zero hand-holding
+        </div>
+        <div class="wing right-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bird 3 (Orange, floating left) -->
+    <div class="chat-bird bird-path-3 text-brand-orange">
+      <div class="bird-body">
+        <div class="wing left-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+        <div class="bird-msg border-brand-orange/20 text-brand-coffee">
+          UAE in 90 Days
+        </div>
+        <div class="wing right-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bird 4 (Coffee, floating right) -->
+    <div class="chat-bird bird-path-4 text-brand-coffee">
+      <div class="bird-body">
+        <div class="wing left-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+        <div class="bird-msg border-brand-coffee/20 text-brand-coffee">
+          Global Scale
+        </div>
+        <div class="wing right-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bird 5 (Orange, middle path left to right) -->
+    <div class="chat-bird bird-path-5 text-brand-orange">
+      <div class="bird-body">
+        <div class="wing left-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+        <div class="bird-msg border-brand-orange/20 text-brand-coffee">
+          Amazon US & UK
+        </div>
+        <div class="wing right-wing">
+          <svg viewBox="0 0 32 32" fill="currentColor" class="w-full h-full">
+            <path d="M 4,4 h 24 a 4,4 0 0 1 4,4 v 12 a 4,4 0 0 1 -4,4 h -16 l -6,6 v -6 h -2 a 4,4 0 0 1 -4,-4 v -12 a 4,4 0 0 1 4,-4 z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8 relative z-10">
     
     <!-- Header -->
-    <div>
+    <div class="relative z-10">
       {% if section.settings.sub_title != blank %}
         <p class="text-xs font-medium uppercase tracking-[0.2em]" style="color: {{ section.settings.accent_color }};">
           {{ section.settings.sub_title }}
@@ -19,7 +120,7 @@
     </div>
 
     <!-- Testimonials Grid -->
-    <div id="testimonials-grid" class="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 lg:grid-cols-3">
+    <div id="testimonials-grid" class="mt-12 grid gap-5 sm:mt-16 md:grid-cols-2 lg:grid-cols-3 relative z-10">
       {% for block in section.blocks %}
         <figure class="flex flex-col justify-between rounded-3xl border border-border glass-card p-6 sm:p-8 card-lift" {{ block.shopify_attributes }}>
           <div>
@@ -93,6 +194,115 @@
   </div>
 </section>
 
+<style>
+  /* Flying Chat Birds styles */
+  .chat-bird {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 600px;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+  }
+  .bird-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .wing {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+  .left-wing {
+    transform-origin: right center;
+    transform: scaleX(-1);
+    animation: flap-left 0.6s ease-in-out infinite;
+  }
+  .right-wing {
+    transform-origin: left center;
+    animation: flap-right 0.6s ease-in-out infinite;
+  }
+  .bird-msg {
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid;
+    padding: 6px 18px;
+    border-radius: 9999px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 8px 12px -2px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.03);
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+    user-select: none;
+    margin: 0 8px;
+  }
+
+  @keyframes flap-left {
+    0% { transform: scaleX(-1) rotateY(0deg); }
+    50% { transform: scaleX(-1) rotateY(55deg); }
+    100% { transform: scaleX(-1) rotateY(0deg); }
+  }
+  @keyframes flap-right {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(-55deg); }
+    100% { transform: rotateY(0deg); }
+  }
+
+  /* Flight paths using responsive viewport widths (vw) */
+  .bird-path-1 {
+    animation: fly-path-1 14s linear infinite;
+  }
+  .bird-path-2 {
+    animation: fly-path-2 18s linear infinite;
+    animation-delay: 3s;
+  }
+  .bird-path-3 {
+    animation: float-path-3 10s ease-in-out infinite;
+  }
+  .bird-path-4 {
+    animation: float-path-4 12s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  .bird-path-5 {
+    animation: fly-path-5 12s linear infinite;
+    animation-delay: 6s;
+  }
+
+  @keyframes fly-path-1 {
+    0% { transform: translate(-20vw, 350px) scale(0.45) rotate(15deg); opacity: 0; }
+    15% { opacity: 0.5; }
+    85% { opacity: 0.5; }
+    100% { transform: translate(110vw, -50px) scale(0.7) rotate(5deg); opacity: 0; }
+  }
+  @keyframes fly-path-2 {
+    0% { transform: translate(110vw, 300px) scale(0.6) rotate(-20deg); opacity: 0; }
+    15% { opacity: 0.45; }
+    85% { opacity: 0.45; }
+    100% { transform: translate(-20vw, 20px) scale(0.45) rotate(-5deg); opacity: 0; }
+  }
+  @keyframes float-path-3 {
+    0% { transform: translate(10vw, 120px) scale(0.5) rotate(0deg); opacity: 0.4; }
+    50% { transform: translate(18vw, 220px) scale(0.6) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(10vw, 120px) scale(0.5) rotate(0deg); opacity: 0.4; }
+  }
+  @keyframes float-path-4 {
+    0% { transform: translate(80vw, 240px) scale(0.55) rotate(5deg); opacity: 0.42; }
+    50% { transform: translate(72vw, 100px) scale(0.5) rotate(-5deg); opacity: 0.52; }
+    100% { transform: translate(80vw, 240px) scale(0.55) rotate(5deg); opacity: 0.42; }
+  }
+  @keyframes fly-path-5 {
+    0% { transform: translate(-20vw, 80px) scale(0.55) rotate(5deg); opacity: 0; }
+    15% { opacity: 0.55; }
+    85% { opacity: 0.55; }
+    100% { transform: translate(110vw, 220px) scale(0.7) rotate(10deg); opacity: 0; }
+  }
+</style>
+
 {% schema %}
 {
   "name": "Walbayzon Testimonials",
@@ -113,7 +323,7 @@
       "type": "color",
       "id": "accent_color",
       "label": "Accent Color",
-      "default": "#f97316"
+      "default": "#fc9f30"
     }
   ],
   "blocks": [

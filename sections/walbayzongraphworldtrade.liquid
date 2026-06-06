@@ -1,0 +1,860 @@
+{% comment %}
+  Walbayzon Interactive Animated World Trade Logistics Map Section
+  Compatible with Shopify Theme Editor
+{% endcomment %}
+
+<section class="py-20 md:py-24 relative overflow-hidden" style="background: {{ section.settings.bg_gradient }};">
+  <div class="max-w-7xl mx-auto px-5">
+    
+    <!-- Centered Heading & Subheading -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      {% if section.settings.sub_title != blank %}
+        <span class="text-brand-orange font-bold text-[13px] uppercase tracking-wider bg-brand-orange/10 px-3 py-1 rounded-full">
+          {{ section.settings.sub_title }}
+        </span>
+      {% endif %}
+      
+      <h2 class="font-display text-[32px] sm:text-[42px] font-extrabold text-charcoal tracking-tight mt-4 leading-tight">
+        {{ section.settings.title }}
+      </h2>
+      
+      {% if section.settings.description != blank %}
+        <p class="text-neutral-500 mt-4 text-sm sm:text-base max-w-[650px] mx-auto">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+    </div>
+
+    <!-- Liquid Block Filtering & JSON Generation -->
+    {%- assign brand_blocks = section.blocks | where: "type", "brand" -%}
+    {%- assign country_blocks = section.blocks | where: "type", "country" -%}
+
+    {%- capture brands_json -%}
+    [
+      {%- if brand_blocks.size > 0 -%}
+        {%- for block in brand_blocks -%}
+          {
+            "name": {{ block.settings.title | json }},
+            "logo": {% if block.settings.logo != blank %}{{ block.settings.logo | image_url: width: 100 | json }}{% else %}null{% endif %}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign default_brands = "Crocon,Adda,Adil Quadri,Plix,Kasutam,Mars Exports,Folello,Himalibuti" | split: "," -%}
+        {%- for d_brand in default_brands -%}
+          {
+            "name": {{ d_brand | json }},
+            "logo": null
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+    ]
+    {%- endcapture -%}
+
+    {%- capture countries_json -%}
+    [
+      {%- if country_blocks.size > 0 -%}
+        {%- for block in country_blocks -%}
+          {
+            "name": {{ block.settings.title | json }},
+            "flag": {{ block.settings.flag | json }},
+            "x": {{ block.settings.map_x | plus: 0 }},
+            "y": {{ block.settings.map_y | plus: 0 }},
+            "brands": [
+              {%- assign brand_names = block.settings.brands | split: "," -%}
+              {%- for b_name in brand_names -%}
+                {{ b_name | strip | json }}{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ]
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      {%- else -%}
+        {
+          "name": "United States",
+          "flag": "🇺🇸",
+          "x": 195,
+          "y": 175,
+          "brands": ["Crocon", "Plix", "Folello", "Adda"]
+        },
+        {
+          "name": "United Kingdom",
+          "flag": "🇬🇧",
+          "x": 450,
+          "y": 98,
+          "brands": ["Adil Quadri", "Kasutam", "Himalibuti", "Crocon"]
+        },
+        {
+          "name": "Germany",
+          "flag": "🇩🇪",
+          "x": 490,
+          "y": 108,
+          "brands": ["Kasutam", "Folello", "Mars Exports", "Plix"]
+        },
+        {
+          "name": "United Arab Emirates",
+          "flag": "🇦🇪",
+          "x": 608,
+          "y": 228,
+          "brands": ["Adda", "Mars Exports", "Himalibuti", "Adil Quadri"]
+        },
+        {
+          "name": "Saudi Arabia",
+          "flag": "🇸🇦",
+          "x": 588,
+          "y": 248,
+          "brands": ["Adda", "Adil Quadri", "Mars Exports", "Kasutam"]
+        },
+        {
+          "name": "Australia",
+          "flag": "🇦🇺",
+          "x": 948,
+          "y": 435,
+          "brands": ["Crocon", "Plix", "Folello", "Himalibuti"]
+        },
+        {
+          "name": "Canada",
+          "flag": "🇨🇦",
+          "x": 185,
+          "y": 90,
+          "brands": ["Mars Exports", "Himalibuti", "Crocon", "Plix"]
+        },
+        {
+          "name": "Japan",
+          "flag": "🇯🇵",
+          "x": 965,
+          "y": 148,
+          "brands": ["Plix", "Folello", "Adda", "Kasutam"]
+        }
+      {%- endif -%}
+    ]
+    {%- endcapture -%}
+
+    <!-- Map Wrapper Container -->
+    <div class="flex items-center justify-center overflow-x-auto w-full pb-8">
+      <div id="walbayzon-trade-map-container" 
+           class="min-w-[1000px] w-full max-w-[1211px] h-auto overflow-hidden relative"
+           data-brands='{{ brands_json }}'
+           data-countries='{{ countries_json }}'>
+        
+        <!-- SVG Map Layer -->
+        <svg width="1211" height="590" viewBox="0 0 1211 590" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto select-none">
+          
+          <!-- Latitude/Longitude Grid Lines -->
+          <g opacity="0.3">
+            <!-- Latitudes -->
+            <line x1="50" y1="100" x2="1160" y2="100" class="trade-grid-line" />
+            <line x1="50" y1="200" x2="1160" y2="200" class="trade-grid-line" />
+            <line x1="50" y1="300" x2="1160" y2="300" class="trade-grid-line" />
+            <line x1="50" y1="400" x2="1160" y2="400" class="trade-grid-line" />
+            <line x1="50" y1="500" x2="1160" y2="500" class="trade-grid-line" />
+
+            <!-- Longitudes -->
+            <line x1="200" y1="50" x2="200" y2="540" class="trade-grid-line" />
+            <line x1="400" y1="50" x2="400" y2="540" class="trade-grid-line" />
+            <line x1="600" y1="50" x2="600" y2="540" class="trade-grid-line" />
+            <line x1="800" y1="50" x2="800" y2="540" class="trade-grid-line" />
+            <line x1="1000" y1="50" x2="1000" y2="540" class="trade-grid-line" />
+          </g>
+
+          <!-- World Map Continents Background (Geographically Accurate) -->
+          <g class="trade-map-continents" opacity="0.95">
+
+            <!-- ======= NORTH AMERICA ======= -->
+            <!-- Alaska -->
+            <path d="M 55,62 L 62,55 L 78,50 L 95,48 L 115,50 L 130,55 L 138,62 L 145,72 L 140,80 L 128,88 L 112,92 L 95,95 L 78,92 L 65,85 L 55,75 Z" class="trade-continent" />
+            <!-- Canada & USA mainland -->
+            <path d="M 95,72 L 110,65 L 130,60 L 155,55 L 180,50 L 210,48 L 240,50 L 268,55 L 290,58 L 305,55 L 320,50 L 332,48 L 340,55 L 338,68 L 332,78 L 328,90 L 322,100 L 315,108 L 308,115 L 295,122 L 280,128 L 268,135 L 258,142 L 250,152 L 242,162 L 235,172 L 228,178 L 218,185 L 210,195 L 205,205 L 198,212 L 192,218 L 185,225 L 178,232 L 170,238 L 162,240 L 150,242 L 138,238 L 125,230 L 115,220 L 105,208 L 95,198 L 88,188 L 80,175 L 72,162 L 68,148 L 65,135 L 62,122 L 65,108 L 70,95 L 78,82 Z" class="trade-continent" />
+            <!-- Mexico & Central America -->
+            <path d="M 120,232 L 135,228 L 148,230 L 158,238 L 168,242 L 178,240 L 190,232 L 200,222 L 208,215 L 215,220 L 218,228 L 220,238 L 218,248 L 212,258 L 205,268 L 195,278 L 188,285 L 180,288 L 172,292 L 165,298 L 162,305 L 165,312 L 172,318 L 178,322 L 182,328 L 180,335 L 175,340 L 168,338 L 162,332 L 155,328 L 148,332 L 145,338 L 148,345 L 155,350 L 162,355 L 168,360 L 170,365 L 162,368 L 152,365 L 142,358 L 135,352 L 128,348 L 122,342 L 118,335 L 115,325 L 112,315 L 110,305 L 108,295 L 108,285 L 110,272 L 112,260 L 115,248 L 118,240 Z" class="trade-continent" />
+
+            <!-- ======= SOUTH AMERICA ======= -->
+            <path d="M 210,330 L 225,325 L 240,322 L 258,318 L 275,315 L 288,318 L 298,325 L 308,335 L 315,348 L 318,362 L 320,378 L 318,392 L 315,408 L 310,420 L 305,432 L 298,445 L 292,458 L 288,470 L 282,482 L 275,495 L 268,508 L 262,518 L 258,525 L 255,530 L 250,525 L 248,515 L 245,502 L 242,488 L 238,472 L 235,455 L 232,438 L 228,420 L 225,402 L 222,385 L 218,370 L 215,355 L 212,342 Z" class="trade-continent" />
+
+            <!-- ======= GREENLAND ======= -->
+            <path d="M 325,22 L 340,18 L 358,16 L 375,18 L 390,22 L 398,28 L 402,38 L 400,48 L 395,58 L 385,65 L 372,68 L 358,65 L 345,58 L 335,48 L 328,38 L 325,28 Z" class="trade-continent" />
+
+            <!-- ======= ICELAND ======= -->
+            <path d="M 398,68 L 408,65 L 418,68 L 415,75 L 405,78 L 398,75 Z" class="trade-continent" />
+
+            <!-- ======= EUROPE ======= -->
+            <!-- British Isles -->
+            <path d="M 440,95 L 445,88 L 452,85 L 458,88 L 460,95 L 458,105 L 452,112 L 445,115 L 440,110 L 438,102 Z" class="trade-continent" />
+            <path d="M 432,98 L 436,92 L 440,95 L 438,105 L 434,108 L 430,105 Z" class="trade-continent" />
+            <!-- Scandinavia -->
+            <path d="M 478,42 L 488,38 L 498,35 L 508,38 L 512,45 L 510,55 L 505,65 L 498,75 L 490,82 L 482,88 L 475,85 L 470,78 L 468,68 L 470,58 L 475,48 Z" class="trade-continent" />
+            <!-- Continental Europe -->
+            <path d="M 440,115 L 448,108 L 458,105 L 468,102 L 478,98 L 488,95 L 498,92 L 510,90 L 520,92 L 530,95 L 540,100 L 548,108 L 552,118 L 555,128 L 558,138 L 560,148 L 558,158 L 555,168 L 548,175 L 540,180 L 530,185 L 520,188 L 510,190 L 498,192 L 488,195 L 478,198 L 468,200 L 458,198 L 448,192 L 442,185 L 438,175 L 435,165 L 432,155 L 430,145 L 432,135 L 435,125 Z" class="trade-continent" />
+            <!-- Italy (boot shape) -->
+            <path d="M 492,178 L 498,172 L 502,178 L 505,188 L 508,198 L 510,208 L 508,215 L 502,218 L 498,215 L 495,208 L 492,198 L 490,188 Z" class="trade-continent" />
+            <!-- Iberian Peninsula -->
+            <path d="M 425,168 L 432,162 L 442,158 L 452,162 L 458,170 L 455,180 L 448,188 L 438,192 L 428,190 L 422,182 L 422,175 Z" class="trade-continent" />
+
+            <!-- ======= AFRICA ======= -->
+            <path d="M 440,218 L 452,212 L 465,208 L 478,205 L 492,205 L 505,208 L 518,212 L 530,218 L 542,228 L 552,240 L 558,255 L 562,270 L 565,288 L 565,305 L 562,322 L 558,340 L 552,358 L 545,375 L 538,392 L 530,408 L 522,422 L 515,435 L 508,448 L 502,458 L 498,465 L 495,468 L 490,465 L 485,455 L 480,442 L 475,428 L 470,412 L 465,395 L 460,378 L 455,360 L 450,342 L 448,325 L 445,308 L 442,290 L 440,272 L 438,255 L 438,238 Z" class="trade-continent" />
+            <!-- Madagascar -->
+            <path d="M 578,408 L 585,398 L 592,405 L 590,418 L 585,430 L 578,425 L 575,415 Z" class="trade-continent" />
+
+            <!-- ======= MIDDLE EAST ======= -->
+            <path d="M 558,175 L 568,168 L 580,165 L 592,168 L 605,175 L 615,185 L 622,195 L 625,208 L 625,222 L 622,235 L 618,245 L 610,252 L 600,255 L 590,252 L 578,248 L 568,242 L 560,232 L 555,220 L 552,208 L 552,195 L 555,185 Z" class="trade-continent" />
+
+            <!-- ======= ASIA (Russia + Central + East) ======= -->
+            <!-- Russia & Northern Asia -->
+            <path d="M 530,95 L 548,88 L 568,82 L 590,78 L 615,72 L 642,68 L 670,62 L 700,58 L 732,55 L 765,52 L 800,50 L 838,48 L 875,50 L 910,52 L 942,55 L 970,60 L 995,65 L 1015,72 L 1035,80 L 1050,90 L 1060,102 L 1065,115 L 1062,128 L 1055,140 L 1045,148 L 1032,155 L 1018,158 L 1002,155 L 988,150 L 972,148 L 955,150 L 938,155 L 920,158 L 902,160 L 885,158 L 868,155 L 852,150 L 835,148 L 818,150 L 800,155 L 782,158 L 765,155 L 748,150 L 732,148 L 718,152 L 705,158 L 692,162 L 678,160 L 665,155 L 650,152 L 638,155 L 625,162 L 612,168 L 600,165 L 588,158 L 575,150 L 565,142 L 555,132 L 548,122 L 542,112 L 535,102 Z" class="trade-continent" />
+
+            <!-- ======= INDIAN SUBCONTINENT ======= -->
+            <path d="M 665,195 L 678,188 L 692,185 L 708,188 L 722,195 L 732,205 L 738,218 L 742,232 L 742,248 L 738,262 L 732,275 L 722,285 L 712,295 L 702,302 L 695,308 L 690,302 L 685,292 L 680,280 L 675,268 L 672,255 L 668,242 L 665,228 L 662,215 L 662,205 Z" class="trade-continent" />
+            <!-- Sri Lanka -->
+            <path d="M 700,312 L 708,308 L 712,315 L 708,325 L 702,328 L 698,322 Z" class="trade-continent" />
+
+            <!-- ======= SOUTHEAST ASIA ======= -->
+            <path d="M 748,200 L 762,195 L 778,192 L 795,195 L 808,202 L 818,212 L 822,225 L 818,238 L 812,250 L 802,260 L 792,268 L 782,275 L 772,280 L 765,288 L 758,298 L 752,308 L 748,318 L 745,325 L 740,318 L 738,308 L 735,295 L 735,280 L 738,265 L 742,248 L 745,232 L 748,215 Z" class="trade-continent" />
+
+            <!-- ======= CHINA & KOREA ======= -->
+            <path d="M 818,128 L 838,125 L 858,128 L 878,135 L 895,145 L 908,158 L 918,172 L 922,188 L 920,205 L 912,218 L 900,228 L 885,232 L 868,230 L 852,225 L 838,218 L 828,208 L 822,195 L 818,182 L 815,168 L 812,155 L 815,142 Z" class="trade-continent" />
+            <!-- Korean Peninsula -->
+            <path d="M 922,148 L 930,142 L 938,148 L 940,160 L 938,172 L 932,182 L 925,178 L 920,168 L 918,158 Z" class="trade-continent" />
+
+            <!-- ======= JAPAN ======= -->
+            <!-- Hokkaido -->
+            <path d="M 960,108 L 968,102 L 978,105 L 980,115 L 975,122 L 965,125 L 958,118 Z" class="trade-continent" />
+            <!-- Honshu (main island) -->
+            <path d="M 955,128 L 965,122 L 975,125 L 980,135 L 978,148 L 972,158 L 965,165 L 958,162 L 952,152 L 950,142 L 952,135 Z" class="trade-continent" />
+            <!-- Kyushu + Shikoku -->
+            <path d="M 948,162 L 955,158 L 962,162 L 960,172 L 955,178 L 948,175 L 945,168 Z" class="trade-continent" />
+
+            <!-- ======= INDONESIA / PHILIPPINES ======= -->
+            <!-- Sumatra -->
+            <path d="M 788,308 L 798,305 L 808,312 L 812,325 L 808,338 L 798,342 L 790,335 L 786,322 Z" class="trade-continent" />
+            <!-- Borneo -->
+            <path d="M 822,298 L 835,295 L 845,302 L 848,315 L 842,325 L 832,328 L 822,322 L 818,310 Z" class="trade-continent" />
+            <!-- Java -->
+            <path d="M 802,352 L 818,348 L 835,352 L 828,360 L 812,362 L 802,358 Z" class="trade-continent" />
+            <!-- Philippines -->
+            <path d="M 868,225 L 875,218 L 882,222 L 885,235 L 882,248 L 875,255 L 868,250 L 865,238 Z" class="trade-continent" />
+            <!-- Papua New Guinea -->
+            <path d="M 912,332 L 928,328 L 942,332 L 948,342 L 942,352 L 928,355 L 915,350 L 908,342 Z" class="trade-continent" />
+
+            <!-- ======= AUSTRALIA ======= -->
+            <path d="M 875,388 L 895,378 L 918,372 L 942,370 L 965,372 L 985,378 L 1002,388 L 1015,402 L 1022,418 L 1025,435 L 1022,452 L 1015,468 L 1005,482 L 992,492 L 978,498 L 962,502 L 945,505 L 928,502 L 912,498 L 898,488 L 888,475 L 882,460 L 878,442 L 875,425 L 872,408 L 875,395 Z" class="trade-continent" />
+            <!-- Tasmania -->
+            <path d="M 980,505 L 988,500 L 998,505 L 995,515 L 988,518 L 980,512 Z" class="trade-continent" />
+            <!-- New Zealand -->
+            <path d="M 1058,455 L 1065,448 L 1072,452 L 1075,465 L 1072,478 L 1065,485 L 1058,480 L 1055,468 Z" class="trade-continent" />
+            <path d="M 1050,488 L 1058,482 L 1065,488 L 1062,498 L 1055,502 L 1048,498 Z" class="trade-continent" />
+
+          </g>
+
+          <!-- Origin & Destination Routes (Dotted curved paths and signal lines from India) -->
+          <g id="trade-routes-layer"></g>
+
+          <!-- Origin Hub (India) -->
+          <g transform="translate(700, 250)">
+            <!-- Static Elegant Outer Rings -->
+            <circle cx="0" cy="0" r="16" fill="#fc9f30" opacity="0.15" />
+            <circle cx="0" cy="0" r="10" fill="#fc9f30" opacity="0.3" />
+            <!-- Main Origin Dot -->
+            <circle cx="0" cy="0" r="6" fill="#fc9f30" stroke="#26180f" stroke-width="1.5" />
+            <!-- Custom Styled Label -->
+            <g transform="translate(0, -18)">
+              <rect x="-35" y="-10" width="70" height="20" rx="10" fill="#26180f" stroke="#fc9f30" stroke-width="1" />
+              <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-family="Satoshi, sans-serif" font-weight="900" font-size="11" letter-spacing="0.05em">INDIA</text>
+            </g>
+          </g>
+
+          <!-- Destination Dots Layer (Drawn dynamically by JS) -->
+          <g id="trade-destinations-layer"></g>
+
+          <!-- Active Brand Logo / Initials Flashing Layer (Drawn dynamically by JS) -->
+          <g id="trade-flashing-layer"></g>
+
+          <!-- Theme Gradients -->
+          <defs>
+            <linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#fc9f30"></stop>
+              <stop offset="1" stop-color="#26180f"></stop>
+            </linearGradient>
+            <linearGradient id="paint1_linear" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#26180f"></stop>
+              <stop offset="1" stop-color="#fc9f30"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- Tooltips Layer (HTML Overlay) -->
+        <div id="trade-tooltips-container" class="absolute inset-0 pointer-events-none"></div>
+
+      </div>
+    </div>
+
+    <!-- Interactive Hint Legend -->
+    <div class="text-center mt-6 select-none animate-pulse">
+      <p class="text-neutral-400 text-xs sm:text-sm font-medium tracking-wide flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-brand-orange">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.303.197-1.591 1.591M21.75 12h-2.25m-.197 5.303-1.591-1.591M12 19.5v2.25m-5.303-.197 1.591-1.591M2.25 12h2.25m-.197-5.303 1.591 1.591" />
+        </svg>
+        Hover on any export destination to discover the brands we deliver
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Coordinate Grid Lines */
+  .trade-grid-line {
+    stroke: #26180f;
+    stroke-width: 1.2;
+    stroke-dasharray: 4 8;
+    stroke-opacity: 0.08;
+  }
+
+  /* Continent outlines and fill */
+  .trade-continent {
+    fill: #fdfbf8;
+    stroke: #26180f;
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-opacity: 0.7;
+    transition: fill 0.3s ease, stroke-opacity 0.3s ease;
+  }
+
+  /* Route Arc Paths */
+  .route-arc-path {
+    stroke: #fc9f30;
+    stroke-width: 1.5;
+    stroke-opacity: 0.16;
+    fill: none;
+    transition: stroke-opacity 0.3s ease, stroke-width 0.3s ease;
+  }
+  .route-arc-path.active {
+    stroke-opacity: 0.35;
+    stroke-width: 2.5;
+  }
+
+  /* Signal Line (Glowing dash moving along path) */
+  @keyframes pulseFlow {
+    0% { stroke-dashoffset: 320px; }
+    100% { stroke-dashoffset: 0; }
+  }
+  .signal-line {
+    stroke-dasharray: 45 135;
+    stroke-dashoffset: 320px;
+    stroke-opacity: 0.88;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke: url(#paint0_linear);
+    fill: none;
+    pointer-events: none;
+    animation: 3s linear infinite pulseFlow;
+  }
+
+  /* Interactive Destinations styling */
+  .dest-interactive-group {
+    cursor: pointer;
+  }
+  .dest-interactive-group:hover .dest-dot-core {
+    fill: #26180f;
+    stroke: #fc9f30;
+    stroke-width: 2;
+  }
+
+  /* Brand Reveal animations inside SVG */
+  @keyframes brandRevealIn {
+    0% { transform: scale(0); opacity: 0; }
+    15% { transform: scale(1.3); opacity: 1; }
+    25% { transform: scale(1); opacity: 1; }
+    80% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+  }
+  .brand-flash-reveal {
+    transform-origin: 0px 0px;
+    animation: brandRevealIn 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Glassmorphism Tooltip card overlay (Open-Box version) */
+  .trade-map-tooltip {
+    position: absolute;
+    z-index: 100;
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px) scale(0.95);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .trade-map-tooltip.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Content cluster floating above box */
+  .tooltip-content-cluster {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: 0.1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .trade-map-tooltip.visible .tooltip-content-cluster {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tooltip-header {
+    pointer-events: none;
+  }
+
+  .tooltip-brand-grid-container {
+    box-shadow: 0 10px 25px -5px rgba(38, 24, 15, 0.12), 0 8px 16px -6px rgba(38, 24, 15, 0.08);
+  }
+
+  .tooltip-brand-grid {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 150px;
+  }
+
+  .tooltip-brand-item {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(226, 218, 209, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    overflow: hidden;
+    padding: 3px;
+    opacity: 0;
+    transform: scale(0) translateY(25px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .trade-map-tooltip.visible .tooltip-brand-item {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  .tooltip-brand-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .tooltip-stem {
+    width: 2px;
+    height: 12px;
+    background: linear-gradient(to bottom, rgba(252, 159, 48, 0.4), rgba(252, 159, 48, 0.1));
+  }
+
+  /* SVG Box Lids rotation animations */
+  .box-lid-left {
+    transform-origin: 15px 42px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .box-lid-right {
+    transform-origin: 65px 42px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .trade-map-tooltip.visible .box-lid-left {
+    transform: rotate(-35deg) translate(-3px, -3px);
+  }
+  .trade-map-tooltip.visible .box-lid-right {
+    transform: rotate(35deg) translate(3px, -3px);
+  }
+
+  .tooltip-box-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 60px;
+  }
+</style>
+
+<script>
+  (function() {
+    const initTradeMap = () => {
+      const container = document.getElementById('walbayzon-trade-map-container');
+      if (!container) return;
+
+      const brandsData = JSON.parse(container.getAttribute('data-brands') || '[]');
+      const countriesData = JSON.parse(container.getAttribute('data-countries') || '[]');
+
+      const routesLayer = document.getElementById('trade-routes-layer');
+      const destinationsLayer = document.getElementById('trade-destinations-layer');
+      const flashingLayer = document.getElementById('trade-flashing-layer');
+      const tooltipsContainer = document.getElementById('trade-tooltips-container');
+
+      if (!routesLayer || !destinationsLayer || !flashingLayer || !tooltipsContainer) return;
+
+      // Clear layers to handle Theme Editor reloads
+      routesLayer.innerHTML = '';
+      destinationsLayer.innerHTML = '';
+      flashingLayer.innerHTML = '';
+      tooltipsContainer.innerHTML = '';
+
+      const origin = { x: 700, y: 250 };
+
+      // Helper to generate quadratic Bezier curves for routes
+      const getCurvePath = (x1, y1, x2, y2) => {
+        const ctrlX = (x1 + x2) / 2;
+        const ctrlY = Math.min(y1, y2) - 60;
+        return `M ${x1} ${y1} Q ${ctrlX} ${ctrlY} ${x2} ${y2}`;
+      };
+
+      // Draw Routes and Country Destinations dynamically
+      countriesData.forEach((country, index) => {
+        const pathD = getCurvePath(origin.x, origin.y, country.x, country.y);
+        
+        // 1. Draw Background Route Arc Path
+        const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        pathEl.setAttribute('id', `route-path-${index}`);
+        pathEl.setAttribute('class', 'route-arc-path');
+        pathEl.setAttribute('d', pathD);
+        routesLayer.appendChild(pathEl);
+
+        // 2. Draw Animating Signal Line (Outwards from India simultaneously)
+        const signalEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        signalEl.setAttribute('class', 'signal-line');
+        signalEl.setAttribute('d', pathD);
+        // Stagger delays slightly for aesthetic natural look
+        signalEl.style.animationDelay = `${index * -0.37}s`;
+        routesLayer.appendChild(signalEl);
+
+        // 3. Draw Destination interactive Dot Group
+        const destGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        destGroup.setAttribute('class', 'dest-interactive-group');
+        destGroup.setAttribute('transform', `translate(${country.x}, ${country.y})`);
+        destGroup.dataset.index = index;
+
+        destGroup.innerHTML = `
+          <circle cx="0" cy="0" r="14" fill="#fc9f30" opacity="0.15" />
+          <circle cx="0" cy="0" r="6" class="dest-dot-core" fill="#fc9f30" stroke="#ffffff" stroke-width="1.5" />
+        `;
+        destinationsLayer.appendChild(destGroup);
+
+        // 4. Create Tooltip HTML overlay card
+        const tooltip = document.createElement('div');
+        tooltip.setAttribute('id', `tooltip-${index}`);
+        tooltip.setAttribute('class', 'trade-map-tooltip');
+        
+        // Build brand grids for tooltip
+        let brandGridHtml = '';
+        country.brands.forEach((bName, idx) => {
+          const cleanName = bName.trim();
+          if (!cleanName) return;
+
+          // Find brand block in brandsData
+          const matchedBrand = brandsData.find(b => b.name.toLowerCase() === cleanName.toLowerCase());
+          
+          if (matchedBrand && matchedBrand.logo) {
+            brandGridHtml += `
+              <div class="tooltip-brand-item" title="${cleanName}" style="transition-delay: ${0.15 + idx * 0.08}s">
+                <img src="${matchedBrand.logo}" class="tooltip-brand-logo" alt="${cleanName}" />
+              </div>
+            `;
+          } else {
+            brandGridHtml += `
+              <div class="tooltip-brand-item" title="${cleanName}" style="transition-delay: ${0.15 + idx * 0.08}s">
+                <div class="brand-initial-fallback flex items-center justify-center bg-brand-orange/10 rounded-full w-full h-full">
+                  <svg class="w-4 h-4 text-brand-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </div>
+              </div>
+            `;
+          }
+        });
+
+        tooltip.innerHTML = `
+          <div class="tooltip-content-cluster">
+            <div class="tooltip-header flex items-center justify-center gap-1.5 bg-white/95 border border-brand-orange/20 shadow-md py-1 px-3 rounded-full text-xs font-bold text-brand-coffee backdrop-blur-md mb-2">
+              <span class="text-sm leading-none">${country.flag}</span>
+              <span class="font-display tracking-tight">${country.name}</span>
+            </div>
+            
+            <div class="tooltip-brand-grid-container bg-white/90 border border-neutral-100/80 shadow-lg p-2.5 rounded-2xl backdrop-blur-md">
+              <div class="tooltip-brand-grid">
+                ${brandGridHtml}
+              </div>
+            </div>
+            
+            <div class="tooltip-stem"></div>
+          </div>
+
+          <div class="tooltip-box-wrapper">
+            <svg class="open-box-svg" viewBox="0 0 80 80" width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="40" cy="74" rx="20" ry="4" fill="#26180f" opacity="0.15" />
+              
+              <g class="box-lids">
+                <polygon points="15,42 40,30 20,18 -5,30" class="box-lid-left" fill="#fc9f30" stroke="#26180f" stroke-width="1.5" />
+                <polygon points="40,30 65,42 85,30 60,18" class="box-lid-right" fill="#fc9f30" stroke="#26180f" stroke-width="1.5" />
+              </g>
+              
+              <g class="box-body">
+                <polygon points="40,55 15,42 15,62 40,75" fill="#d8841a" stroke="#26180f" stroke-width="1.5" />
+                <polygon points="40,55 65,42 65,62 40,75" fill="#a45f0b" stroke="#26180f" stroke-width="1.5" />
+                <polygon points="40,55 15,42 40,30 65,42" fill="#26180f" opacity="0.25" />
+              </g>
+            </svg>
+          </div>
+        `;
+        tooltipsContainer.appendChild(tooltip);
+
+        // Position tooltip card dynamically
+        const updateTooltipPosition = () => {
+          const containerRect = container.getBoundingClientRect();
+          // Scale coords to current container size
+          const scaleX = containerRect.width / 1211;
+          const scaleY = containerRect.height / 590;
+
+          const screenX = country.x * scaleX;
+          const screenY = country.y * scaleY;
+
+          tooltip.style.left = `${screenX - 120}px`;
+          tooltip.style.top = `${screenY - 165}px`; // Above dot, centered
+        };
+
+        // Initialize position & bind resize listener
+        updateTooltipPosition();
+        window.addEventListener('resize', updateTooltipPosition);
+
+        // Bind hover events on destination group
+        destGroup.addEventListener('mouseenter', () => {
+          tooltip.classList.add('visible');
+          pathEl.classList.add('active');
+        });
+        destGroup.addEventListener('mouseleave', () => {
+          tooltip.classList.remove('visible');
+          pathEl.classList.remove('active');
+        });
+
+        // Touch support for mobile devices
+        destGroup.addEventListener('touchstart', (e) => {
+          e.preventDefault();
+          const visible = tooltip.classList.contains('visible');
+          document.querySelectorAll('.trade-map-tooltip').forEach(el => el.classList.remove('visible'));
+          document.querySelectorAll('.route-arc-path').forEach(el => el.classList.remove('active'));
+          
+          if (!visible) {
+            tooltip.classList.add('visible');
+            pathEl.classList.add('active');
+          }
+        });
+      });
+
+      // Clear any click out focus on mobile
+      document.addEventListener('touchstart', (e) => {
+        if (!e.target.closest('.dest-interactive-group')) {
+          document.querySelectorAll('.trade-map-tooltip').forEach(el => el.classList.remove('visible'));
+          document.querySelectorAll('.route-arc-path').forEach(el => el.classList.remove('active'));
+        }
+      });
+
+      // Logistics Parcel Animation Loop Engine
+      const startParcelLoop = (countryIndex) => {
+        const country = countriesData[countryIndex];
+        const routePath = document.getElementById(`route-path-${countryIndex}`);
+        if (!country || !routePath) return;
+
+        const pathLength = routePath.getTotalLength();
+
+        // 1. Create 3D parcel element
+        const parcel = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        parcel.setAttribute('class', 'animating-parcel');
+
+        // Premium isometric 3D box drawing scaled to double size with coffee-brown outlines
+        parcel.innerHTML = `
+          <!-- Top Face -->
+          <polygon points="0,-12 14,-6 0,0 -14,-6" fill="#fc9f30" stroke="#26180f" stroke-width="0.8" stroke-linejoin="round" />
+          <!-- Left Face -->
+          <polygon points="-14,-6 0,0 0,12 -14,6" fill="#d8841a" stroke="#26180f" stroke-width="0.8" stroke-linejoin="round" />
+          <!-- Right Face -->
+          <polygon points="0,0 14,-6 14,12 0,12" fill="#a45f0b" stroke="#26180f" stroke-width="0.8" stroke-linejoin="round" />
+        `;
+        // Position initially at India start node to prevent top-left rendering flash
+        parcel.setAttribute('transform', `translate(700, 250)`);
+        routesLayer.parentNode.appendChild(parcel);
+
+        let startTime = null;
+        const duration = 2800 + Math.random() * 1200; // Variable speed per route (2.8s - 4s)
+
+        const step = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const progress = (timestamp - startTime) / duration;
+
+          if (progress < 1) {
+            const currentDist = progress * pathLength;
+            const point = routePath.getPointAtLength(currentDist);
+            parcel.setAttribute('transform', `translate(${point.x}, ${point.y})`);
+            
+            requestAnimationFrame(step);
+          } else {
+            // Parcel has reached destination!
+            if (parcel.parentNode) {
+              parcel.parentNode.removeChild(parcel);
+            }
+            
+            // Loop next parcel after a small delay
+            setTimeout(() => {
+              startParcelLoop(countryIndex);
+            }, 800 + Math.random() * 1500); // Stagger loops naturally
+          }
+        };
+
+        requestAnimationFrame(step);
+      };
+
+
+
+      // Spawner loop
+      const startLogisticsEngine = () => {
+        if (countriesData.length === 0) return;
+
+        // Run parcel loops on ALL routes simultaneously
+        countriesData.forEach((_, idx) => {
+          // Stagger the first spawn of each route slightly for a natural start
+          setTimeout(() => {
+            startParcelLoop(idx);
+          }, idx * 450);
+        });
+      };
+
+      // Start logistics engine directly on load (bypassing intersection observer bugs in theme editor frame)
+      startLogisticsEngine();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTradeMap);
+    } else {
+      initTradeMap();
+    }
+
+    document.addEventListener('shopify:section:load', (e) => {
+      if (e.target.querySelector('#walbayzon-trade-map-container')) {
+        initTradeMap();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Walbayzon World Trade Map",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Sub Title",
+      "default": "Multi-Channel Integration"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Connecting Indian Brands to Global Marketplaces"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We seamlessly connect your DTC store and supply chains to the world's leading e-commerce channels. Our operational engine manages listing compliance, warehouse logistics, and ad optimization."
+    },
+    {
+      "type": "text",
+      "id": "bg_gradient",
+      "label": "Section Background Gradient / Solid",
+      "default": "linear-gradient(to bottom, #fdfbf8 0%, #f7f3ed 100%)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Indian Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Brand Name",
+          "default": "Brand Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Brand Logo"
+        }
+      ]
+    },
+    {
+      "type": "country",
+      "name": "Export Destination",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Country Name",
+          "default": "Country"
+        },
+        {
+          "type": "text",
+          "id": "flag",
+          "label": "Flag Emoji",
+          "default": "🇺🇸"
+        },
+        {
+          "type": "text",
+          "id": "brands",
+          "label": "Exported Brands (comma-separated)",
+          "info": "List matching Indian Brand names to display in the country tooltip.",
+          "default": "Crocon, Adda, Plix"
+        },
+        {
+          "type": "number",
+          "id": "map_x",
+          "label": "Map X coordinate",
+          "default": 230
+        },
+        {
+          "type": "number",
+          "id": "map_y",
+          "label": "Map Y coordinate",
+          "default": 170
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Walbayzon World Trade Map",
+      "blocks": [
+        { "type": "brand", "settings": { "title": "Crocon" } },
+        { "type": "brand", "settings": { "title": "Adda" } },
+        { "type": "brand", "settings": { "title": "Adil Quadri" } },
+        { "type": "brand", "settings": { "title": "Plix" } },
+        { "type": "brand", "settings": { "title": "Kasutam" } },
+        { "type": "brand", "settings": { "title": "Mars Exports" } },
+        { "type": "brand", "settings": { "title": "Folello" } },
+        { "type": "brand", "settings": { "title": "Himalibuti" } },
+        { "type": "country", "settings": { "title": "United States", "flag": "🇺🇸", "map_x": 195, "map_y": 175, "brands": "Crocon, Plix, Folello, Adda" } },
+        { "type": "country", "settings": { "title": "United Kingdom", "flag": "🇬🇧", "map_x": 450, "map_y": 98, "brands": "Adil Quadri, Kasutam, Himalibuti, Crocon" } },
+        { "type": "country", "settings": { "title": "Germany", "flag": "🇩🇪", "map_x": 490, "map_y": 108, "brands": "Kasutam, Folello, Mars Exports, Plix" } },
+        { "type": "country", "settings": { "title": "United Arab Emirates", "flag": "🇦🇪", "map_x": 608, "map_y": 228, "brands": "Adda, Mars Exports, Himalibuti, Adil Quadri" } },
+        { "type": "country", "settings": { "title": "Saudi Arabia", "flag": "🇸🇦", "map_x": 588, "map_y": 248, "brands": "Adda, Adil Quadri, Mars Exports, Kasutam" } },
+        { "type": "country", "settings": { "title": "Australia", "flag": "🇦🇺", "map_x": 948, "map_y": 435, "brands": "Crocon, Plix, Folello, Himalibuti" } },
+        { "type": "country", "settings": { "title": "Canada", "flag": "🇨🇦", "map_x": 185, "map_y": 90, "brands": "Mars Exports, Himalibuti, Crocon, Plix" } },
+        { "type": "country", "settings": { "title": "Japan", "flag": "🇯🇵", "map_x": 965, "map_y": 148, "brands": "Plix, Folello, Adda, Kasutam" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

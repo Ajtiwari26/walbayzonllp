@@ -5,10 +5,18 @@
 
 <footer class="relative overflow-hidden text-primary-foreground py-8" style="background: {{ section.settings.bg_gradient }}; color: {{ section.settings.text_color }};">
   
-  <!-- Massive Background Text -->
+  <!-- Massive Background Text (Goprotoz-style fade) -->
   {% if section.settings.bg_text != blank %}
     <div class="mx-auto max-w-7xl px-4 pt-12 sm:px-5 sm:pt-16 lg:px-8 lg:pt-24 select-none pointer-events-none" style="container-type:inline-size">
-      <div class="w-full whitespace-nowrap text-center font-display font-black leading-[0.85] tracking-tight opacity-10" style="font-size:17cqw; color: {{ section.settings.bg_text_color }};">
+      <div class="w-full whitespace-nowrap font-display font-bold leading-[0.75] select-none"
+           style="font-size:17cqw;
+                  letter-spacing:-0.06em;
+                  text-align:justify;
+                  padding-left:8%;
+                  color: {{ section.settings.bg_text_color | default: '#ffffff' }};
+                  opacity: 0.18;
+                  -webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgb(0,0,0) 100%);
+                  mask-image: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgb(0,0,0) 100%);">
         {{ section.settings.bg_text }}
       </div>
     </div>
@@ -94,7 +102,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
           </a>
           <a href="{{ linkedin_url }}" aria-label="LinkedIn" class="grid h-10 w-10 place-items-center rounded-full border border-primary-foreground/15 transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-primary" style="border-color: {{ section.settings.divider_color }};">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></circle></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
           <a href="{{ youtube_url }}" aria-label="YouTube" class="grid h-10 w-10 place-items-center rounded-full border border-primary-foreground/15 transition-all hover:border-brand-orange hover:bg-brand-orange hover:text-primary" style="border-color: {{ section.settings.divider_color }};">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
@@ -286,7 +294,7 @@
       "type": "color",
       "id": "accent_color",
       "label": "Accent Color",
-      "default": "#f97316"
+      "default": "#fc9f30"
     },
     {
       "type": "color",
@@ -298,7 +306,7 @@
       "type": "color",
       "id": "divider_color",
       "label": "Dividers / Border Color",
-      "default": "rgba(251,248,245,0.1)"
+      "default": "rgba(255,255,255,0.35)"
     },
     {
       "type": "header",

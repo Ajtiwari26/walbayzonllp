@@ -1,7 +1,19 @@
-{% comment %}
-  Walbayzon Services Section
-  Compatible with Shopify Theme Editor
-{% endcomment %}
+<style>
+  /* Smooth transitions and hover overrides to match Netlify */
+  #services .group {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  #services .group:hover {
+    background-color: oklch(0.96 0.015 75) !important; /* Dull cream hover color */
+  }
+  #services .group .grid.h-12 {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  #services .group:hover .grid.h-12 {
+    background-color: oklch(0.78 0.16 65) !important; /* Brand Orange on hover */
+    color: oklch(0.225 0.028 55) !important; /* Coffee/Black icon on hover */
+  }
+</style>
 
 <section id="services" class="relative py-16 sm:py-24 lg:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
@@ -17,7 +29,7 @@
         </h2>
       </div>
       {% if section.settings.link_text != blank %}
-        <a href="{{ section.settings.link_url }}" class="hidden items-center gap-2 text-sm font-semibold text-foreground hover:opacity-85 lg:inline-flex">
+        <a href="{{ section.settings.link_url }}" class="hidden items-center gap-2 text-sm font-semibold text-foreground hover:opacity-80 lg:inline-flex">
           {{ section.settings.link_text }}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
             <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
@@ -28,47 +40,153 @@
 
     <!-- Services Grid -->
     <div class="mt-12 grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
-      {% for block in section.blocks %}
-        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8" {{ block.shopify_attributes }}>
-          <div class="flex items-start justify-between">
-            
-            <!-- Service Icon -->
-            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
-                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
-              {% case block.settings.icon %}
-                {% when 'shopping-bag' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                {% when 'trending-up' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-                {% when 'globe' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
-                {% when 'sparkles' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
-                {% when 'bar-chart' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
-                {% when 'rocket' %}
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
-                {% else %}
-                  <span>{{ block.settings.custom_emoji }}</span>
-              {% endcase %}
+      {% if section.blocks.size > 0 %}
+        {% for block in section.blocks %}
+          <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8" {{ block.shopify_attributes }}>
+            <div class="flex items-start justify-between">
+              
+              <!-- Service Icon -->
+              <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                   style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+                {% case block.settings.icon %}
+                  {% when 'shopping-bag' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                  {% when 'trending-up' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                  {% when 'globe' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
+                  {% when 'sparkles' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+                  {% when 'bar-chart' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+                  {% when 'rocket' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                  {% else %}
+                    <span>{{ block.settings.custom_emoji }}</span>
+                {% endcase %}
+              </div>
+
+              <!-- Service Index -->
+              <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">{{ block.settings.tag }}</span>
             </div>
 
-            <!-- Service Index -->
-            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">{{ block.settings.tag }}</span>
+            <!-- Service Title & Description -->
+            <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">{{ block.settings.title }}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{{ block.settings.description }}</p>
+            
+            {% if block.settings.link_url != blank %}
+              <a href="{{ block.settings.link_url }}" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+                {{ block.settings.link_label | default: "Learn more" }}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+              </a>
+            {% endif %}
           </div>
-
-          <!-- Service Title & Description -->
-          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">{{ block.settings.title }}</h3>
-          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">{{ block.settings.description }}</p>
-          
-          {% if block.settings.link_url != blank %}
-            <a href="{{ block.settings.link_url }}" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
-              {{ block.settings.link_label | default: "Learn more" }}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-            </a>
-          {% endif %}
+        {% endfor %}
+      {% else %}
+        <!-- Default Fallback Cards if no blocks are defined -->
+        
+        <!-- Card 1 -->
+        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8">
+          <div class="flex items-start justify-between">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">01</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">Marketplace Launch</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">From listing to launch — we set up your storefront on every major marketplace with conversion-first creative.</p>
+          <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
         </div>
-      {% endfor %}
+
+        <!-- Card 2 -->
+        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8">
+          <div class="flex items-start justify-between">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            </div>
+            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">02</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">Performance Ads</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Sponsored Products, Brands & Display campaigns engineered to lower ACoS and compound revenue month over month.</p>
+          <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8">
+          <div class="flex items-start justify-between">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
+            </div>
+            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">03</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">Global Expansion</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Take your brand to Amazon US, UAE, KSA and beyond with localized creative, compliance and logistics.</p>
+          <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8">
+          <div class="flex items-start justify-between">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+            </div>
+            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">04</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">Brand & Creative</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">A+ Content, Storefronts, lifestyle photography and video that makes shoppers stop scrolling.</p>
+          <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8">
+          <div class="flex items-start justify-between">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+            </div>
+            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">05</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">Analytics & Insights</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Custom dashboards that turn marketplace chaos into clear, weekly decisions for your team.</p>
+          <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="group relative bg-card p-6 transition-colors duration-300 hover:bg-secondary/40 sm:p-8">
+          <div class="flex items-start justify-between">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-primary text-primary-foreground transition-colors duration-300 group-hover:bg-brand-orange group-hover:text-primary" 
+                 style="background-color: {{ section.settings.icon_bg_color }}; color: {{ section.settings.icon_color }};">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09Z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2Z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+            </div>
+            <span class="font-display text-xs font-bold tracking-wider text-muted-foreground">06</span>
+          </div>
+          <h3 class="mt-6 font-display text-xl font-bold tracking-tight sm:mt-8 sm:text-2xl text-foreground">Quick Commerce</h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Win the 10-minute shelf on Blinkit, Zepto & Instamart with assortment and pricing strategy.</p>
+          <a href="#contact" class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:opacity-85">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </a>
+        </div>
+      {% endif %}
     </div>
 
   </div>
@@ -94,7 +212,7 @@
       "type": "color",
       "id": "accent_color",
       "label": "Accent Text Color",
-      "default": "#f97316"
+      "default": "#fc9f30"
     },
     {
       "type": "color",

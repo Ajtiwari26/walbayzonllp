@@ -3,58 +3,39 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<section class="border-y border-border bg-card py-12 overflow-hidden">
+<section class="border-y border-neutral-900 bg-black py-12 overflow-hidden">
   <div class="mx-auto max-w-7xl px-5 lg:px-8">
     
     {% if section.settings.title != blank %}
-      <p class="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+      <p class="mb-8 text-center text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
         {{ section.settings.title }}
       </p>
     {% endif %}
 
     <div class="relative overflow-hidden w-full">
       <!-- Gradient masks on the sides -->
-      <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24" style="background: linear-gradient(to right, oklch(0.97 0.018 72), transparent);"></div>
-      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24" style="background: linear-gradient(to left, oklch(0.97 0.018 72), transparent);"></div>
+      <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24" style="background: linear-gradient(to right, #000000, transparent);"></div>
+      <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24" style="background: linear-gradient(to left, #000000, transparent);"></div>
       
       <!-- Scrolling Track -->
-      <div class="wb-marquee-track flex gap-3 whitespace-nowrap">
+      <div class="wb-marquee-track flex gap-0 whitespace-nowrap items-center">
         
-        <!-- First group of items -->
-        <div class="flex gap-3 animate-marquee shrink-0">
-          {% for block in section.blocks %}
-            <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80 flex items-center gap-3" {{ block.shopify_attributes }}>
-              {% if block.settings.logo_image != blank %}
-                <img src="{{ block.settings.logo_image | image_url: width: 60 }}" alt="{{ block.settings.platform_name }}" class="h-6 w-auto object-contain" />
-              {% endif %}
-              <span>{{ block.settings.platform_name }}</span>
-            </div>
-          {% else %}
-            <!-- Fallbacks -->
-            {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
-            {% for item in fallbacks %}
-              <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80">
-                {{ item }}
+        <!-- Four repeated groups for seamless ultrawide loop -->
+        <div class="flex gap-0 animate-marquee shrink-0 items-center">
+          {% for i in (1..4) %}
+            {% for block in section.blocks %}
+              <div class="flex items-center justify-center px-8 py-2 text-neutral-400 hover:text-white shrink-0 transition-all duration-300 hover:scale-125" {{ block.shopify_attributes }}>
+                {% assign platform_name = block.settings.platform_name %}
+                {% render 'walbayzon-platform-svg', platform_name: platform_name %}
               </div>
-            {% endfor %}
-          {% endfor %}
-        </div>
-
-        <!-- Second group of items for seamless loop -->
-        <div class="flex gap-3 animate-marquee shrink-0" aria-hidden="true">
-          {% for block in section.blocks %}
-            <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80 flex items-center gap-3">
-              {% if block.settings.logo_image != blank %}
-                <img src="{{ block.settings.logo_image | image_url: width: 60 }}" alt="{{ block.settings.platform_name }}" class="h-6 w-auto object-contain" />
-              {% endif %}
-              <span>{{ block.settings.platform_name }}</span>
-            </div>
-          {% else %}
-            {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
-            {% for item in fallbacks %}
-              <div class="rounded-2xl border border-border bg-background px-7 py-4 font-display text-xl font-bold tracking-tight text-foreground/80">
-                {{ item }}
-              </div>
+            {% else %}
+              <!-- Fallbacks -->
+              {% assign fallbacks = "Amazon,Flipkart,Meesho,JioMart,Ajio,Noon,Myntra,Blinkit,Zepto,Alibaba,Walmart,Nykaa" | split: "," %}
+              {% for item in fallbacks %}
+                <div class="flex items-center justify-center px-8 py-2 text-neutral-400 hover:text-white shrink-0 transition-all duration-300 hover:scale-125">
+                  {% render 'walbayzon-platform-svg', platform_name: item %}
+                </div>
+              {% endfor %}
             {% endfor %}
           {% endfor %}
         </div>
@@ -69,16 +50,16 @@
     display: flex;
     overflow: hidden;
     user-select: none;
-    gap: 12px;
+    gap: 0px;
   }
   .animate-marquee {
     display: flex;
-    gap: 12px;
+    gap: 0px;
     animation: wb-marquee {{ section.settings.scroll_speed }}s linear infinite;
   }
   @keyframes wb-marquee {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
+    100% { transform: translateX(-25%); }
   }
 </style>
 

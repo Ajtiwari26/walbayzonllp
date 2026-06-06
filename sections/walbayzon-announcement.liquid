@@ -3,7 +3,7 @@
   Compatible with Shopify Theme Editor
 {% endcomment %}
 
-<div class="walbayzon-announcement w-full" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+<div class="walbayzon-announcement w-full" style="position:fixed; top:0; left:0; right:0; z-index:51; background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
   <div class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-3 py-2 text-center text-[11px] font-medium sm:gap-3 sm:px-5 sm:text-sm lg:px-8">
     <span class="line-clamp-2 sm:line-clamp-1">{{ section.settings.text }}</span>
     {% if section.settings.link_url != blank %}
@@ -41,25 +41,25 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#f5e0d0"
+      "default": "#ffdfb1"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
-      "default": "#1d1d1b"
+      "default": "#190f08"
     },
     {
       "type": "color",
       "id": "btn_bg",
       "label": "Button Background",
-      "default": "#e77a3d"
+      "default": "#fc9f30"
     },
     {
       "type": "color",
       "id": "btn_text",
       "label": "Button Text",
-      "default": "#1d1d1b"
+      "default": "#190f08"
     }
   ],
   "presets": [
